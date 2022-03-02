@@ -6,7 +6,7 @@ import '../../models/flower_model.dart';
 class FLowers extends StatelessWidget {
   const FLowers({Key? key}) : super(key: key);
 
-  //final List<Flower> flowerList = flowerList;
+  final List<Flower> flowers = flowerList;
 
   @override
   Widget build(BuildContext context) {
