@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialApp(
           title: 'Flower Info',
+          debugShowCheckedModeBanner: false,
           theme: CustomTheme.lightTheme,
           darkTheme: CustomTheme.darkTheme,
           themeMode: themeProvider.themeMode,
