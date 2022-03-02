@@ -15,7 +15,7 @@ class FLowers extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: GridView.builder(
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: flowers.length,
         itemBuilder: (context, index) {
           return FlowerItemTile(flower: flowers[index]);

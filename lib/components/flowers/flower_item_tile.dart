@@ -11,15 +11,26 @@ class FlowerItemTile extends StatelessWidget {
     return SizedBox(
       child: Card(
         elevation: 2,
-        child: Row(
-          children: [
-            Expanded(
-              child: Image.network(
-                flower.imageLink,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.network(
+                    flower.imageLink,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
-            Text(flower.commonName)
-          ],
+              Text(flower.commonName)
+            ],
+          ),
         ),
       ),
     );
