@@ -83,10 +83,10 @@ class _LandingScreenState extends State<LandingScreen> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50),
+                  topLeft: Radius.circular(20),
                   topRight: Radius.circular(50),
                   bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50)),
+                  bottomRight: Radius.circular(20)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
