@@ -62,11 +62,13 @@ class CustomTheme {
 
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey[900],
-    primarySwatch: Colors.orange,
+    primarySwatch: Colors.green,
     primaryColor: Colors.black,
     colorScheme: const ColorScheme.dark(
-        secondary: Colors.orange, secondaryVariant: Colors.grey),
-    drawerTheme: const DrawerThemeData(backgroundColor: Color(0xff57441d)),
+        secondary: Colors.green, secondaryVariant: Colors.grey),
+    drawerTheme: const DrawerThemeData(
+      backgroundColor: Color(0xff074515),
+    ),
     brightness: Brightness.dark,
     textTheme: const TextTheme(
       //bodyText1: TextStyle(color: Colors.white),
@@ -87,15 +89,15 @@ class CustomTheme {
 
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    primarySwatch: Colors.orange,
-    primaryColor: Colors.orange,
-    bottomAppBarColor: Colors.orange,
+    primarySwatch: Colors.green,
+    primaryColor: Colors.green,
+    bottomAppBarColor: Colors.green,
     appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.orange, foregroundColor: Colors.black),
+        backgroundColor: Colors.green, foregroundColor: Colors.black),
     colorScheme: const ColorScheme.light(
         secondary: Colors.white, secondaryVariant: Colors.black26),
     drawerTheme: const DrawerThemeData(
-      backgroundColor: Color(0xffFFF4F4),
+      backgroundColor: Color(0xffdeffe8),
     ),
     brightness: Brightness.light,
     cardColor: Color(0xffFFF4F4),
