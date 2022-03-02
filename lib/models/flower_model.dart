@@ -3,13 +3,13 @@ class Flower {
   final String scientificName;
   final String matureSize;
   final String nativeRegion;
-  String imageLink = "not_provided";
+  final String imageLink;
 
-  Flower({
+  const Flower({
     required this.commonName,
     required this.scientificName,
     required this.matureSize,
     required this.nativeRegion,
-    //required this.imageLink
+    required this.imageLink
   });
 }
