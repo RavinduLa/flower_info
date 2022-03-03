@@ -73,7 +73,8 @@ class _AddFlowerState extends State<AddFlower> {
                 Expanded(
                   child: TextFormField(
                     controller: _controllerNativeRegion,
-                    decoration: const InputDecoration(hintText: 'Native Region'),
+                    decoration:
+                        const InputDecoration(hintText: 'Native Region'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please fill this field';
@@ -99,11 +100,13 @@ class _AddFlowerState extends State<AddFlower> {
                       print('Nat Region : ' + flower.nativeRegion);
                       print('Image Link : ' + flower.imageLink);*/
 
-                      addFlower(flower);
+                      Future<DocumentReference> result = addFlower(flower);
+
+                      print(result);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Procesing Data'),
+                          content: Text('Processing Data'),
                         ),
                       );
 
@@ -111,6 +114,15 @@ class _AddFlowerState extends State<AddFlower> {
                       _controllerScientificName.clear();
                       _controllerMatureSize.clear();
                       _controllerNativeRegion.clear();
+
+                      result.whenComplete(
+                        () => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Done'),
+                          ),
+                        ),
+                      );
+
                     }
                   },
                   child: const Text('Add Flower'),
