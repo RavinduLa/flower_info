@@ -1,5 +1,6 @@
 import 'package:flower_info/providers/theme_provider.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/flowers/flower_admin_list.dart';
 import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +27,10 @@ class MyApp extends StatelessWidget {
           darkTheme: CustomTheme.darkTheme,
           themeMode: themeProvider.themeMode,
           initialRoute: Home.routeName,
-
           routes: {
-            Home.routeName : (context) => Home(),
-            AdminDashboard.routeName : (context) => AdminDashboard(),
+            Home.routeName: (context) => Home(),
+            AdminDashboard.routeName: (context) => AdminDashboard(),
+            FlowerAdminList.routeName: (context) => FlowerAdminList(),
           },
         );
       },

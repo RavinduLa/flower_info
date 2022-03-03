@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../flowers/flower_admin_list.dart';
+
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({Key? key}) : super(key: key);
 
@@ -15,7 +17,9 @@ class AdminDashboard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, FlowerAdminList.routeName);
+            },
             child: Text(
               'Flower Panel',
             ),
