@@ -1,5 +1,6 @@
 import 'package:flower_info/providers/theme_provider.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/flowers/add_flower.dart';
 import 'package:flower_info/screens/flowers/flower_admin_list.dart';
 import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
             Home.routeName: (context) => Home(),
             AdminDashboard.routeName: (context) => AdminDashboard(),
             FlowerAdminList.routeName: (context) => FlowerAdminList(),
+            AddFlower.routeName: (context) => AddFlower(),
           },
         );
       },

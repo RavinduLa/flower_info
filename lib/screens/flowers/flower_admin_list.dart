@@ -1,3 +1,4 @@
+import 'package:flower_info/screens/flowers/add_flower.dart';
 import 'package:flutter/material.dart';
 
 class FlowerAdminList extends StatelessWidget {
@@ -12,6 +13,12 @@ class FlowerAdminList extends StatelessWidget {
       ),
       body: Center(
         child: Text('Flower Admin list'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AddFlower.routeName);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

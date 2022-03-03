@@ -81,9 +81,9 @@ class CustomTheme {
     ),
     //iconTheme: const IconThemeData(color: Colors.white),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Colors.orange,
-      foregroundColor: Colors.white,
-      splashColor: Colors.black,
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.green,
+      splashColor: Colors.grey,
     ),
   );
 
@@ -111,9 +111,9 @@ class CustomTheme {
       headline5: TextStyle(color: Colors.blueGrey, fontSize: 15),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.green,
       foregroundColor: Colors.black,
-      splashColor: Colors.black,
+      splashColor: Colors.white,
     ),
   );
 }
