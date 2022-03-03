@@ -7,6 +7,30 @@ class AdminDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Admin Dashboard'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ElevatedButton(
+            onPressed: () {},
+            child: Text(
+              'Flower Panel',
+            ),
+
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Fertilizers Panel'),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Diesases Panel Panel'),
+          ),
+        ],
+      ),
+    );
   }
 }
