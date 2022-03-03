@@ -25,7 +25,7 @@ class _AddFlowerState extends State<AddFlower> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a flower'),
+        title: const Text('Add a flower'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -122,7 +122,6 @@ class _AddFlowerState extends State<AddFlower> {
                           ),
                         ),
                       );
-
                     }
                   },
                   child: const Text('Add Flower'),
