@@ -1,4 +1,5 @@
 import 'package:flower_info/providers/theme_provider.dart';
+import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,12 @@ class MyApp extends StatelessWidget {
           theme: CustomTheme.lightTheme,
           darkTheme: CustomTheme.darkTheme,
           themeMode: themeProvider.themeMode,
-          home: const Home(),
+          initialRoute: Home.routeName,
+
+          routes: {
+            Home.routeName : (context) => Home(),
+            AdminDashboard.routeName : (context) => AdminDashboard(),
+          },
         );
       },
     );
