@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_model.dart';
 import 'package:flutter/material.dart';
 
@@ -98,13 +99,18 @@ class _AddFlowerState extends State<AddFlower> {
                       print('Nat Region : ' + flower.nativeRegion);
                       print('Image Link : ' + flower.imageLink);*/
 
-                      //addFlower(flower);
+                      addFlower(flower);
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Procesing Data'),
                         ),
                       );
+
+                      _controllerCommonName.clear();
+                      _controllerScientificName.clear();
+                      _controllerMatureSize.clear();
+                      _controllerNativeRegion.clear();
                     }
                   },
                   child: const Text('Add Flower'),
@@ -116,14 +122,6 @@ class _AddFlowerState extends State<AddFlower> {
   }
 
   Future<DocumentReference> addFlower(Flower flower) {
-    return FirebaseFirestore.instance.collection('flowers').add(
-      <String, dynamic>{
-        'commonName': flower.commonName,
-        'scientificName': flower.scientificName,
-        'matureSize': flower.matureSize,
-        'nativeRegion': flower.nativeRegion,
-        'imageLink': flower.imageLink,
-      },
-    );
+    return FirebaseApi.addFlower(flower);
   }
 }
