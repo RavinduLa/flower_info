@@ -14,6 +14,7 @@ class ApplicationState extends ChangeNotifier {
   List<Flower> get flowers => _flowers;
 
   void init() async {
+    print('running init in application state');
     _flowerListSubscription = FirebaseFirestore.instance
         .collection('flowers')
         .orderBy('timestamp', descending: true)
@@ -33,5 +34,6 @@ class ApplicationState extends ChangeNotifier {
       }
       notifyListeners();
     });
+    print('flower: ' + _flowers.toString());
   }
 }

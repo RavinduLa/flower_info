@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../models/flower_model.dart';
 
-class FirebaseApi{
+class FirebaseApi {
   static Future<DocumentReference> addFlower(Flower flower) {
     return FirebaseFirestore.instance.collection('flowers').add(
       <String, dynamic>{
@@ -20,5 +20,20 @@ class FirebaseApi{
     );
   }
 
-
+  static Stream<List<Flower>> get flowers {
+    return FirebaseFirestore.instance
+        .collection('flowers')
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map(
+              (DocumentSnapshot documentSnapshot) => Flower(
+                commonName: documentSnapshot.data()!['commonName'],
+                scientificName: documentSnapshot.data()!['scientificName'],
+                matureSize: documentSnapshot.data()!['matureSize'],
+                nativeRegion: documentSnapshot.data()!['nativeRegion'],
+                imageLink: documentSnapshot.data()!['imageLink'],
+              ),
+            )
+            .toList());
+  }
 }
