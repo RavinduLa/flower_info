@@ -12,15 +12,24 @@ class DiseaseItemTile extends StatelessWidget {
     return Card(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              child: Image.network(
-                disease.image,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.network(
+                  disease.image,
+                  height: 140,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
+            const SizedBox(
+              height: 4,
+            ),
+            Text(disease.name),
           ],
         ),
       ),
