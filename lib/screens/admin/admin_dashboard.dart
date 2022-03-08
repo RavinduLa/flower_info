@@ -1,3 +1,4 @@
+import 'package:flower_info/screens/diseases/disease_admin.dart';
 import 'package:flutter/material.dart';
 
 import '../flowers/flower_admin_list.dart';
@@ -30,7 +31,9 @@ class AdminDashboard extends StatelessWidget {
             child: Text('Fertilizers Panel'),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, DiseaseAdmin.routeName);
+            },
             child: Text('Diesases Panel Panel'),
           ),
         ],
