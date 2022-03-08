@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'disease_add.dart';
+
 class DiseaseAdmin extends StatelessWidget {
   const DiseaseAdmin({Key? key}) : super(key: key);
 
@@ -14,12 +16,12 @@ class DiseaseAdmin extends StatelessWidget {
       body: const Center(
         child: Text('Diseases Admin list'),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, AddFlower.routeName);
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, DiseaseAdd.routeName);
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
