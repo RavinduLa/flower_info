@@ -1,7 +1,8 @@
-import 'package:flower_info/components/diseases/disease_item_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flower_info/models/disease_model.dart';
+
+import '../../components/diseases/disease_item_tile.dart';
 import '../../data/disease_data.dart';
+import '../../models/disease_model.dart';
 
 class Diseases extends StatelessWidget {
   final List<Disease> diseases = diseaseList;
@@ -11,10 +12,10 @@ class Diseases extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
         gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: diseases.length,
         itemBuilder: (context, index) {
           return DiseaseItemTile(disease: diseases[index]);
