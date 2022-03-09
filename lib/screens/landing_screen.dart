@@ -1,5 +1,6 @@
 import 'package:flower_info/components/theme_alert.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flower_info/screens/diseases/diseases.dart';
 import 'package:flower_info/screens/fertilizers/fertilizers.dart';
 import 'package:flower_info/screens/flowers/flowers.dart';
@@ -65,6 +66,13 @@ class _LandingScreenState extends State<LandingScreen> {
                 subtitle: Text("Admin Dashboard"),
                 onTap: () {
                   Navigator.of(context).pushNamed(AdminDashboard.routeName);
+                },
+              ),
+              ListTile(
+                title: Text("Admin"),
+                subtitle: Text("Admin Login"),
+                onTap: () {
+                  Navigator.of(context).pushNamed(AdminLogin.routeName);
                 },
               )
             ],
