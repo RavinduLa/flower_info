@@ -1,9 +1,10 @@
 import 'package:flower_info/models/flower_model.dart';
+import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flutter/material.dart';
 
 class FlowerItemTileAdmin extends StatelessWidget {
   const FlowerItemTileAdmin({Key? key, required this.flower}) : super(key: key);
-  final Flower flower;
+  final FlowerWithId flower;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class FlowerItemTileAdmin extends StatelessWidget {
         child: ListTile(
           minLeadingWidth: 100,
           title: Text(flower.commonName),
-          subtitle: Text(flower.scientificName),
+          subtitle: Text(flower.scientificName + " id : " + flower.documentId),
         ),
       ),
     );

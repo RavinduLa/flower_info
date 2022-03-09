@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/components/flowers/flower_item_tile_admin.dart';
+import 'package:flower_info/models/flower_model_with_id.dart';
 
 import 'package:flower_info/providers/application_state.dart';
 import 'package:flower_info/screens/flowers/add_flower.dart';
@@ -21,8 +22,8 @@ class FlowerAdminList extends StatelessWidget {
         title: Text('Flowers Admin Panel'),
       ),
       body: StreamBuilder(
-        stream: FirebaseApi.flowers,
-        builder: (BuildContext context, AsyncSnapshot<List<Flower>> snapshot) {
+        stream: FirebaseApi.flowersWithId,
+        builder: (BuildContext context, AsyncSnapshot<List<FlowerWithId>> snapshot) {
           if(snapshot.hasError){
             return Center(child: Text('Oops Something went wrong'),);
           }

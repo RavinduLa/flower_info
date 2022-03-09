@@ -1,3 +1,4 @@
+import 'package:flower_info/screens/flowers/flower_tests.dart';
 import 'package:flutter/material.dart';
 
 import '../flowers/flower_admin_list.dart';
@@ -32,6 +33,13 @@ class AdminDashboard extends StatelessWidget {
           ElevatedButton(
             onPressed: () {},
             child: Text('Diesases Panel Panel'),
+          ),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, FlowerTest.routeName);
+            },
+            child: Text('Flower Tests'),
           ),
         ],
       ),

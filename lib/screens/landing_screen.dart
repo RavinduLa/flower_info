@@ -17,7 +17,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   int currentIndex = 0;
-  final screens = [const FLowers(), const Fertilizers(), const Diseases()];
+  final screens = [ FLowers(), const Fertilizers(), const Diseases()];
   late PageController _pageController;
 
   @override
