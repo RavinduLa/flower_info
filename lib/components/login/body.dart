@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'background.dart';
 
@@ -17,6 +19,37 @@ class _BodyState extends State<Body> {
     'email' : '',
     'password': ''
   };
+
+  Future<void> _onSubmit() async {
+    if(!_formKey.currentState!.validate())
+      {
+        return;
+      }
+      _formKey.currentState!.save();
+       String email = _authData['email'].toString();
+       String password = _authData['password'].toString();
+
+    try {
+      print("------------- SIGN IN ---------------  ");
+      UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      Navigator.pushReplacement<void, void>(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => Home(),
+              ),
+            );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+
+      } else if (e.code == 'wrong-password') {
+
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +202,7 @@ class _BodyState extends State<Body> {
                               // otherwise.
                               if (_formKey.currentState!.validate()) {
                                 // If the form is valid, display a Snackbar.
+                                _onSubmit();
                                 Scaffold.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('Checking Credentials!',textAlign: TextAlign.center,),
