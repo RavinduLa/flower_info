@@ -20,6 +20,33 @@ class _BodyState extends State<Body> {
     'password': ''
   };
 
+  void _showErrorDialog(String msg)
+  {
+    showDialog(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error !'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(msg),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Try again', style: TextStyle(color: Colors.green),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   Future<void> _onSubmit() async {
     if(!_formKey.currentState!.validate())
       {
@@ -44,9 +71,9 @@ class _BodyState extends State<Body> {
             );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-
+        _showErrorDialog("Your email is wrong");
       } else if (e.code == 'wrong-password') {
-
+        _showErrorDialog("Your password is wrong");
       }
     }
   }
