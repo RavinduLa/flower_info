@@ -128,7 +128,13 @@ class _BodyState extends State<Body> {
                               {
                                 return 'Invalid email!';
                               }
-                              return null;
+                              if (!RegExp(
+                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                  .hasMatch(value)) {
+                                return ("Please enter a valid email");
+                              } else {
+                                return null;
+                              }
                             },
                             onSaved: (value)
                             {
