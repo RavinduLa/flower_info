@@ -31,12 +31,23 @@ class FirebaseApi {
             'scientificName': flowerWithId.scientificName,
             'matureSize': flowerWithId.matureSize,
             'nativeRegion': flowerWithId.nativeRegion,
-            'imageLink' : flowerWithId.imageLink
+            'imageLink': flowerWithId.imageLink
           },
         )
         .then((value) => print("Flower Updated"))
         .catchError(
           (error) => print("Failed to update flower"),
+        );
+  }
+
+  static Future<void> deleteFlower(String id) {
+    return FirebaseFirestore.instance
+        .collection('flowers')
+        .doc(id)
+        .delete()
+        .then((value) => print('Flower deleted'))
+        .catchError(
+          (error) => print('Failed to delete flower'),
         );
   }
 
