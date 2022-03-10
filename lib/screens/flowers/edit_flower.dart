@@ -1,3 +1,4 @@
+import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_admin_single_view_arguments.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,10 @@ class _EditFlowerState extends State<EditFlower> {
   final _tempImageLink =
       "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Flotus.jpg?alt=media&token=62c2e541-b42c-4d6a-8681-c3d67d41ea4c";
 
-  
-
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as FlowerAdminSingleViewArguments;
+    final args = ModalRoute.of(context)!.settings.arguments
+        as FlowerAdminSingleViewArguments;
     _controllerCommonName.text = args.flowerWithId.commonName;
     _controllerScientificName.text = args.flowerWithId.scientificName;
     _controllerMatureSize.text = args.flowerWithId.matureSize;
@@ -49,14 +49,17 @@ class _EditFlowerState extends State<EditFlower> {
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(hintText: 'Common Name'),
+                  decoration: const InputDecoration(
+                    labelText: 'Common Name',
+                  ),
                 ),
               ),
               Expanded(
                 child: TextFormField(
                   controller: _controllerScientificName,
-                  decoration:
-                      const InputDecoration(hintText: 'Scientific Name'),
+                  decoration: const InputDecoration(
+                    labelText: 'Scientific Name',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please fill this field';
@@ -68,7 +71,9 @@ class _EditFlowerState extends State<EditFlower> {
               Expanded(
                 child: TextFormField(
                   controller: _controllerMatureSize,
-                  decoration: const InputDecoration(hintText: 'Mature Size'),
+                  decoration: const InputDecoration(
+                    labelText: 'Mature Size',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please fill this field';
@@ -80,7 +85,9 @@ class _EditFlowerState extends State<EditFlower> {
               Expanded(
                 child: TextFormField(
                   controller: _controllerNativeRegion,
-                  decoration: const InputDecoration(hintText: 'Native Region'),
+                  decoration: const InputDecoration(
+                    labelText: 'Native Region',
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please fill this field';
@@ -90,7 +97,33 @@ class _EditFlowerState extends State<EditFlower> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    FlowerWithId flowerWithId = FlowerWithId(
+                        documentId: args.flowerWithId.documentId,
+                        commonName: _controllerCommonName.text,
+                        scientificName: _controllerScientificName.text,
+                        matureSize: _controllerMatureSize.text,
+                        nativeRegion: _controllerNativeRegion.text,
+                        imageLink: args.flowerWithId.imageLink);
+
+                    Future<void> result = editFlower(flowerWithId);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Processing Data'),
+                      ),
+                    );
+
+                    result.whenComplete(
+                      () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Done'),
+                        ),
+                      ),
+                    );
+                  }
+                },
                 child: const Text('Update details'),
               ),
             ],
@@ -98,5 +131,9 @@ class _EditFlowerState extends State<EditFlower> {
         ),
       ),
     );
+  }
+
+  Future<void> editFlower(FlowerWithId flowerWithId) {
+    return FirebaseApi.editFlower(flowerWithId);
   }
 }

@@ -21,6 +21,25 @@ class FirebaseApi {
     );
   }
 
+  static Future<void> editFlower(FlowerWithId flowerWithId) {
+    return FirebaseFirestore.instance
+        .collection('flowers')
+        .doc(flowerWithId.documentId)
+        .update(
+          {
+            'commonName': flowerWithId.commonName,
+            'scientificName': flowerWithId.scientificName,
+            'matureSize': flowerWithId.matureSize,
+            'nativeRegion': flowerWithId.nativeRegion,
+            'imageLink' : flowerWithId.imageLink
+          },
+        )
+        .then((value) => print("Flower Updated"))
+        .catchError(
+          (error) => print("Failed to update flower"),
+        );
+  }
+
   static Stream<List<Flower>> get flowers {
     return FirebaseFirestore.instance
         .collection('flowers')
