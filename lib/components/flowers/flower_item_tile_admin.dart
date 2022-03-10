@@ -1,5 +1,7 @@
+import 'package:flower_info/models/flower_admin_single_view_arguments.dart';
 import 'package:flower_info/models/flower_model.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
+import 'package:flower_info/screens/flowers/edit_flower.dart';
 import 'package:flutter/material.dart';
 
 class FlowerItemTileAdmin extends StatelessWidget {
@@ -21,6 +23,11 @@ class FlowerItemTileAdmin extends StatelessWidget {
           minLeadingWidth: 100,
           title: Text(flower.commonName),
           subtitle: Text(flower.scientificName + " id : " + flower.documentId),
+          onTap: () {
+            Navigator.pushNamed(context, EditFlower.routeName,
+                arguments: FlowerAdminSingleViewArguments(flower) //navigate to pizza
+            );
+          },
         ),
       ),
     );
