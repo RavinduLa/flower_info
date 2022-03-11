@@ -28,6 +28,10 @@ class _AddFlowerState extends State<AddFlower> {
   final _tempImageLink =
       "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Flotus.jpg?alt=media&token=62c2e541-b42c-4d6a-8681-c3d67d41ea4c";
   String imageLink = "";
+  String commonName = "";
+  String scientificName = "";
+  String matureSize = "";
+  String nativeRegion = "";
 
   UploadTask? task;
   File? image;
@@ -124,16 +128,16 @@ class _AddFlowerState extends State<AddFlower> {
                           scientificName: _controllerScientificName.text,
                           matureSize: _controllerMatureSize.text,
                           nativeRegion: _controllerNativeRegion.text,
-                          imageLink: _tempImageLink);
+                          imageLink: imageLink.isNotEmpty? imageLink : _tempImageLink);
 
-                      /*print('flower details');
-                      print('Com Name : ' + flower.commonName);
-                      print('Scie Name : ' + flower.scientificName);
-                      print('Mature Size : ' + flower.matureSize);
-                      print('Nat Region : ' + flower.nativeRegion);
-                      print('Image Link : ' + flower.imageLink);*/
 
-                      Future<DocumentReference> result = addFlower(flower);
+
+                      commonName = _controllerCommonName.text;
+                      scientificName = _controllerScientificName.text;
+                      matureSize = _controllerMatureSize.text;
+                      nativeRegion = _controllerNativeRegion.text;
+
+                      Future<DocumentReference> result = enterFlowerEntry();
 
                       print(result);
 
@@ -163,6 +167,18 @@ class _AddFlowerState extends State<AddFlower> {
             )),
       ),
     );
+  }
+
+  Future<DocumentReference> enterFlowerEntry() async{
+    await uploadImage();
+    Flower flower = Flower(
+        commonName: commonName,
+        scientificName: scientificName,
+        matureSize: matureSize,
+        nativeRegion: nativeRegion,
+        imageLink: imageLink.isNotEmpty? imageLink : _tempImageLink);
+    Future<DocumentReference> entryCreateResult = addFlower(flower);
+    return entryCreateResult;
   }
 
   Future<DocumentReference> addFlower(Flower flower) {
@@ -199,5 +215,6 @@ class _AddFlowerState extends State<AddFlower> {
       imageLink = urlDownload;
     });
     print('Download Link : $urlDownload');
+    print('Image Link : $imageLink');
   }
 }
