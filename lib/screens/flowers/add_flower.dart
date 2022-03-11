@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class AddFlower extends StatefulWidget {
   const AddFlower({Key? key}) : super(key: key);
@@ -20,9 +27,15 @@ class _AddFlowerState extends State<AddFlower> {
   final _controllerNativeRegion = TextEditingController();
   final _tempImageLink =
       "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Flotus.jpg?alt=media&token=62c2e541-b42c-4d6a-8681-c3d67d41ea4c";
+  String imageLink = "";
+
+  UploadTask? task;
+  File? image;
 
   @override
   Widget build(BuildContext context) {
+    final imageName =
+        image != null ? basename(image!.path) : 'No image selected';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add a flower'),
@@ -33,6 +46,26 @@ class _AddFlowerState extends State<AddFlower> {
             key: _formKey,
             child: Column(
               children: [
+                image != null
+                    ? Image.file(
+                      image!,
+                      width: 160,
+                      height: 160,
+                      fit: BoxFit.cover,
+                    )
+                    : const Expanded(
+                        child: FlutterLogo(
+                          size: 160,
+                        ),
+                      ),
+                ElevatedButton(
+                  onPressed: () => pickImage(ImageSource.gallery),
+                  child: Text("Select Image"),
+                ),
+                ElevatedButton(
+                  onPressed: () => pickImage(ImageSource.camera),
+                  child: Text("Capture Image"),
+                ),
                 Expanded(
                   child: TextFormField(
                     controller: _controllerCommonName,
@@ -134,5 +167,37 @@ class _AddFlowerState extends State<AddFlower> {
 
   Future<DocumentReference> addFlower(Flower flower) {
     return FirebaseApi.addFlower(flower);
+  }
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Failed to pick image : $e');
+      }
+    }
+  }
+
+  Future uploadImage() async {
+    if (image == null) return;
+    final imageName = basename(image!.path);
+    final destination = 'flower_images/$imageName';
+
+    task = FirebaseApi.uploadFile(destination, image!);
+    setState(() {});
+    if (task == null) return;
+
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+
+    setState(() {
+      imageLink = urlDownload;
+    });
+    print('Download Link : $urlDownload');
   }
 }
