@@ -86,6 +86,19 @@ class FirebaseApi {
             .toList());
   }
 
+  static UploadTask? uploadFile(String destination, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(file);
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print('Firebase Exception : ' + e.toString());
+      }
+      return null;
+    }
+  }
+
   static void getFlowersTest() async {
     print('running get flowers test');
     List<String> idList = [];
