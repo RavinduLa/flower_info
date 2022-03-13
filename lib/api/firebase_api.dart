@@ -21,7 +21,18 @@ class FirebaseApi {
     );
   }
 
-  static Future<void> editFlower(FlowerWithId flowerWithId) {
+  static Future<void> editFlower(FlowerWithId flowerWithId, File? file) {
+
+    if(file != null){
+      String id = flowerWithId.imageLink;
+      String destination = "flower_images/$id";
+      uploadFile(destination, file);
+      if (kDebugMode) {
+        print("Image re-uploaded when editing");
+      }
+    }
+
+
     return FirebaseFirestore.instance
         .collection('flowers')
         .doc(flowerWithId.documentId)
@@ -38,6 +49,21 @@ class FirebaseApi {
         .catchError(
           (error) => print("Failed to update flower"),
         );
+  }
+
+  static Future<void> updateFlowerImageLink(String id, String link){
+    return FirebaseFirestore.instance
+        .collection('flowers')
+        .doc(id)
+        .update(
+      {
+        'imageLink': link
+      },
+    )
+        .then((value) => print("Flower Updated"))
+        .catchError(
+          (error) => print("Failed to update flower"),
+    );
   }
 
   static Future<void> deleteFlower(String id) {

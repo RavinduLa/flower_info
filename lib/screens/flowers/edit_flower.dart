@@ -4,7 +4,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_admin_single_view_arguments.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditFlower extends StatefulWidget {
   const EditFlower({
@@ -27,6 +30,9 @@ class _EditFlowerState extends State<EditFlower> {
 
   String _imageLink = "";
 
+  UploadTask? task;
+  File? image;
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments
@@ -36,8 +42,7 @@ class _EditFlowerState extends State<EditFlower> {
     _controllerMatureSize.text = args.flowerWithId.matureSize;
     _controllerNativeRegion.text = args.flowerWithId.nativeRegion;
     _imageLink = args.flowerWithId.imageLink;
-    UploadTask? task;
-    File? image;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Flower"),
@@ -48,22 +53,37 @@ class _EditFlowerState extends State<EditFlower> {
           key: _formKey,
           child: Column(
             children: [
-              _imageLink.isNotEmpty
-                  ? SizedBox(
+              image != null
+                  ? Image.file(
+                      image!,
+                      width: 160,
                       height: 160,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.network(
-                          _imageLink,
-                          width: 160,
-                          height: 160,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      fit: BoxFit.cover,
                     )
-                  : FlutterLogo(
-                      size: 160,
-                    ),
+                  : _imageLink.isNotEmpty
+                      ? SizedBox(
+                          height: 160,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.network(
+                              _imageLink,
+                              width: 160,
+                              height: 160,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        )
+                      : FlutterLogo(
+                          size: 160,
+                        ),
+              ElevatedButton(
+                onPressed: () => pickImage(ImageSource.gallery),
+                child: Text("Select Image"),
+              ),
+              ElevatedButton(
+                onPressed: () => pickImage(ImageSource.camera),
+                child: Text("Capture Image"),
+              ),
               Expanded(
                 child: TextFormField(
                   controller: _controllerCommonName,
@@ -158,6 +178,20 @@ class _EditFlowerState extends State<EditFlower> {
   }
 
   Future<void> editFlower(FlowerWithId flowerWithId) {
-    return FirebaseApi.editFlower(flowerWithId);
+    return FirebaseApi.editFlower(flowerWithId, image);
+  }
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      if (kDebugMode) {
+        print('Failed to pick image : $e');
+      }
+    }
   }
 }

@@ -185,7 +185,12 @@ class _AddFlowerState extends State<AddFlower> {
       return value;
     });
     await uploadImage(newId);
+    updateImageLink(newId, imageLink);
     return entryCreateResult;
+  }
+
+  void updateImageLink(String id, String link){
+    FirebaseApi.updateFlowerImageLink(id,link);
   }
 
   Future<DocumentReference> addFlower(Flower flower) {
