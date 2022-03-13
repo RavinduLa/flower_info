@@ -1,14 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/components/flowers/flower_item_tile_admin.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
 
-import 'package:flower_info/providers/application_state.dart';
 import 'package:flower_info/screens/flowers/add_flower.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../models/flower_model.dart';
 
 class FlowerAdminList extends StatelessWidget {
   const FlowerAdminList({Key? key}) : super(key: key);
