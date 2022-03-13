@@ -100,7 +100,15 @@ class FirebaseApi {
   }
 
   static void deleteFlowerImage(String id){
-
+    try{
+      final ref = FirebaseStorage.instance.ref("flower_images/$id");
+      ref.delete();
+    }
+    on FirebaseException catch (e){
+      if (kDebugMode) {
+        print('Firebase Exception : ' + e.toString());
+      }
+    }
   }
 
   static void getFlowersTest() async {

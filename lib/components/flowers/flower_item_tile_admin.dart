@@ -86,6 +86,7 @@ class FlowerItemTileAdmin extends StatelessWidget {
   }
 
   Future<void> deleteFlower(String id) {
+    FirebaseApi.deleteFlowerImage(id);
     return FirebaseApi.deleteFlower(id);
   }
 }
