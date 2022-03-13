@@ -1,5 +1,4 @@
 import 'package:flower_info/api/disease_api.dart';
-import 'package:flower_info/models/disease_model.dart';
 import 'package:flower_info/models/disease_model_id.dart';
 import 'package:flower_info/screens/diseases/disease_edit.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,15 @@ class DiseaseItemTileAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Common Notification
+    void _notification(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+        ),
+      );
+    }
+
     return Card(
       elevation: 8,
       margin: const EdgeInsets.all(10),
@@ -58,8 +66,34 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                             width: 8,
                           ),
                           IconButton(
-                            onPressed: () {},
                             icon: const Icon(Icons.delete_forever),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Delete This Disease?'),
+                                    content: const Text(
+                                        'This will delete the Disease permanently!'),
+                                    actions: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel')),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Future<void> result =
+                                                _deleteDisease(disease);
+                                            Navigator.of(context).pop();
+                                            _notification("Deleted");
+                                          },
+                                          child: const Text('Yes'))
+                                    ],
+                                  );
+                                },
+                              );
+                            },
                           ),
                           const SizedBox(
                             width: 8,
@@ -76,5 +110,10 @@ class DiseaseItemTileAdmin extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // CRUD : Delete Method Caller
+  Future<void> _deleteDisease(DiseaseWithId disease) async {
+    DiseaseApi.deleteDisease(disease);
   }
 }

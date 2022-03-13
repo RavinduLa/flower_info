@@ -41,6 +41,15 @@ class DiseaseApi {
         .then((value) => print('Disease Update Success!'))
         .catchError((error) => print('Disease Update Error: $error'));
   }
+
+  static Future<void> deleteDisease(DiseaseWithId disease) {
+    return FirebaseFirestore.instance
+        .collection('diseases')
+        .doc(disease.documentId)
+        .delete()
+        .then((value) => print('Disease Delete Success!'))
+        .catchError((error) => print('Disease Delete Error: $error'));
+  }
 }
 
 class DiseaseSingleView {
