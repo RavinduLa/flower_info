@@ -24,7 +24,7 @@ class FirebaseApi {
   static Future<void> editFlower(FlowerWithId flowerWithId, File? file) {
 
     if(file != null){
-      String id = flowerWithId.imageLink;
+      String id = flowerWithId.documentId;
       String destination = "flower_images/$id";
       uploadFile(destination, file);
       if (kDebugMode) {
