@@ -99,6 +99,10 @@ class FirebaseApi {
     }
   }
 
+  static void deleteFlowerImage(String id){
+
+  }
+
   static void getFlowersTest() async {
     print('running get flowers test');
     List<String> idList = [];

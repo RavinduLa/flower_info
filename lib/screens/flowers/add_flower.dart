@@ -33,6 +33,7 @@ class _AddFlowerState extends State<AddFlower> {
   String matureSize = "";
   String nativeRegion = "";
 
+
   UploadTask? task;
   File? image;
 
@@ -52,11 +53,11 @@ class _AddFlowerState extends State<AddFlower> {
               children: [
                 image != null
                     ? Image.file(
-                      image!,
-                      width: 160,
-                      height: 160,
-                      fit: BoxFit.cover,
-                    )
+                        image!,
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.cover,
+                      )
                     : const Expanded(
                         child: FlutterLogo(
                           size: 160,
@@ -128,9 +129,9 @@ class _AddFlowerState extends State<AddFlower> {
                           scientificName: _controllerScientificName.text,
                           matureSize: _controllerMatureSize.text,
                           nativeRegion: _controllerNativeRegion.text,
-                          imageLink: imageLink.isNotEmpty? imageLink : _tempImageLink);
-
-
+                          imageLink: imageLink.isNotEmpty
+                              ? imageLink
+                              : _tempImageLink);
 
                       commonName = _controllerCommonName.text;
                       scientificName = _controllerScientificName.text;
@@ -169,15 +170,21 @@ class _AddFlowerState extends State<AddFlower> {
     );
   }
 
-  Future<DocumentReference> enterFlowerEntry() async{
-    await uploadImage();
+  Future<DocumentReference> enterFlowerEntry() async {
     Flower flower = Flower(
         commonName: commonName,
         scientificName: scientificName,
         matureSize: matureSize,
         nativeRegion: nativeRegion,
-        imageLink: imageLink.isNotEmpty? imageLink : _tempImageLink);
-    Future<DocumentReference> entryCreateResult = addFlower(flower);
+        imageLink: imageLink.isNotEmpty ? imageLink : _tempImageLink);
+    String newId = "";
+
+
+    DocumentReference entryCreateResult = await addFlower(flower).then((value) {
+      newId = value.id;
+      return value;
+    });
+    await uploadImage(newId);
     return entryCreateResult;
   }
 
@@ -199,10 +206,11 @@ class _AddFlowerState extends State<AddFlower> {
     }
   }
 
-  Future uploadImage() async {
+  Future uploadImage(String id) async {
     if (image == null) return;
-    final imageName = basename(image!.path);
-    final destination = 'flower_images/$imageName';
+    //final imageName = basename(image!.path);
+    print("new id : $id");
+    final destination = 'flower_images/$id';
 
     task = FirebaseApi.uploadFile(destination, image!);
     setState(() {});
