@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/models/disease_model.dart';
 
@@ -131,8 +133,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
   }
 
   void processingData() {
+    var uuid = Uuid();
+    var v1 = uuid.v1();
+
     if (_formKey.currentState!.validate()) {
       Disease disease = Disease(
+          documentId: v1,
           name: _name.text,
           look: _look.text,
           cause: _cause.text,

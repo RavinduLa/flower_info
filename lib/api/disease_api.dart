@@ -9,6 +9,7 @@ class DiseaseApi {
   static Future<DocumentReference> addDisease(Disease disease) {
     return FirebaseFirestore.instance.collection('diseases').add(
       <String, dynamic>{
+        'documentId': disease.documentId,
         'name': disease.name,
         'look': disease.look,
         'cause': disease.cause,

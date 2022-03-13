@@ -1,4 +1,5 @@
 class Disease {
+  final String documentId;
   final String name;
   final String look;
   final String cause;
@@ -7,6 +8,7 @@ class Disease {
   final String image;
 
   const Disease({
+    required this.documentId,
     required this.name,
     required this.look,
     required this.cause,
@@ -16,6 +18,7 @@ class Disease {
   });
 
   static Disease fromJson(Map<String, dynamic> json) => Disease(
+        documentId: json['documentId'],
         name: json['name'],
         look: json['look'],
         cause: json['cause'],
