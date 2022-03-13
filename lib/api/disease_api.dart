@@ -18,4 +18,12 @@ class DiseaseApi {
       },
     );
   }
+
+  static Stream<List<Disease>> readDisease() {
+    return FirebaseFirestore.instance.collection('diseases')
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((doc) => Disease.fromJson(doc.data()))
+            .toList());
+  }
 }

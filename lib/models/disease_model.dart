@@ -14,4 +14,13 @@ class Disease {
     required this.prevent,
     required this.image,
   });
+
+  static Disease fromJson(Map<String, dynamic> json) => Disease(
+        name: json['name'],
+        look: json['look'],
+        cause: json['cause'],
+        treat: json['treat'],
+        prevent: json['prevent'],
+        image: json['image'],
+      );
 }
