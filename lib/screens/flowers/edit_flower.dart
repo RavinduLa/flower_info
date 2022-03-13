@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_admin_single_view_arguments.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
@@ -22,6 +25,8 @@ class _EditFlowerState extends State<EditFlower> {
   final _tempImageLink =
       "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Flotus.jpg?alt=media&token=62c2e541-b42c-4d6a-8681-c3d67d41ea4c";
 
+  String _imageLink = "";
+
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments
@@ -30,6 +35,9 @@ class _EditFlowerState extends State<EditFlower> {
     _controllerScientificName.text = args.flowerWithId.scientificName;
     _controllerMatureSize.text = args.flowerWithId.matureSize;
     _controllerNativeRegion.text = args.flowerWithId.nativeRegion;
+    _imageLink = args.flowerWithId.imageLink;
+    UploadTask? task;
+    File? image;
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Flower"),
@@ -40,6 +48,22 @@ class _EditFlowerState extends State<EditFlower> {
           key: _formKey,
           child: Column(
             children: [
+              _imageLink.isNotEmpty
+                  ? SizedBox(
+                      height: 160,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          _imageLink,
+                          width: 160,
+                          height: 160,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : FlutterLogo(
+                      size: 160,
+                    ),
               Expanded(
                 child: TextFormField(
                   controller: _controllerCommonName,
