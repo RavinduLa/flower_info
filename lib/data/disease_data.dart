@@ -2,7 +2,6 @@ import '../models/disease_model.dart';
 
 const List<Disease> diseaseList = [
   Disease(
-    documentId: '1',
     name: "Botrytis blight",
     look: "Botrytis Leaf Blight is a fungal disease that mainly affects plants in the allium family, specifically, white onions.",
     cause: "BLB usually occurs as a result of overwatering or extended periods of damp, rainy weather. The longer the leaves remain wet, the more pervasive the outbreak.",
@@ -11,7 +10,6 @@ const List<Disease> diseaseList = [
     image: "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/disease_images%2Fdisease1.jpg?alt=media&token=1ed7ed0f-d257-474d-a42d-dcdf7a83dc8b",
   ),
   Disease(
-    documentId: '2',
     name: "Powdery mildew",
     look: "Powdery mildew is nice and easy to identify. Afflicted plants look as if they have been dusted in powdered sugar. Powdery mildew starts out in circular spots that can appear on any part of the plant, but usually the upper parts of leaves.",
     cause: "Powdery mildew likes a unique combination of shade and warm, dry conditions. It's a fungal disease that can seemingly-randomly appear.",

@@ -1,4 +1,5 @@
-class Disease {
+class DiseaseWithId {
+  final String documentId;
   final String name;
   final String look;
   final String cause;
@@ -6,7 +7,8 @@ class Disease {
   final String prevent;
   final String image;
 
-  const Disease({
+  const DiseaseWithId({
+    required this.documentId,
     required this.name,
     required this.look,
     required this.cause,
@@ -15,7 +17,8 @@ class Disease {
     required this.image,
   });
 
-  static Disease fromJson(Map<String, dynamic> json) => Disease(
+  static DiseaseWithId fromJson(Map<String, dynamic> json) => DiseaseWithId(
+        documentId: json['documentId'],
         name: json['name'],
         look: json['look'],
         cause: json['cause'],
@@ -25,6 +28,7 @@ class Disease {
       );
 
   Map<String, dynamic> toJson() => {
+        'documentId': documentId,
         'name': name,
         'look': look,
         'cause': cause,

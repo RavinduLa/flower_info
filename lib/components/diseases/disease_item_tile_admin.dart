@@ -1,8 +1,11 @@
+import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/models/disease_model.dart';
+import 'package:flower_info/models/disease_model_id.dart';
+import 'package:flower_info/screens/diseases/disease_edit.dart';
 import 'package:flutter/material.dart';
 
 class DiseaseItemTileAdmin extends StatelessWidget {
-  final Disease disease;
+  final DiseaseWithId disease;
 
   const DiseaseItemTileAdmin({Key? key, required this.disease})
       : super(key: key);
@@ -17,10 +20,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
         child: Row(
           children: [
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Image.network(disease.image),
-              ),
+              child: Image.network(disease.image),
             ),
             Expanded(
               child: Container(
@@ -30,7 +30,13 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                     Expanded(
                       flex: 5,
                       child: ListTile(
-                        title: Text(disease.name),
+                        title: Text(
+                          disease.name,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -38,16 +44,22 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          TextButton(
-                            child: const Text("EDIT"),
-                            onPressed: () {},
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                DiseaseEdit.routeName,
+                                arguments: DiseaseSingleView(disease),
+                              );
+                            },
+                            icon: const Icon(Icons.edit),
                           ),
                           const SizedBox(
                             width: 8,
                           ),
-                          TextButton(
-                            child: const Text("DELETE"),
+                          IconButton(
                             onPressed: () {},
+                            icon: const Icon(Icons.delete_forever),
                           ),
                           const SizedBox(
                             width: 8,

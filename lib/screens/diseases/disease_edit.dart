@@ -1,20 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:uuid/uuid.dart';
-
 import 'package:flower_info/api/disease_api.dart';
-import 'package:flower_info/models/disease_model.dart';
+import 'package:flower_info/models/disease_model_id.dart';
+import 'package:flutter/material.dart';
 
-class DiseaseAdd extends StatefulWidget {
-  const DiseaseAdd({Key? key}) : super(key: key);
+import '../../models/disease_model.dart';
 
-  static String routeName = "/admin/disease/disease-add";
+class DiseaseEdit extends StatefulWidget {
+  const DiseaseEdit({Key? key}) : super(key: key);
+
+  static String routeName = "/admin/disease/disease-edit";
 
   @override
-  State<DiseaseAdd> createState() => _DiseaseAddState();
+  State<DiseaseEdit> createState() => _DiseaseEditState();
 }
 
-class _DiseaseAddState extends State<DiseaseAdd> {
+class _DiseaseEditState extends State<DiseaseEdit> {
   final _formKey = GlobalKey<FormState>();
 
   final _name = TextEditingController();
@@ -22,15 +22,40 @@ class _DiseaseAddState extends State<DiseaseAdd> {
   final _cause = TextEditingController();
   final _treat = TextEditingController();
   final _prevent = TextEditingController();
-  final _imageUrl =
+  final _image =
       "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/disease_images%2Fdisease1.jpg?alt=media&token=1ed7ed0f-d257-474d-a42d-dcdf7a83dc8b";
 
   @override
   Widget build(BuildContext context) {
+    final data =
+        ModalRoute.of(context)!.settings.arguments as DiseaseSingleView;
+    _name.text = data.disease.name;
+    _look.text = data.disease.look;
+    _cause.text = data.disease.cause;
+    _treat.text = data.disease.treat;
+    _prevent.text = data.disease.prevent;
+
+    void processingData() {
+      _notification('Processing Data');
+
+      if (_formKey.currentState!.validate()) {
+        DiseaseWithId disease = DiseaseWithId(
+            documentId: data.disease.documentId,
+            name: _name.text,
+            look: _look.text,
+            cause: _cause.text,
+            treat: _treat.text,
+            prevent: _prevent.text,
+            image: _image);
+        Future<void> result = _updateDisease(disease);
+        print(result);
+        _notification('Done!');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Diseases Create'),
+        title: const Text("Disease Update"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -124,7 +149,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                 ),
                 ElevatedButton(
                   onPressed: processingData,
-                  child: const Text('Create'),
+                  child: const Text('Update'),
                 ),
               ],
             ),
@@ -134,27 +159,9 @@ class _DiseaseAddState extends State<DiseaseAdd> {
     );
   }
 
-  void processingData() {
-    if (_formKey.currentState!.validate()) {
-      Disease disease = Disease(
-          name: _name.text,
-          look: _look.text,
-          cause: _cause.text,
-          treat: _treat.text,
-          prevent: _prevent.text,
-          image: _imageUrl);
-
-      Future<DocumentReference> res = _createDisease(disease);
-      print(res);
-      _notification('Processing Data');
-      _clearFields();
-      _notification('Done!');
-    }
-  }
-
-  // CRUD : Create Method Caller
-  Future<DocumentReference> _createDisease(Disease disease) {
-    return DiseaseApi.addDisease(disease);
+  // CRUD : Update Method Caller
+  Future<void> _updateDisease(DiseaseWithId disease) async {
+    DiseaseApi.updateDisease(disease);
   }
 
   // Common Notification
@@ -164,14 +171,5 @@ class _DiseaseAddState extends State<DiseaseAdd> {
         content: Text(message),
       ),
     );
-  }
-
-  // Clear Form Fields
-  void _clearFields() {
-    _name.clear();
-    _look.clear();
-    _cause.clear();
-    _treat.clear();
-    _prevent.clear();
   }
 }

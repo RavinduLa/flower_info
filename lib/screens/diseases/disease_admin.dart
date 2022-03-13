@@ -1,6 +1,7 @@
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/components/diseases/disease_item_tile_admin.dart';
 import 'package:flower_info/models/disease_model.dart';
+import 'package:flower_info/models/disease_model_id.dart';
 import 'package:flutter/material.dart';
 
 import 'disease_add.dart';
@@ -17,8 +18,8 @@ class DiseaseAdmin extends StatelessWidget {
         title: const Text('Diseases Admin Panel'),
       ),
       body: StreamBuilder(
-        stream: DiseaseApi.readDisease(),
-        builder: (BuildContext context, AsyncSnapshot<List<Disease>> snapshot) {
+        stream: DiseaseApi.readDiseaseWithId(),
+        builder: (BuildContext context, AsyncSnapshot<List<DiseaseWithId>> snapshot) {
           if (snapshot.hasError) {
             return const Center(
               child: Text('Something went wrong'),
