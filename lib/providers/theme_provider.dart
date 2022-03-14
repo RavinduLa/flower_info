@@ -100,7 +100,7 @@ class CustomTheme {
       backgroundColor: Color(0xffdeffe8),
     ),
     brightness: Brightness.light,
-    cardColor: Color(0xffFFF4F4),
+    cardColor: Color(0xffedfff5),
     textTheme: const TextTheme(
       //bodyText1: TextStyle(color: Colors.white),
       headline1: TextStyle(
