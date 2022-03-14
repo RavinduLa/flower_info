@@ -25,13 +25,12 @@ class _AddFlowerState extends State<AddFlower> {
   final _controllerMatureSize = TextEditingController();
   final _controllerNativeRegion = TextEditingController();
   final _tempImageLink =
-      "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Flotus.jpg?alt=media&token=62c2e541-b42c-4d6a-8681-c3d67d41ea4c";
+      "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/flower_images%2Fflower-info-logo.png?alt=media&token=d71b12b9-4d82-4f94-86d4-15ba7d6943fe";
   String imageLink = "";
   String commonName = "";
   String scientificName = "";
   String matureSize = "";
   String nativeRegion = "";
-
 
   UploadTask? task;
   File? image;
@@ -50,7 +49,6 @@ class _AddFlowerState extends State<AddFlower> {
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(
-
                 children: [
                   image != null
                       ? Image.file(
@@ -60,8 +58,8 @@ class _AddFlowerState extends State<AddFlower> {
                           fit: BoxFit.cover,
                         )
                       : const FlutterLogo(
-                        size: 160,
-                      ),
+                          size: 160,
+                        ),
                   ElevatedButton(
                     onPressed: () => pickImage(ImageSource.gallery),
                     child: Text("Select Image"),
@@ -114,43 +112,57 @@ class _AddFlowerState extends State<AddFlower> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Flower flower = Flower(
-                            commonName: _controllerCommonName.text,
-                            scientificName: _controllerScientificName.text,
-                            matureSize: _controllerMatureSize.text,
-                            nativeRegion: _controllerNativeRegion.text,
-                            imageLink: imageLink.isNotEmpty
-                                ? imageLink
-                                : _tempImageLink);
+                      if (image != null) {
+                        if (_formKey.currentState!.validate()) {
 
-                        commonName = _controllerCommonName.text;
-                        scientificName = _controllerScientificName.text;
-                        matureSize = _controllerMatureSize.text;
-                        nativeRegion = _controllerNativeRegion.text;
 
-                        Future<DocumentReference> result = enterFlowerEntry();
+                          commonName = _controllerCommonName.text;
+                          scientificName = _controllerScientificName.text;
+                          matureSize = _controllerMatureSize.text;
+                          nativeRegion = _controllerNativeRegion.text;
 
-                        print(result);
+                          Future<DocumentReference> result = enterFlowerEntry();
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Processing Data'),
-                          ),
-                        );
+                          print(result);
 
-                        _controllerCommonName.clear();
-                        _controllerScientificName.clear();
-                        _controllerMatureSize.clear();
-                        _controllerNativeRegion.clear();
-
-                        result.whenComplete(
-                          () => ScaffoldMessenger.of(context).showSnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Done'),
+                              content: Text('Processing Data'),
                             ),
-                          ),
-                        );
+                          );
+
+                          _controllerCommonName.clear();
+                          _controllerScientificName.clear();
+                          _controllerMatureSize.clear();
+                          _controllerNativeRegion.clear();
+
+
+                          result.whenComplete(
+                            () => ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Done'),
+                              ),
+                            ),
+                          );
+                        }
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return  AlertDialog(
+                                title: const Text("No Image found"),
+                                content: const Text(
+                                    "Please select an image or capture a photograph"),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Ok"),
+                                  )
+                                ],
+                              );
+                            });
                       }
                     },
                     child: const Text('Add Flower'),
@@ -171,13 +183,12 @@ class _AddFlowerState extends State<AddFlower> {
         imageLink: imageLink.isNotEmpty ? imageLink : _tempImageLink);
     String newId = "";
 
-
     DocumentReference entryCreateResult = await addFlower(flower).then((value) {
       newId = value.id;
       return value;
     });
 
-    if(image != null){
+    if (image != null) {
       await uploadImage(newId);
       updateImageLink(newId, imageLink);
     }
@@ -185,8 +196,8 @@ class _AddFlowerState extends State<AddFlower> {
     return entryCreateResult;
   }
 
-  void updateImageLink(String id, String link){
-    FirebaseApi.updateFlowerImageLink(id,link);
+  void updateImageLink(String id, String link) {
+    FirebaseApi.updateFlowerImageLink(id, link);
   }
 
   Future<DocumentReference> addFlower(Flower flower) {
