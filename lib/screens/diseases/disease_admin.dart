@@ -1,6 +1,5 @@
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/components/diseases/disease_item_tile_admin.dart';
-import 'package:flower_info/models/disease_model.dart';
 import 'package:flower_info/models/disease_model_id.dart';
 import 'package:flutter/material.dart';
 

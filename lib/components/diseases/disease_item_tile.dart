@@ -1,9 +1,10 @@
+import 'package:flower_info/models/disease_model_id.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/disease_model.dart';
 
 class DiseaseItemTile extends StatelessWidget {
-  final Disease disease;
+  final DiseaseWithId disease;
 
   const DiseaseItemTile({Key? key, required this.disease}) : super(key: key);
 
