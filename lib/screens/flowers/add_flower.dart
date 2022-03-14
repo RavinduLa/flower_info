@@ -48,30 +48,29 @@ class _AddFlowerState extends State<AddFlower> {
         padding: const EdgeInsets.all(8.0),
         child: Form(
             key: _formKey,
-            child: Column(
-              children: [
-                image != null
-                    ? Image.file(
-                        image!,
-                        width: 160,
-                        height: 160,
-                        fit: BoxFit.cover,
-                      )
-                    : const Expanded(
-                        child: FlutterLogo(
-                          size: 160,
-                        ),
+            child: SingleChildScrollView(
+              child: Column(
+
+                children: [
+                  image != null
+                      ? Image.file(
+                          image!,
+                          width: 160,
+                          height: 160,
+                          fit: BoxFit.cover,
+                        )
+                      : const FlutterLogo(
+                        size: 160,
                       ),
-                ElevatedButton(
-                  onPressed: () => pickImage(ImageSource.gallery),
-                  child: Text("Select Image"),
-                ),
-                ElevatedButton(
-                  onPressed: () => pickImage(ImageSource.camera),
-                  child: Text("Capture Image"),
-                ),
-                Expanded(
-                  child: TextFormField(
+                  ElevatedButton(
+                    onPressed: () => pickImage(ImageSource.gallery),
+                    child: Text("Select Image"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => pickImage(ImageSource.camera),
+                    child: Text("Capture Image"),
+                  ),
+                  TextFormField(
                     controller: _controllerCommonName,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -81,9 +80,7 @@ class _AddFlowerState extends State<AddFlower> {
                     },
                     decoration: const InputDecoration(labelText: 'Common Name'),
                   ),
-                ),
-                Expanded(
-                  child: TextFormField(
+                  TextFormField(
                     controller: _controllerScientificName,
                     decoration:
                         const InputDecoration(labelText: 'Scientific Name'),
@@ -94,9 +91,7 @@ class _AddFlowerState extends State<AddFlower> {
                       return null;
                     },
                   ),
-                ),
-                Expanded(
-                  child: TextFormField(
+                  TextFormField(
                     controller: _controllerMatureSize,
                     decoration: const InputDecoration(labelText: 'Mature Size'),
                     validator: (value) {
@@ -106,9 +101,7 @@ class _AddFlowerState extends State<AddFlower> {
                       return null;
                     },
                   ),
-                ),
-                Expanded(
-                  child: TextFormField(
+                  TextFormField(
                     controller: _controllerNativeRegion,
                     decoration:
                         const InputDecoration(labelText: 'Native Region'),
@@ -119,51 +112,51 @@ class _AddFlowerState extends State<AddFlower> {
                       return null;
                     },
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Flower flower = Flower(
-                          commonName: _controllerCommonName.text,
-                          scientificName: _controllerScientificName.text,
-                          matureSize: _controllerMatureSize.text,
-                          nativeRegion: _controllerNativeRegion.text,
-                          imageLink: imageLink.isNotEmpty
-                              ? imageLink
-                              : _tempImageLink);
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        Flower flower = Flower(
+                            commonName: _controllerCommonName.text,
+                            scientificName: _controllerScientificName.text,
+                            matureSize: _controllerMatureSize.text,
+                            nativeRegion: _controllerNativeRegion.text,
+                            imageLink: imageLink.isNotEmpty
+                                ? imageLink
+                                : _tempImageLink);
 
-                      commonName = _controllerCommonName.text;
-                      scientificName = _controllerScientificName.text;
-                      matureSize = _controllerMatureSize.text;
-                      nativeRegion = _controllerNativeRegion.text;
+                        commonName = _controllerCommonName.text;
+                        scientificName = _controllerScientificName.text;
+                        matureSize = _controllerMatureSize.text;
+                        nativeRegion = _controllerNativeRegion.text;
 
-                      Future<DocumentReference> result = enterFlowerEntry();
+                        Future<DocumentReference> result = enterFlowerEntry();
 
-                      print(result);
+                        print(result);
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Processing Data'),
-                        ),
-                      );
-
-                      _controllerCommonName.clear();
-                      _controllerScientificName.clear();
-                      _controllerMatureSize.clear();
-                      _controllerNativeRegion.clear();
-
-                      result.whenComplete(
-                        () => ScaffoldMessenger.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Done'),
+                            content: Text('Processing Data'),
                           ),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text('Add Flower'),
-                )
-              ],
+                        );
+
+                        _controllerCommonName.clear();
+                        _controllerScientificName.clear();
+                        _controllerMatureSize.clear();
+                        _controllerNativeRegion.clear();
+
+                        result.whenComplete(
+                          () => ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Done'),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Add Flower'),
+                  )
+                ],
+              ),
             )),
       ),
     );
