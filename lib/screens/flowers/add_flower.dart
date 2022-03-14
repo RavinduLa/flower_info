@@ -79,14 +79,14 @@ class _AddFlowerState extends State<AddFlower> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(hintText: 'Common Name'),
+                    decoration: const InputDecoration(labelText: 'Common Name'),
                   ),
                 ),
                 Expanded(
                   child: TextFormField(
                     controller: _controllerScientificName,
                     decoration:
-                        const InputDecoration(hintText: 'Scientific Name'),
+                        const InputDecoration(labelText: 'Scientific Name'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please fill this field';
@@ -98,7 +98,7 @@ class _AddFlowerState extends State<AddFlower> {
                 Expanded(
                   child: TextFormField(
                     controller: _controllerMatureSize,
-                    decoration: const InputDecoration(hintText: 'Mature Size'),
+                    decoration: const InputDecoration(labelText: 'Mature Size'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please fill this field';
@@ -111,7 +111,7 @@ class _AddFlowerState extends State<AddFlower> {
                   child: TextFormField(
                     controller: _controllerNativeRegion,
                     decoration:
-                        const InputDecoration(hintText: 'Native Region'),
+                        const InputDecoration(labelText: 'Native Region'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please fill this field';
