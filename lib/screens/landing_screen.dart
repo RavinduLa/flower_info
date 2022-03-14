@@ -6,8 +6,12 @@ import 'package:flower_info/screens/fertilizers/fertilizers.dart';
 import 'package:flower_info/screens/flowers/flowers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/theme_provider.dart';
+
+String finalEmail = '';
+bool isUserLogged = false;
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -23,6 +27,11 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   void initState() {
+    getUserValidationData().whenComplete(() async {
+      if (finalEmail.isNotEmpty) {
+        isUserLogged = true;
+      }
+    });
     super.initState();
     _pageController = PageController(initialPage: 0);
   }
@@ -31,6 +40,16 @@ class _LandingScreenState extends State<LandingScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  Future getUserValidationData() async {
+    final SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    var obtainedEmail = sharedPreferences.getString('email');
+
+    setState(() {
+      finalEmail = obtainedEmail!;
+    });
   }
 
   @override
@@ -61,13 +80,15 @@ class _LandingScreenState extends State<LandingScreen> {
                       barrierDismissible: true);
                 },
               ),
+               isUserLogged ?
                ListTile(
                 title: Text("Admin"),
                 subtitle: Text("Admin Dashboard"),
                 onTap: () {
                   Navigator.of(context).pushNamed(AdminDashboard.routeName);
                 },
-              ),
+              )
+              :
               ListTile(
                 title: Text("Admin"),
                 subtitle: Text("Admin Login"),
