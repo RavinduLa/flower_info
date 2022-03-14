@@ -95,6 +95,10 @@ class CustomTheme {
       cursorColor:  Colors.green,
     ),
 
+    inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: TextStyle(color: Colors.green)
+    ),
+
   );
 
   static final lightTheme = ThemeData(
@@ -132,6 +136,9 @@ class CustomTheme {
       selectionColor: Colors.green,
       selectionHandleColor: Colors.green,
       cursorColor:  Colors.green,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      floatingLabelStyle: TextStyle(color: Colors.green)
     ),
   );
 }
