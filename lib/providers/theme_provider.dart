@@ -85,6 +85,9 @@ class CustomTheme {
       foregroundColor: Colors.green,
       splashColor: Colors.grey,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(primary: Colors.green),
+    ),
   );
 
   static final lightTheme = ThemeData(
@@ -114,6 +117,9 @@ class CustomTheme {
       backgroundColor: Colors.green,
       foregroundColor: Colors.black,
       splashColor: Colors.white,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(primary: Colors.green),
     ),
   );
 }
