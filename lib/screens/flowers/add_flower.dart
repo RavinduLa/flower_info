@@ -183,8 +183,12 @@ class _AddFlowerState extends State<AddFlower> {
       newId = value.id;
       return value;
     });
-    await uploadImage(newId);
-    updateImageLink(newId, imageLink);
+
+    if(image != null){
+      await uploadImage(newId);
+      updateImageLink(newId, imageLink);
+    }
+
     return entryCreateResult;
   }
 
