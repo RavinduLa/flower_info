@@ -97,53 +97,79 @@ class _AddFlowerState extends State<AddFlower> {
                     onPressed: () => pickImage(ImageSource.camera),
                     child: Text("Capture Image"),
                   ),*/
-                  TextFormField(
-                    controller: _controllerCommonName,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please fill this field';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Common Name',
-                      focusColor: Colors.green,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
-                      )
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _controllerCommonName,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please fill this field';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Common Name',
+                        focusColor: Colors.green,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                        ),
+                      ),
                     ),
                   ),
-                  TextFormField(
-                    controller: _controllerScientificName,
-                    decoration:
-                        const InputDecoration(labelText: 'Scientific Name'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please fill this field';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _controllerScientificName,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please fill this field';
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Scientific Name',
+                        focusColor: Colors.green,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                      ),
+                    ),
                   ),
-                  TextFormField(
-                    controller: _controllerMatureSize,
-                    decoration: const InputDecoration(labelText: 'Mature Size'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please fill this field';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _controllerMatureSize,
+                      decoration: const InputDecoration(
+                        labelText: 'Mature Size',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please fill this field';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                  TextFormField(
-                    controller: _controllerNativeRegion,
-                    decoration:
-                        const InputDecoration(labelText: 'Native Region'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please fill this field';
-                      }
-                      return null;
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: _controllerNativeRegion,
+                      decoration: const InputDecoration(
+                        labelText: 'Native Region',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please fill this field';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   Padding(
                     padding:
