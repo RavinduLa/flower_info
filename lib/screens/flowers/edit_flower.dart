@@ -82,7 +82,7 @@ class _EditFlowerState extends State<EditFlower> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          right: 20, bottom: 20, top: 10),
+                          right: 30, bottom: 20, top: 10),
                       child: IconButton(
                         icon: const Icon(
                           Icons.folder,
@@ -94,7 +94,7 @@ class _EditFlowerState extends State<EditFlower> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 20, bottom: 20, top: 10),
+                         bottom: 20, top: 10),
                       child: IconButton(
                         icon: const Icon(
                           Icons.camera_alt,
@@ -162,35 +162,41 @@ class _EditFlowerState extends State<EditFlower> {
                     return null;
                   },
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      FlowerWithId flowerWithId = FlowerWithId(
-                          documentId: args.flowerWithId.documentId,
-                          commonName: _controllerCommonName.text,
-                          scientificName: _controllerScientificName.text,
-                          matureSize: _controllerMatureSize.text,
-                          nativeRegion: _controllerNativeRegion.text,
-                          imageLink: args.flowerWithId.imageLink);
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          FlowerWithId flowerWithId = FlowerWithId(
+                              documentId: args.flowerWithId.documentId,
+                              commonName: _controllerCommonName.text,
+                              scientificName: _controllerScientificName.text,
+                              matureSize: _controllerMatureSize.text,
+                              nativeRegion: _controllerNativeRegion.text,
+                              imageLink: args.flowerWithId.imageLink);
 
-                      Future<void> result = editFlower(flowerWithId);
+                          Future<void> result = editFlower(flowerWithId);
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Processing Data'),
-                        ),
-                      );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Processing Data'),
+                            ),
+                          );
 
-                      result.whenComplete(
-                        () => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Done'),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  child: const Text('Update details'),
+                          result.whenComplete(
+                            () => ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Done'),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      child: const Text('Save Changes'),
+                    ),
+                  ),
                 ),
               ],
             ),
