@@ -88,6 +88,13 @@ class CustomTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(primary: Colors.green),
     ),
+    //textSelectionColor:
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: Colors.green,
+      selectionHandleColor: Colors.green,
+      cursorColor:  Colors.green,
+    ),
+
   );
 
   static final lightTheme = ThemeData(
@@ -120,6 +127,11 @@ class CustomTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(primary: Colors.green),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: Colors.green,
+      selectionHandleColor: Colors.green,
+      cursorColor:  Colors.green,
     ),
   );
 }

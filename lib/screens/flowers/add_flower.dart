@@ -105,7 +105,13 @@ class _AddFlowerState extends State<AddFlower> {
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(labelText: 'Common Name'),
+                    decoration: const InputDecoration(
+                      labelText: 'Common Name',
+                      focusColor: Colors.green,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.green),
+                      )
+                    ),
                   ),
                   TextFormField(
                     controller: _controllerScientificName,
@@ -140,7 +146,8 @@ class _AddFlowerState extends State<AddFlower> {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                    padding:
+                        const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -152,7 +159,8 @@ class _AddFlowerState extends State<AddFlower> {
                               matureSize = _controllerMatureSize.text;
                               nativeRegion = _controllerNativeRegion.text;
 
-                              Future<DocumentReference> result = enterFlowerEntry();
+                              Future<DocumentReference> result =
+                                  enterFlowerEntry();
 
                               print(result);
 
@@ -168,7 +176,8 @@ class _AddFlowerState extends State<AddFlower> {
                               _controllerNativeRegion.clear();
 
                               result.whenComplete(
-                                () => ScaffoldMessenger.of(context).showSnackBar(
+                                () =>
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Done'),
                                   ),
