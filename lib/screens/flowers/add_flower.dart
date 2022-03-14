@@ -139,59 +139,65 @@ class _AddFlowerState extends State<AddFlower> {
                       return null;
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (image != null) {
-                        if (_formKey.currentState!.validate()) {
-                          commonName = _controllerCommonName.text;
-                          scientificName = _controllerScientificName.text;
-                          matureSize = _controllerMatureSize.text;
-                          nativeRegion = _controllerNativeRegion.text;
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (image != null) {
+                            if (_formKey.currentState!.validate()) {
+                              commonName = _controllerCommonName.text;
+                              scientificName = _controllerScientificName.text;
+                              matureSize = _controllerMatureSize.text;
+                              nativeRegion = _controllerNativeRegion.text;
 
-                          Future<DocumentReference> result = enterFlowerEntry();
+                              Future<DocumentReference> result = enterFlowerEntry();
 
-                          print(result);
+                              print(result);
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Processing Data'),
-                            ),
-                          );
-
-                          _controllerCommonName.clear();
-                          _controllerScientificName.clear();
-                          _controllerMatureSize.clear();
-                          _controllerNativeRegion.clear();
-
-                          result.whenComplete(
-                            () => ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Done'),
-                              ),
-                            ),
-                          );
-                        }
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("No Image found"),
-                                content: const Text(
-                                    "Please select an image or capture a photograph"),
-                                actions: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text("Ok"),
-                                  )
-                                ],
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Processing Data'),
+                                ),
                               );
-                            });
-                      }
-                    },
-                    child: const Text('Add Flower'),
+
+                              _controllerCommonName.clear();
+                              _controllerScientificName.clear();
+                              _controllerMatureSize.clear();
+                              _controllerNativeRegion.clear();
+
+                              result.whenComplete(
+                                () => ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Done'),
+                                  ),
+                                ),
+                              );
+                            }
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("No Image found"),
+                                    content: const Text(
+                                        "Please select an image or capture a photograph"),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text("Ok"),
+                                      )
+                                    ],
+                                  );
+                                });
+                          }
+                        },
+                        child: const Text('Add Flower'),
+                      ),
+                    ),
                   )
                 ],
               ),
