@@ -51,41 +51,41 @@ class _EditFlowerState extends State<EditFlower> {
         padding: EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              image != null
-                  ? Image.file(
-                      image!,
-                      width: 160,
-                      height: 160,
-                      fit: BoxFit.cover,
-                    )
-                  : _imageLink.isNotEmpty
-                      ? SizedBox(
-                          height: 160,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image.network(
-                              _imageLink,
-                              width: 160,
-                              height: 160,
-                              fit: BoxFit.cover,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                image != null
+                    ? Image.file(
+                        image!,
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.cover,
+                      )
+                    : _imageLink.isNotEmpty
+                        ? SizedBox(
+                            height: 160,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.network(
+                                _imageLink,
+                                width: 160,
+                                height: 160,
+                                fit: BoxFit.cover,
+                              ),
                             ),
+                          )
+                        : const FlutterLogo(
+                            size: 160,
                           ),
-                        )
-                      : FlutterLogo(
-                          size: 160,
-                        ),
-              ElevatedButton(
-                onPressed: () => pickImage(ImageSource.gallery),
-                child: Text("Select Image"),
-              ),
-              ElevatedButton(
-                onPressed: () => pickImage(ImageSource.camera),
-                child: Text("Capture Image"),
-              ),
-              Expanded(
-                child: TextFormField(
+                ElevatedButton(
+                  onPressed: () => pickImage(ImageSource.gallery),
+                  child: Text("Select Image"),
+                ),
+                ElevatedButton(
+                  onPressed: () => pickImage(ImageSource.camera),
+                  child: Text("Capture Image"),
+                ),
+                TextFormField(
                   controller: _controllerCommonName,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -97,9 +97,7 @@ class _EditFlowerState extends State<EditFlower> {
                     labelText: 'Common Name',
                   ),
                 ),
-              ),
-              Expanded(
-                child: TextFormField(
+                TextFormField(
                   controller: _controllerScientificName,
                   decoration: const InputDecoration(
                     labelText: 'Scientific Name',
@@ -111,9 +109,7 @@ class _EditFlowerState extends State<EditFlower> {
                     return null;
                   },
                 ),
-              ),
-              Expanded(
-                child: TextFormField(
+                TextFormField(
                   controller: _controllerMatureSize,
                   decoration: const InputDecoration(
                     labelText: 'Mature Size',
@@ -125,9 +121,7 @@ class _EditFlowerState extends State<EditFlower> {
                     return null;
                   },
                 ),
-              ),
-              Expanded(
-                child: TextFormField(
+                TextFormField(
                   controller: _controllerNativeRegion,
                   decoration: const InputDecoration(
                     labelText: 'Native Region',
@@ -139,38 +133,38 @@ class _EditFlowerState extends State<EditFlower> {
                     return null;
                   },
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    FlowerWithId flowerWithId = FlowerWithId(
-                        documentId: args.flowerWithId.documentId,
-                        commonName: _controllerCommonName.text,
-                        scientificName: _controllerScientificName.text,
-                        matureSize: _controllerMatureSize.text,
-                        nativeRegion: _controllerNativeRegion.text,
-                        imageLink: args.flowerWithId.imageLink);
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      FlowerWithId flowerWithId = FlowerWithId(
+                          documentId: args.flowerWithId.documentId,
+                          commonName: _controllerCommonName.text,
+                          scientificName: _controllerScientificName.text,
+                          matureSize: _controllerMatureSize.text,
+                          nativeRegion: _controllerNativeRegion.text,
+                          imageLink: args.flowerWithId.imageLink);
 
-                    Future<void> result = editFlower(flowerWithId);
+                      Future<void> result = editFlower(flowerWithId);
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Processing Data'),
-                      ),
-                    );
-
-                    result.whenComplete(
-                      () => ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Done'),
+                          content: Text('Processing Data'),
                         ),
-                      ),
-                    );
-                  }
-                },
-                child: const Text('Update details'),
-              ),
-            ],
+                      );
+
+                      result.whenComplete(
+                        () => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Done'),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Update details'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
