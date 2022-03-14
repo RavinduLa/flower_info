@@ -55,6 +55,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Disease Update"),
       ),
       body: Padding(

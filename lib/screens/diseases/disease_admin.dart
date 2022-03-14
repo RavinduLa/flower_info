@@ -14,6 +14,7 @@ class DiseaseAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Diseases Admin Panel'),
       ),
       body: StreamBuilder(
