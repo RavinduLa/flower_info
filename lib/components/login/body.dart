@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'background.dart';
 
 class Body extends StatefulWidget {
@@ -63,6 +64,10 @@ class _BodyState extends State<Body> {
         email: email,
         password: password,
       );
+
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString('email', email);
+
       Navigator.pushReplacement<void, void>(
               context,
               MaterialPageRoute<void>(
