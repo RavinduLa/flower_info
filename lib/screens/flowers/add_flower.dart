@@ -60,14 +60,43 @@ class _AddFlowerState extends State<AddFlower> {
                       : const FlutterLogo(
                           size: 160,
                         ),
-                  ElevatedButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20, bottom: 20, top: 10),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.folder,
+                            size: 50,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => pickImage(ImageSource.gallery),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, bottom: 20, top: 10),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            size: 50,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => pickImage(ImageSource.camera),
+                        ),
+                      ),
+                    ],
+                  ),
+                  /*ElevatedButton(
                     onPressed: () => pickImage(ImageSource.gallery),
                     child: Text("Select Image"),
                   ),
                   ElevatedButton(
                     onPressed: () => pickImage(ImageSource.camera),
                     child: Text("Capture Image"),
-                  ),
+                  ),*/
                   TextFormField(
                     controller: _controllerCommonName,
                     validator: (value) {
@@ -114,8 +143,6 @@ class _AddFlowerState extends State<AddFlower> {
                     onPressed: () {
                       if (image != null) {
                         if (_formKey.currentState!.validate()) {
-
-
                           commonName = _controllerCommonName.text;
                           scientificName = _controllerScientificName.text;
                           matureSize = _controllerMatureSize.text;
@@ -136,7 +163,6 @@ class _AddFlowerState extends State<AddFlower> {
                           _controllerMatureSize.clear();
                           _controllerNativeRegion.clear();
 
-
                           result.whenComplete(
                             () => ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -149,7 +175,7 @@ class _AddFlowerState extends State<AddFlower> {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return  AlertDialog(
+                              return AlertDialog(
                                 title: const Text("No Image found"),
                                 content: const Text(
                                     "Please select an image or capture a photograph"),
