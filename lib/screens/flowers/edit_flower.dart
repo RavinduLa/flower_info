@@ -77,14 +77,43 @@ class _EditFlowerState extends State<EditFlower> {
                         : const FlutterLogo(
                             size: 160,
                           ),
-                ElevatedButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 20, bottom: 20, top: 10),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.folder,
+                          size: 50,
+                          color: Colors.green,
+                        ),
+                        onPressed: () => pickImage(ImageSource.gallery),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, bottom: 20, top: 10),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.camera_alt,
+                          size: 50,
+                          color: Colors.green,
+                        ),
+                        onPressed: () => pickImage(ImageSource.camera),
+                      ),
+                    ),
+                  ],
+                ),
+                /*ElevatedButton(
                   onPressed: () => pickImage(ImageSource.gallery),
                   child: Text("Select Image"),
                 ),
                 ElevatedButton(
                   onPressed: () => pickImage(ImageSource.camera),
                   child: Text("Capture Image"),
-                ),
+                ),*/
                 TextFormField(
                   controller: _controllerCommonName,
                   validator: (value) {
