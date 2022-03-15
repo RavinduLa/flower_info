@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/models/flower_model.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flower_info/models/flower_single_view_arguments.dart';
@@ -45,7 +46,7 @@ class FlowerItemTile extends StatelessWidget {
                     ),
                   ),
                 ),*/
-                SizedBox(
+                /*SizedBox(
                   width: 100,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
@@ -57,6 +58,23 @@ class FlowerItemTile extends StatelessWidget {
                         placeholder:
                             const AssetImage('assets/images/flower-info-logo.png'),
                       )),
+                ),*/
+
+                SizedBox(
+                  width: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: flowerWithId.imageLink,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                      errorWidget: (context, url ,error) => Icon(Icons.error, size: 50,),
+                    ),
+                  ),
                 ),
                 Text(flowerWithId.commonName)
               ],
