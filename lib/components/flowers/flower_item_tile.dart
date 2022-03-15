@@ -72,7 +72,7 @@ class FlowerItemTile extends StatelessWidget {
                       placeholder: (context, url) => const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                       ),
-                      errorWidget: (context, url ,error) => Icon(Icons.error, size: 50,),
+                      errorWidget: (context, url ,error) => const Icon(Icons.error, size: 50,),
                     ),
                   ),
                 ),
