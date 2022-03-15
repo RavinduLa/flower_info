@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/firebase_api.dart';
 import 'package:flower_info/models/flower_admin_single_view_arguments.dart';
@@ -66,23 +67,29 @@ class _EditFlowerState extends State<EditFlower> {
                             height: 160,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10.0),
-                              child: Image.network(
-                                _imageLink,
-                                width: 160,
+                              child: CachedNetworkImage(
+                                imageUrl: args.flowerWithId.imageLink,
                                 height: 160,
+                                width: 160,
                                 fit: BoxFit.cover,
+                                placeholder: (context, url) => const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                ),
+                                errorWidget: (context, url ,error) => const Icon(Icons.error, size: 50,),
                               ),
                             ),
                           )
-                        : const FlutterLogo(
-                            size: 160,
+                        : Image.asset(
+                            'assets/images/flower-info-logo.png',
+                            height: 160,
+                            width: 160,
                           ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                          right: 30, bottom: 20, top: 10),
+                      padding:
+                          const EdgeInsets.only(right: 30, bottom: 20, top: 10),
                       child: IconButton(
                         icon: const Icon(
                           Icons.folder,
@@ -93,8 +100,7 @@ class _EditFlowerState extends State<EditFlower> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                         bottom: 20, top: 10),
+                      padding: const EdgeInsets.only(bottom: 20, top: 10),
                       child: IconButton(
                         icon: const Icon(
                           Icons.camera_alt,
@@ -187,7 +193,8 @@ class _EditFlowerState extends State<EditFlower> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                  padding:
+                      const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -236,7 +243,8 @@ class _EditFlowerState extends State<EditFlower> {
 
   Future pickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: source, imageQuality: 10);
+      final image =
+          await ImagePicker().pickImage(source: source, imageQuality: 10);
       if (image == null) return;
 
       final imageTemporary = File(image.path);

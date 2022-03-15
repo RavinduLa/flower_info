@@ -57,8 +57,10 @@ class _AddFlowerState extends State<AddFlower> {
                           height: 160,
                           fit: BoxFit.cover,
                         )
-                      : const FlutterLogo(
-                          size: 160,
+                      : Image.asset(
+                          'assets/images/flower-info-logo.png',
+                          height: 160,
+                          width: 160,
                         ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -273,7 +275,8 @@ class _AddFlowerState extends State<AddFlower> {
 
   Future pickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: source, imageQuality: 10);
+      final image =
+          await ImagePicker().pickImage(source: source, imageQuality: 10);
       if (image == null) return;
 
       final imageTemporary = File(image.path);
