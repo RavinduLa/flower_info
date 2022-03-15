@@ -33,7 +33,7 @@ class FlowerItemTile extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
+                /*SizedBox(
                   width: 100,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
@@ -44,6 +44,19 @@ class FlowerItemTile extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                ),*/
+                SizedBox(
+                  width: 100,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: FadeInImage(
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                        image: NetworkImage(flowerWithId.imageLink),
+                        placeholder:
+                            const AssetImage('assets/images/flower-info-logo.png'),
+                      )),
                 ),
                 Text(flowerWithId.commonName)
               ],
