@@ -17,7 +17,7 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   int currentIndex = 0;
-  final screens = [const FLowers(), const Fertilizers(), const Diseases()];
+  final screens = [FLowers(), const Fertilizers(), const Diseases()];
   late PageController _pageController;
 
   @override
@@ -60,7 +60,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       barrierDismissible: true);
                 },
               ),
-               ListTile(
+              ListTile(
                 title: Text("Admin"),
                 subtitle: Text("Admin Dashboard"),
                 onTap: () {
@@ -87,10 +87,11 @@ class _LandingScreenState extends State<LandingScreen> {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(20)),
+                //topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                //bottomRight: Radius.circular(20),
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
