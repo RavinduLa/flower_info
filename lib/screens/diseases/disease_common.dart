@@ -4,10 +4,10 @@ import '../../components/diseases/disease_item_tile.dart';
 import '../../data/disease_data.dart';
 import '../../models/disease_model.dart';
 
-class Diseases extends StatelessWidget {
+class DiseaseCommon extends StatelessWidget {
   final List<Disease> diseases = diseaseList;
 
-  const Diseases({Key? key}) : super(key: key);
+  const DiseaseCommon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
