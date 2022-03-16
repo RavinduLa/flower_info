@@ -30,7 +30,8 @@ class DiseaseItemTileAdmin extends StatelessWidget {
           height: 100,
           child: Row(
             children: [
-              Center(
+              SizedBox(
+                width: 106,
                 child: CachedNetworkImage(
                   imageUrl: disease.image,
                   errorWidget: (context, url, error) =>
@@ -52,7 +53,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                           title: Text(
                             disease.name,
                             style: const TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -97,7 +98,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                               Future<void> result =
                                                   _deleteDisease(disease);
                                               Navigator.of(context).pop();
-                                              _notification("Deleted");
+                                              _notification("Disease Deleted!");
                                             },
                                             child: const Text('Yes'))
                                       ],

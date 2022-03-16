@@ -26,29 +26,50 @@ class DiseaseView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: CachedNetworkImage(
-                  imageUrl: data.disease.image,
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error, size: 50),
-                  placeholder: (context, url) => const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                  ),
+            const SizedBox(width: double.infinity),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(25.0),
+              child: CachedNetworkImage(
+                imageUrl: data.disease.image,
+                width: 200,
+                height: 200,
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error, size: 50),
+                placeholder: (context, url) => const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               ),
             ),
-            Text(
-              data.disease.name,
-              style: const TextStyle(fontSize: 35),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                data.disease.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 35),
+              ),
             ),
-            const SizedBox(height: 20),
-            informationSection("What Does it Look Like?", data.disease.look),
-            informationSection("What Causes it?", data.disease.cause),
-            informationSection("How to Treat it?", data.disease.treat),
-            informationSection("How to Prevent it?", data.disease.prevent),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                informationSection(
+                  "What Does it Look Like?",
+                  data.disease.look,
+                ),
+                informationSection(
+                  "What Causes it?",
+                  data.disease.cause,
+                ),
+                informationSection(
+                  "How to Treat it?",
+                  data.disease.treat,
+                ),
+                informationSection(
+                  "How to Prevent it?",
+                  data.disease.prevent,
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
           ],
         ),
