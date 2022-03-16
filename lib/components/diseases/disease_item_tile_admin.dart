@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/models/disease_model_id.dart';
 import 'package:flower_info/screens/diseases/disease_edit.dart';
@@ -25,12 +26,20 @@ class DiseaseItemTileAdmin extends StatelessWidget {
       child: Card(
         elevation: 8,
         margin: const EdgeInsets.all(10),
-        child: Container(
+        child: SizedBox(
           height: 100,
           child: Row(
             children: [
               Center(
-                child: Image.network(disease.image),
+                child: CachedNetworkImage(
+                  imageUrl: disease.image,
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 25),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                  ),
+                ),
               ),
               Expanded(
                 child: Container(
@@ -43,7 +52,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                           title: Text(
                             disease.name,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
