@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +27,18 @@ class DiseaseView extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.network(data.disease.image),
+              padding: const EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: CachedNetworkImage(
+                  imageUrl: data.disease.image,
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 50),
+                  placeholder: (context, url) => const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                  ),
+                ),
+              ),
             ),
             Text(
               data.disease.name,
@@ -54,11 +65,11 @@ class DiseaseView extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 22),
+              style: const TextStyle(fontSize: 20),
             ),
             Text(
               text,
-              style: const TextStyle(fontSize: 17),
+              style: const TextStyle(fontSize: 15),
             ),
           ],
         ),
