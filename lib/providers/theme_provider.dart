@@ -85,6 +85,20 @@ class CustomTheme {
       foregroundColor: Colors.green,
       splashColor: Colors.grey,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(primary: Colors.green),
+    ),
+    //textSelectionColor:
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: Colors.green,
+      selectionHandleColor: Colors.green,
+      cursorColor:  Colors.green,
+    ),
+
+    inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: TextStyle(color: Colors.green)
+    ),
+
   );
 
   static final lightTheme = ThemeData(
@@ -100,7 +114,7 @@ class CustomTheme {
       backgroundColor: Color(0xffdeffe8),
     ),
     brightness: Brightness.light,
-    cardColor: Color(0xffFFF4F4),
+    cardColor: Color(0xffedfff5),
     textTheme: const TextTheme(
       //bodyText1: TextStyle(color: Colors.white),
       headline1: TextStyle(
@@ -114,6 +128,17 @@ class CustomTheme {
       backgroundColor: Colors.green,
       foregroundColor: Colors.black,
       splashColor: Colors.white,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(primary: Colors.green),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: Colors.green,
+      selectionHandleColor: Colors.green,
+      cursorColor:  Colors.green,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      floatingLabelStyle: TextStyle(color: Colors.green)
     ),
   );
 }
