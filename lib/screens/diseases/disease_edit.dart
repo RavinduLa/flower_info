@@ -1,9 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/models/disease_model_id.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../models/disease_model.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DiseaseEdit extends StatefulWidget {
   const DiseaseEdit({Key? key}) : super(key: key);
@@ -22,8 +26,10 @@ class _DiseaseEditState extends State<DiseaseEdit> {
   final _cause = TextEditingController();
   final _treat = TextEditingController();
   final _prevent = TextEditingController();
-  final _image =
-      "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/disease_images%2Fdisease1.jpg?alt=media&token=1ed7ed0f-d257-474d-a42d-dcdf7a83dc8b";
+
+  String _imageLink = "";
+  UploadTask? task;
+  File? image;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +40,9 @@ class _DiseaseEditState extends State<DiseaseEdit> {
     _cause.text = data.disease.cause;
     _treat.text = data.disease.treat;
     _prevent.text = data.disease.prevent;
+    _imageLink = data.disease.image;
 
-    void processingData() {
+    void processingData() async {
       _notification('Processing Data');
 
       if (_formKey.currentState!.validate()) {
@@ -46,9 +53,20 @@ class _DiseaseEditState extends State<DiseaseEdit> {
             cause: _cause.text,
             treat: _treat.text,
             prevent: _prevent.text,
-            image: _image);
+            image: _imageLink);
         Future<void> result = _updateDisease(disease);
-        print(result);
+
+        if(image != null) {
+          await uploadImage(data.disease.documentId);
+          updateImageUrl(data.disease.documentId, _imageLink);
+          if (kDebugMode) {
+            print("Image Uploading Processed!");
+          }
+        }
+
+        if (kDebugMode) {
+          print(result);
+        }
         _notification('Done!');
       }
     }
@@ -65,6 +83,67 @@ class _DiseaseEditState extends State<DiseaseEdit> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    image != null
+                        ? Image.file(
+                            image!,
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          )
+                        : _imageLink.isNotEmpty
+                            ? SizedBox(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: CachedNetworkImage(
+                                    imageUrl: data.disease.image,
+                                    height: 150,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        const CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.green),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.error,
+                                      size: 50,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Image.asset(
+                                'assets/images/flower-info-logo.png',
+                                height: 150,
+                                width: 150,
+                              ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => selectImage(ImageSource.camera),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.folder,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => selectImage(ImageSource.gallery),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -160,9 +239,45 @@ class _DiseaseEditState extends State<DiseaseEdit> {
     );
   }
 
+  // Image Selector Method
+  Future selectImage(ImageSource source) async {
+    try {
+      final image =
+          await ImagePicker().pickImage(source: source, imageQuality: 10);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (error) {
+      if (kDebugMode) {
+        print('Failed to select image : $error');
+      }
+    }
+  }
+
+  // Image Uploading Process
+  Future uploadImage(String newId) async {
+    if (image == null) return;
+    task = DiseaseApi.uploadImage(newId, image!);
+    if (task == null) return;
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    setState(() {
+      _imageLink = urlDownload;
+    });
+
+    if (kDebugMode) {
+      print('Image Link : $_imageLink');
+    }
+  }
+
   // CRUD : Update Method Caller
   Future<void> _updateDisease(DiseaseWithId disease) async {
-    DiseaseApi.updateDisease(disease);
+    await DiseaseApi.updateDisease(disease);
+  }
+
+  // CRUD : Update Image URL Method Caller
+  void updateImageUrl(String documentId, String link) {
+    DiseaseApi.updateImageLink(documentId, link);
   }
 
   // Common Notification

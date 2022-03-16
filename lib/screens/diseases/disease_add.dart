@@ -1,15 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flower_info/api/disease_api.dart';
+import 'package:flower_info/models/disease_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
-
-import 'package:flower_info/api/disease_api.dart';
-import 'package:flower_info/models/disease_model.dart';
 
 class DiseaseAdd extends StatefulWidget {
   const DiseaseAdd({Key? key}) : super(key: key);
@@ -182,6 +180,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
     );
   }
 
+  // Image Selector Method
   Future selectImage(ImageSource source) async {
     try {
       final image =
@@ -217,7 +216,9 @@ class _DiseaseAddState extends State<DiseaseAdd> {
           return value;
         });
 
-        print(res);
+        if (kDebugMode) {
+          print(res);
+        }
 
         if (image != null) {
           _notification('Image Uploading!');
