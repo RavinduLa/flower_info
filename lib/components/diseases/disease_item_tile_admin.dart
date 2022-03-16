@@ -98,7 +98,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                               Future<void> result =
                                                   _deleteDisease(disease);
                                               Navigator.of(context).pop();
-                                              _notification("Deleted");
+                                              _notification("Disease Deleted!");
                                             },
                                             child: const Text('Yes'))
                                       ],

@@ -40,12 +40,14 @@ class DiseaseView extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              data.disease.name,
-              style: const TextStyle(fontSize: 35),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                data.disease.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 35),
+              ),
             ),
-            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
