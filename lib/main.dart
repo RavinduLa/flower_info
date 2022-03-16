@@ -4,6 +4,8 @@ import 'package:flower_info/providers/theme_provider.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/diseases/disease_add.dart';
 import 'package:flower_info/screens/diseases/disease_admin.dart';
+import 'package:flower_info/screens/diseases/disease_edit.dart';
+import 'package:flower_info/screens/diseases/disease_view.dart';
 import 'package:flower_info/screens/flowers/add_flower.dart';
 import 'package:flower_info/screens/flowers/edit_flower.dart';
 import 'package:flower_info/screens/flowers/flower_admin_list.dart';
@@ -31,7 +33,6 @@ class MyApp extends StatelessWidget {
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context);
 
-
         return ChangeNotifierProvider(
           create: (context) => ApplicationState(),
           builder: (context, _) {
@@ -53,9 +54,10 @@ class MyApp extends StatelessWidget {
                 FlowerSingleView.routeName : (context) => FlowerSingleView(),
                 DiseaseAdmin.routeName: (context) => DiseaseAdmin(),
                 DiseaseAdd.routeName: (context) => DiseaseAdd(),
+                DiseaseEdit.routeName: (context) => DiseaseEdit(),
+                DiseaseView.routeName: (context) => DiseaseView(),
               },
             );
-
           },
         );
       },
