@@ -26,15 +26,19 @@ class DiseaseView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(width: double.infinity),
             Padding(
               padding: const EdgeInsets.all(15),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: CachedNetworkImage(
                   imageUrl: data.disease.image,
+                  width: 200,
+                  height: 200,
                   errorWidget: (context, url, error) =>
                       const Icon(Icons.error, size: 50),
-                  placeholder: (context, url) => const CircularProgressIndicator(
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                   ),
                 ),
