@@ -36,7 +36,7 @@ class AdminDashboard extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, DiseaseAdmin.routeName);
             },
-            child: Text('Diesases Panel Panel'),
+            child: Text('Diesases Panel'),
           ),
 
           ElevatedButton(
