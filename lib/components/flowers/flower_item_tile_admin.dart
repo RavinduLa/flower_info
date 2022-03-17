@@ -18,11 +18,14 @@ class FlowerItemTileAdmin extends StatelessWidget {
       ),
       elevation: 2,
       child: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: ListTile(
           minLeadingWidth: 100,
           title: Text(flower.commonName),
-          subtitle: Text(flower.scientificName + " id : " + flower.documentId),
+          subtitle: Text(
+            flower.scientificName,
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -68,8 +71,7 @@ class FlowerItemTileAdmin extends StatelessWidget {
                               child: const Text('Yes'),
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all(
-                                    Colors.redAccent),
+                                    MaterialStateProperty.all(Colors.redAccent),
                               ),
                             ),
                           ],
