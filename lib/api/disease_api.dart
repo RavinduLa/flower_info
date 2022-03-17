@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flower_info/models/disease_model.dart';
-import 'package:flower_info/models/disease_model_id.dart';
+import 'package:flower_info/models/diseases/disease_model.dart';
+import 'package:flower_info/models/diseases/disease_model_id.dart';
 import 'package:flutter/foundation.dart';
 
 class DiseaseApi {
@@ -77,8 +77,8 @@ class DiseaseApi {
   }
 }
 
-class DiseaseSingleView {
-  final DiseaseWithId disease;
-
-  DiseaseSingleView(this.disease);
-}
+// class DiseaseSingleView {
+//   final DiseaseWithId disease;
+//
+//   DiseaseSingleView(this.disease);
+// }

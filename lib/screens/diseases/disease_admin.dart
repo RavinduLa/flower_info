@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/components/diseases/disease_item_tile_admin.dart';
-import 'package:flower_info/models/disease_model_id.dart';
-import 'package:flutter/material.dart';
+import 'package:flower_info/models/diseases/disease_model_id.dart';
+import 'package:flower_info/screens/diseases/disease_add.dart';
 
-import 'disease_add.dart';
 
 class DiseaseAdmin extends StatelessWidget {
   const DiseaseAdmin({Key? key}) : super(key: key);

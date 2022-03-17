@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flower_info/screens/diseases/disease_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flower_info/models/disease_model_id.dart';
-
-import '../../api/disease_api.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_info/models/diseases/disease_single_view.dart';
+import 'package:flower_info/screens/diseases/disease_view.dart';
+import 'package:flower_info/models/diseases/disease_model_id.dart';
 
 class DiseaseItemTile extends StatelessWidget {
   final DiseaseWithId disease;
