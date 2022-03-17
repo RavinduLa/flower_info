@@ -1,7 +1,8 @@
 import 'package:flower_info/screens/diseases/disease_admin.dart';
-import 'package:flower_info/screens/flowers/flower_tests.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/theme_provider.dart';
 import '../flowers/flower_admin_list.dart';
 
 class AdminDashboard extends StatelessWidget {
@@ -11,9 +12,13 @@ class AdminDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeMode = themeProvider.themeMode;
+    const lightTheme = ThemeMode.light;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: const Text('Admin Dashboard'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -22,9 +27,9 @@ class AdminDashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child: const Card(
-                  color: Colors.purple,
-                  child: SizedBox(
+                child:  Card(
+                  color:  themeMode == lightTheme ? Colors.purple.shade300 : Colors.deepPurple,
+                  child: const SizedBox(
                     height: 100,
                     child: Center(
                       child: Text("Flower Panel", style: TextStyle(fontSize: 30),),
@@ -37,9 +42,9 @@ class AdminDashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child: const Card(
-                  color: Colors.green,
-                  child: SizedBox(
+                child:  Card(
+                  color:themeMode == lightTheme ? Colors.green.shade300 : Colors.green.shade800,
+                  child: const SizedBox(
                     height: 100,
                     child: Center(
                       child: Text("Fertilizers Panel", style: TextStyle(fontSize: 30),),
@@ -52,9 +57,9 @@ class AdminDashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child: const Card(
-                  color: Colors.amber,
-                  child: SizedBox(
+                child:  Card(
+                  color: themeMode == lightTheme ? Colors.brown.shade300 : Colors.brown.shade700,
+                  child: const SizedBox(
                     height: 100,
                     child: Center(
                       child: Text("Diseases Panel", style: TextStyle(fontSize: 30),),
@@ -64,30 +69,7 @@ class AdminDashboard extends StatelessWidget {
                 onTap: () => Navigator.pushNamed(context,DiseaseAdmin.routeName),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, FlowerAdminList.routeName);
-              },
-              child: Text(
-                'Flower Panel',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Fertilizers Panel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, DiseaseAdmin.routeName);
-              },
-              child: Text('Diesases Panel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, FlowerTest.routeName);
-              },
-              child: Text('Flower Tests'),
-            ),
+
           ],
         ),
       ),
