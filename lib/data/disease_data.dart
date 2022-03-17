@@ -1,4 +1,4 @@
-import '../models/disease_model.dart';
+import '../models/diseases/disease_model.dart';
 
 const List<Disease> diseaseList = [
   Disease(

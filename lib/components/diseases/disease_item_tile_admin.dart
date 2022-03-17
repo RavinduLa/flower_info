@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/disease_api.dart';
-import 'package:flower_info/models/disease_model_id.dart';
+import 'package:flower_info/models/diseases/disease_model_id.dart';
+import 'package:flower_info/models/diseases/disease_single_view.dart';
 import 'package:flower_info/screens/diseases/disease_edit.dart';
 import 'package:flower_info/screens/diseases/disease_view.dart';
-import 'package:flutter/material.dart';
 
 class DiseaseItemTileAdmin extends StatelessWidget {
   final DiseaseWithId disease;
@@ -13,6 +14,8 @@ class DiseaseItemTileAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String diseaseName = disease.name;
+
     // Common Notification
     void _notification(String message) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,7 +54,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                         flex: 5,
                         child: ListTile(
                           title: Text(
-                            disease.name,
+                            diseaseName,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -72,35 +75,49 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                   arguments: DiseaseSingleView(disease),
                                 );
                               },
-                              icon: const Icon(Icons.edit),
+                              icon: const Icon(Icons.edit,
+                                  size: 30, color: Colors.blueGrey),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_forever),
+                              icon: const Icon(Icons.delete_forever,
+                                  size: 30, color: Colors.red),
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text('Delete This Disease?'),
-                                      content: const Text(
-                                          'This will delete the Disease permanently!'),
+                                      content: Text(
+                                          'This will delete the $diseaseName permanently!'),
                                       actions: [
                                         ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Cancel')),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel'),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.amber),
+                                          ),
+                                        ),
                                         ElevatedButton(
-                                            onPressed: () {
-                                              Future<void> result =
-                                                  _deleteDisease(disease);
-                                              Navigator.of(context).pop();
-                                              _notification("Disease Deleted!");
-                                            },
-                                            child: const Text('Yes'))
+                                          onPressed: () {
+                                            Future<void> result =
+                                                _deleteDisease(disease);
+                                            Navigator.of(context).pop();
+                                            _notification("Disease Deleted!");
+                                          },
+                                          child: const Text('Yes'),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.redAccent),
+                                          ),
+                                        ),
                                       ],
                                     );
                                   },

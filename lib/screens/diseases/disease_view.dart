@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_info/components/diseases/disease_information_section.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../../api/disease_api.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_info/models/diseases/disease_single_view.dart';
 
 class DiseaseView extends StatelessWidget {
   static String routeName = "/admin/disease/disease-view";
@@ -27,6 +27,7 @@ class DiseaseView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
+            const SizedBox(height: 5),
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: CachedNetworkImage(
@@ -52,46 +53,25 @@ class DiseaseView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                informationSection(
-                  "What Does it Look Like?",
-                  data.disease.look,
+                DiseaseInformationSection(
+                  title: "What Does it Look Like?",
+                  information: data.disease.look,
                 ),
-                informationSection(
-                  "What Causes it?",
-                  data.disease.cause,
+                DiseaseInformationSection(
+                  title: "What Causes it?",
+                  information: data.disease.cause,
                 ),
-                informationSection(
-                  "How to Treat it?",
-                  data.disease.treat,
+                DiseaseInformationSection(
+                  title: "How to Treat it?",
+                  information: data.disease.treat,
                 ),
-                informationSection(
-                  "How to Prevent it?",
-                  data.disease.prevent,
+                DiseaseInformationSection(
+                  title: "How to Prevent it?",
+                  information: data.disease.prevent,
                 ),
               ],
             ),
             const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  informationSection(String title, String text) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: SizedBox(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 20),
-            ),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 15),
-            ),
           ],
         ),
       ),

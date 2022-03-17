@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../api/disease_api.dart';
-import '../../components/diseases/disease_item_tile.dart';
-import '../../data/disease_data.dart';
-import '../../models/disease_model.dart';
-import '../../models/disease_model_id.dart';
+import 'package:flower_info/api/disease_api.dart';
+import 'package:flower_info/components/diseases/disease_item_tile.dart';
+import 'package:flower_info/data/disease_data.dart';
+import 'package:flower_info/models/diseases/disease_model.dart';
+import 'package:flower_info/models/diseases/disease_model_id.dart';
 
 class Diseases extends StatelessWidget {
   final List<Disease> diseases = diseaseList;
