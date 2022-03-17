@@ -1,8 +1,8 @@
-
 import 'package:flower_info/screens/diseases/disease_admin.dart';
-import 'package:flower_info/screens/flowers/flower_tests.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/theme_provider.dart';
 import '../flowers/flower_admin_list.dart';
 
 class AdminDashboard extends StatelessWidget {
@@ -14,38 +14,83 @@ class AdminDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: const Text('Admin Dashboard'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, FlowerAdminList.routeName);
-            },
-            child: Text(
-              'Flower Panel',
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Center(
+              heightFactor: 10,
+              child: Text(
+                "Hello Admin",
+                style: TextStyle(fontSize: 30),
+              ),
             ),
-
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Fertilizers Panel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, DiseaseAdmin.routeName);
-            },
-            child: Text('Diesases Panel'),
-          ),
-
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, FlowerTest.routeName);
-            },
-            child: Text('Flower Tests'),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Flower Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, FlowerAdminList.routeName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Fertilizers Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                //onTap: () => Navigator.pushNamed(context, FlowerAdminList.routeName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Diseases Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, DiseaseAdmin.routeName),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

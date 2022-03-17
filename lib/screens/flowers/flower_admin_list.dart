@@ -27,11 +27,14 @@ class FlowerAdminList extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
-                return FlowerItemTileAdmin(flower: snapshot.data![index]);
+                return Padding(
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                  child: FlowerItemTileAdmin(flower: snapshot.data![index]),
+                );
               },
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
