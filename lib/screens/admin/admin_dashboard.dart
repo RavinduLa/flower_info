@@ -24,30 +24,48 @@ class AdminDashboard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                child:  Card(
-                  color:  themeMode == lightTheme ? Colors.purple.shade300 : Colors.deepPurple,
-                  child: const SizedBox(
-                    height: 100,
-                    child: Center(
-                      child: Text("Flower Panel", style: TextStyle(fontSize: 30),),
-                    ),
-                  ),
-                ),
-                onTap: () => Navigator.pushNamed(context, FlowerAdminList.routeName),
+            const Center(
+              heightFactor: 10,
+              child: Text(
+                "Hello Admin",
+                style: TextStyle(fontSize: 30),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child:  Card(
-                  color:themeMode == lightTheme ? Colors.green.shade300 : Colors.green.shade800,
+                child: Card(
+                  color: themeMode == lightTheme
+                      ? Colors.purple.shade300
+                      : Colors.deepPurple,
                   child: const SizedBox(
                     height: 100,
                     child: Center(
-                      child: Text("Fertilizers Panel", style: TextStyle(fontSize: 30),),
+                      child: Text(
+                        "Flower Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, FlowerAdminList.routeName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  color: themeMode == lightTheme
+                      ? Colors.green.shade300
+                      : Colors.green.shade800,
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Fertilizers Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
@@ -57,19 +75,24 @@ class AdminDashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                child:  Card(
-                  color: themeMode == lightTheme ? Colors.brown.shade300 : Colors.brown.shade700,
+                child: Card(
+                  color: themeMode == lightTheme
+                      ? Colors.brown.shade300
+                      : Colors.brown.shade700,
                   child: const SizedBox(
                     height: 100,
                     child: Center(
-                      child: Text("Diseases Panel", style: TextStyle(fontSize: 30),),
+                      child: Text(
+                        "Diseases Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
-                onTap: () => Navigator.pushNamed(context,DiseaseAdmin.routeName),
+                onTap: () =>
+                    Navigator.pushNamed(context, DiseaseAdmin.routeName),
               ),
             ),
-
           ],
         ),
       ),
