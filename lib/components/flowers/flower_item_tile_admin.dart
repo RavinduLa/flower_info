@@ -33,7 +33,10 @@ class FlowerItemTileAdmin extends StatelessWidget {
                           flower) //navigate to pizza
                       );
                 },
-                icon: const Icon(Icons.edit),
+                icon: const Icon(
+                  Icons.edit,
+                  color: Colors.green,
+                ),
               ),
               IconButton(
                 onPressed: () {
@@ -51,25 +54,32 @@ class FlowerItemTileAdmin extends StatelessWidget {
                                 },
                                 child: const Text('No')),
                             ElevatedButton(
-                                onPressed: () {
-                                  Future<void> result =
-                                      deleteFlower(flower.documentId);
-                                  Navigator.of(context).pop();
+                              onPressed: () {
+                                Future<void> result =
+                                    deleteFlower(flower.documentId);
+                                Navigator.of(context).pop();
 
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Flower Deleted'),
-                                    ),
-                                  );
-
-                                },
-                                child: const Text('Yes'))
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Flower Deleted'),
+                                  ),
+                                );
+                              },
+                              child: const Text('Yes'),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all(
+                                    Colors.redAccent),
+                              ),
+                            ),
                           ],
                         );
                       });
                 },
-                icon: const Icon(Icons.delete),
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
               ),
             ],
           ),
