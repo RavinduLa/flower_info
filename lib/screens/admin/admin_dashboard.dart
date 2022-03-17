@@ -12,10 +12,6 @@ class AdminDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    final themeMode = themeProvider.themeMode;
-    const lightTheme = ThemeMode.light;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
@@ -35,9 +31,9 @@ class AdminDashboard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 child: Card(
-                  color: themeMode == lightTheme
-                      ? Colors.purple.shade300
-                      : Colors.deepPurple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
@@ -56,9 +52,9 @@ class AdminDashboard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 child: Card(
-                  color: themeMode == lightTheme
-                      ? Colors.green.shade300
-                      : Colors.green.shade800,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
@@ -76,9 +72,9 @@ class AdminDashboard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 child: Card(
-                  color: themeMode == lightTheme
-                      ? Colors.brown.shade300
-                      : Colors.brown.shade700,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
