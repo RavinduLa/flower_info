@@ -1,4 +1,6 @@
+import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
 import 'package:flower_info/screens/diseases/disease_admin.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +67,8 @@ class AdminDashboard extends StatelessWidget {
                     ),
                   ),
                 ),
-                //onTap: () => Navigator.pushNamed(context, FlowerAdminList.routeName),
+                onTap: () =>  
+                    Navigator.pushNamed(context, FertilizerAdmin.routeName),
               ),
             ),
             Padding(

@@ -2,6 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flower_info/providers/application_state.dart';
 import 'package:flower_info/providers/theme_provider.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_add.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_edit.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_view.dart';
 import 'package:flower_info/screens/diseases/disease_add.dart';
 import 'package:flower_info/screens/diseases/disease_admin.dart';
 import 'package:flower_info/screens/diseases/disease_edit.dart';
@@ -56,6 +60,10 @@ class MyApp extends StatelessWidget {
                 DiseaseAdd.routeName: (context) => DiseaseAdd(),
                 DiseaseEdit.routeName: (context) => DiseaseEdit(),
                 DiseaseView.routeName: (context) => DiseaseView(),
+                FertilizerAdd.routeName: (context) => FertilizerAdd(),
+                FertilizerView.routeName: (context) => FertilizerView(),
+                FertilizerEdit.routeName: (context) => FertilizerEdit(),
+                FertilizerAdmin.routeName: (context) => FertilizerAdmin(),
               },
             );
           },
