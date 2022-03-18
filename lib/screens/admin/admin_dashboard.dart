@@ -1,4 +1,6 @@
 import 'package:flower_info/screens/fertilizers/fertilizer_add.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_view.dart';
 import 'package:flutter/material.dart';
 
 import '../flowers/flower_admin_list.dart';
@@ -24,11 +26,10 @@ class AdminDashboard extends StatelessWidget {
             child: Text(
               'Flower Panel',
             ),
-
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, FertilizerAdd.routeName);
+              Navigator.pushNamed(context, FertilizerAdmin.routeName);
             },
             child: Text('Fertilizers Panel'),
           ),
