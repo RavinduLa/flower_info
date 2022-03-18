@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
+import 'package:flower_info/components/Fertilizers/fertilizer_item_tile_admin.dart';
 import 'package:flower_info/models/fertilizer_model.dart';
+import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +25,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
   final _phosporosValue = TextEditingController();
   final _potasiamValue = TextEditingController();
   final _description = TextEditingController();
-  final _imageUri = '';
+  final _imageUri = 'https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/fertilizer_images%2F81evxmRskyL._AA100_.jpg?alt=media&token=94d619eb-7756-4d86-b2f6-194f2f8b2ca6';
 
   @override
   Widget build(BuildContext context) {
@@ -225,6 +227,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
       _notification('Creating fertilizer');
       _clearFields();
       _notification('Done!');
+      Navigator.pushNamed(context, FertilizerAdmin.routeName);
     }
   }
   // CRUD : Create Method Caller
