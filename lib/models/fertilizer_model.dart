@@ -26,4 +26,24 @@ class Fertilizer {
     'description': description,
     'image': image,
   };
+
+  static Fertilizer fromJson(Map<String, dynamic> json) => Fertilizer(
+    brandName: json['brandName'],
+    type: json['type'],
+    nitrogienValue: json['nitrogienValue'],
+    phosporosValue: json['phosporosValue'],
+    potasiamValue: json['potasiamValue'],
+    description: json['description'],
+    image: json['image'],
+  );
+
+  Map<String, dynamic> toJsonForUpdate() => {
+    'brandName': brandName,
+    'type': type,
+    'nitrogienValue': nitrogienValue,
+    'phosporosValue': phosporosValue,
+    'potasiamValue': potasiamValue,
+    'description': description,
+    'image': image,
+  };
 }
