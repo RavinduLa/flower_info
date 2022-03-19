@@ -85,12 +85,7 @@ class FlowerItemTileAdmin extends StatelessWidget {
               ),
             ],
           ),
-          onTap: () {
-            Navigator.pushNamed(context, EditFlower.routeName,
-                arguments:
-                    FlowerAdminSingleViewArguments(flower) //navigate to pizza
-                );
-          },
+
         ),
       ),
     );
