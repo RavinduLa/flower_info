@@ -13,21 +13,24 @@ class FlowerItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          FlowerSingleView.routeName,
-          arguments: FlowerSingleViewArguments(flowerWithId),
-        );
-      },
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
+    return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
         ),
-        elevation: 2,
+      ),
+      elevation: 2,
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            FlowerSingleView.routeName,
+            arguments: FlowerSingleViewArguments(flowerWithId),
+          );
+        },
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridTile(
@@ -69,10 +72,15 @@ class FlowerItemTile extends StatelessWidget {
                       height: 100,
                       width: 100,
                       fit: BoxFit.cover,
-                      placeholder: (context, url) => const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.green),
                       ),
-                      errorWidget: (context, url ,error) => const Icon(Icons.error, size: 50,),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.error,
+                        size: 50,
+                      ),
                     ),
                   ),
                 ),
