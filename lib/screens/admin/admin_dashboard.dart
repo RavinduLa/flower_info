@@ -31,11 +31,13 @@ class AdminDashboard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: ()=>Navigator.pushNamed(context, FlowerAdminList.routeName),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
@@ -46,17 +48,17 @@ class AdminDashboard extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: () =>
-                    Navigator.pushNamed(context, FlowerAdminList.routeName),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => Navigator.pushNamed(context, FertilizerAdmin.routeName),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
@@ -67,17 +69,17 @@ class AdminDashboard extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: () =>  
-                    Navigator.pushNamed(context, FertilizerAdmin.routeName),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => Navigator.pushNamed(context, DiseaseAdmin.routeName),
                   child: const SizedBox(
                     height: 100,
                     child: Center(
@@ -88,8 +90,6 @@ class AdminDashboard extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: () =>
-                    Navigator.pushNamed(context, DiseaseAdmin.routeName),
               ),
             ),
           ],
