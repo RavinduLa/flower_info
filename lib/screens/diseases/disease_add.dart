@@ -89,8 +89,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'Name of Diseases/Pests',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -104,8 +108,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'What Does it Look Like?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -121,8 +129,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'What Causes it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -138,8 +150,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'How to Treat it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -155,8 +171,12 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'How to Prevent it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -168,9 +188,15 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   minLines: 1,
                   maxLines: 10,
                 ),
-                ElevatedButton(
-                  onPressed: processingData,
-                  child: const Text('Create'),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: processingData,
+                    child: const Text(
+                      'Create',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -182,12 +208,19 @@ class _DiseaseAddState extends State<DiseaseAdd> {
 
   // Image Selector Method
   Future selectImage(ImageSource source) async {
+    if (kDebugMode) {
+      print("Image Selection Process!");
+    }
+
     try {
       final image =
           await ImagePicker().pickImage(source: source, imageQuality: 10);
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
+      if (kDebugMode) {
+        print("Image Selection Successful!");
+      }
     } on PlatformException catch (error) {
       if (kDebugMode) {
         print('Failed to select image : $error');
@@ -199,7 +232,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
   void processingData() async {
     if (image != null) {
       if (_formKey.currentState!.validate()) {
-        _notification('Processing Data');
+        _notification('Processing Data!');
 
         String newId = "";
 
@@ -220,6 +253,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
           print(res);
         }
 
+        // If image selected -> Image will upload
         if (image != null) {
           _notification('Image Uploading!');
           await uploadImage(newId);
@@ -227,7 +261,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
         }
 
         _clearFields();
-        _notification('Done!');
+        _notification('Disease Creation Done!');
       }
     } else {
       _notification('Please select an image or take a photo!');
@@ -236,11 +270,20 @@ class _DiseaseAddState extends State<DiseaseAdd> {
 
   // Image Uploading Process
   Future uploadImage(String newId) async {
+    if (kDebugMode) {
+      print("Uploading Image Process!");
+    }
+
     if (image == null) return;
+
+    // CRUD: Upload Image to Firebase Storage
     task = DiseaseApi.uploadImage(newId, image!);
+
     if (task == null) return;
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+
+    // Set the image link
     setState(() {
       imageLink = urlDownload;
     });

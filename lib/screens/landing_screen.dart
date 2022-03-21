@@ -43,6 +43,7 @@ class _LandingScreenState extends State<LandingScreen> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Flower Info"),
         actions: const [],
       ),

@@ -58,6 +58,9 @@ class DiseaseApi {
   static UploadTask? uploadImage(String id, File file) {
     try {
       final ref = FirebaseStorage.instance.ref('disease_images/$id');
+      if (kDebugMode) {
+        print('Disease Image Upload Success!');
+      }
       return ref.putFile(file);
     } on FirebaseException catch (error) {
       if (kDebugMode) {
@@ -76,9 +79,3 @@ class DiseaseApi {
         .catchError((error) => print("Failed to update Image Link: $error"));
   }
 }
-
-// class DiseaseSingleView {
-//   final DiseaseWithId disease;
-//
-//   DiseaseSingleView(this.disease);
-// }
