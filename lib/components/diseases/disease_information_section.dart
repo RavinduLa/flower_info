@@ -20,9 +20,13 @@ class DiseaseInformationSection extends StatelessWidget {
               title,
               style: const TextStyle(fontSize: 20),
             ),
+            const SizedBox(height: 5),
             Text(
               information,
-              style: const TextStyle(fontSize: 15),
+              style: const TextStyle(
+                fontSize: 15,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),

@@ -27,21 +27,36 @@ class DiseaseItemTileAdmin extends StatelessWidget {
 
     return GestureDetector(
       child: Card(
-        elevation: 8,
-        margin: const EdgeInsets.all(10),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        elevation: 4,
+        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
         child: SizedBox(
           height: 100,
           child: Row(
             children: [
-              SizedBox(
-                width: 106,
-                child: CachedNetworkImage(
-                  imageUrl: disease.image,
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error, size: 25),
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: disease.image,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error, size: 25),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -76,13 +91,13 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                 );
                               },
                               icon: const Icon(Icons.edit,
-                                  size: 30, color: Colors.blueGrey),
+                                  size: 30, color: Colors.green),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_forever,
+                              icon: const Icon(Icons.delete,
                                   size: 30, color: Colors.red),
                               onPressed: () {
                                 showDialog(
