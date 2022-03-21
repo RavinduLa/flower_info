@@ -22,13 +22,13 @@ class DiseaseAdmin extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<DiseaseWithId>> snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Text('Something went wrong'),
+              child: Text('Something went wrong!'),
             );
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Text("Loading"),
+            return const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
             );
           }
 

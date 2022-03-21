@@ -55,20 +55,22 @@ class _DiseaseEditState extends State<DiseaseEdit> {
             treat: _treat.text,
             prevent: _prevent.text,
             image: _imageLink);
+
         Future<void> result = _updateDisease(disease);
 
-        if(image != null) {
+        // If image selected -> Image will upload
+        if (image != null) {
           await uploadImage(data.disease.documentId);
           updateImageUrl(data.disease.documentId, _imageLink);
           if (kDebugMode) {
-            print("Image Uploading Processed!");
+            print("Image Uploading Process!");
           }
         }
 
         if (kDebugMode) {
           print(result);
         }
-        _notification('Done!');
+        _notification('Disease Updating Done!');
       }
     }
 
@@ -148,9 +150,14 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                      borderSide: BorderSide(color: Colors.cyan),
+                    ),
+                    helperText: '',
                     labelText: 'Name of Diseases/Pests',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -164,8 +171,12 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'What Does it Look Like?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -181,8 +192,12 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'What Causes it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -198,8 +213,12 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'How to Treat it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -215,8 +234,12 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
-                    helperText: ' ',
+                    helperText: '',
                     labelText: 'How to Prevent it?',
+                    focusColor: Colors.green,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -228,9 +251,18 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   minLines: 1,
                   maxLines: 10,
                 ),
-                ElevatedButton(
-                  onPressed: processingData,
-                  child: const Text('Update'),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: processingData,
+                    child: const Text(
+                      'Update',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.amber),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -242,12 +274,19 @@ class _DiseaseEditState extends State<DiseaseEdit> {
 
   // Image Selector Method
   Future selectImage(ImageSource source) async {
+    if (kDebugMode) {
+      print("Image Selection Process!");
+    }
+
     try {
       final image =
           await ImagePicker().pickImage(source: source, imageQuality: 10);
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
+      if (kDebugMode) {
+        print("Image Selection Successful!");
+      }
     } on PlatformException catch (error) {
       if (kDebugMode) {
         print('Failed to select image : $error');
@@ -257,11 +296,20 @@ class _DiseaseEditState extends State<DiseaseEdit> {
 
   // Image Uploading Process
   Future uploadImage(String newId) async {
+    if (kDebugMode) {
+      print("Uploading Image Process!");
+    }
+
     if (image == null) return;
+
+    // CRUD: Upload Image to Firebase Storage
     task = DiseaseApi.uploadImage(newId, image!);
+
     if (task == null) return;
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+
+    // Set the image link
     setState(() {
       _imageLink = urlDownload;
     });
