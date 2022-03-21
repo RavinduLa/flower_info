@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +72,7 @@ class _BodyState extends State<Body> {
       Navigator.pushReplacement<void, void>(
               context,
               MaterialPageRoute<void>(
-                builder: (BuildContext context) => Home(),
+                builder: (BuildContext context) => AdminDashboard(),
               ),
             );
     } on FirebaseAuthException catch (e) {
@@ -99,7 +100,7 @@ class _BodyState extends State<Body> {
                 SizedBox(height: size.height * 0.28),
                 const Text(
                   'LOGIN',
-                  style: TextStyle(color: Colors.black87, fontSize: 40,fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 40,fontWeight: FontWeight.w700),
                 ),
                 SizedBox(height: size.height * 0.05),
                 Padding(

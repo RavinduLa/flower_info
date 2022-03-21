@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flower_info/providers/application_state.dart';
 import 'package:flower_info/providers/theme_provider.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/admin/admin_dashboard_checked.dart';
 import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_add.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
                 FertilizerEdit.routeName: (context) => FertilizerEdit(),
                 FertilizerAdmin.routeName: (context) => FertilizerAdmin(),
                 AdminLogin.routeName:(context) => AdminLogin(),
+                AdminDashboardChecked.routeName: (context) => AdminDashboardChecked()
               },
             );
           },
