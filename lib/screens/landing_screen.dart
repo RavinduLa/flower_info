@@ -1,12 +1,17 @@
 import 'package:flower_info/components/theme_alert.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
+import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flower_info/screens/diseases/diseases.dart';
 import 'package:flower_info/screens/fertilizers/fertilizers.dart';
 import 'package:flower_info/screens/flowers/flowers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/theme_provider.dart';
+
+String finalEmail = '';
+bool isUserLogged = false;
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -22,6 +27,11 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   void initState() {
+    getUserValidationData().whenComplete(() async {
+      if (finalEmail.isNotEmpty) {
+        isUserLogged = true;
+      }
+    });
     super.initState();
     _pageController = PageController(initialPage: 0);
   }
@@ -32,9 +42,19 @@ class _LandingScreenState extends State<LandingScreen> {
     super.dispose();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
+// <<<<<<< hirush_adminLogin
+//   Future getUserValidationData() async {
+//     final SharedPreferences sharedPreferences =
+//     await SharedPreferences.getInstance();
+//     var obtainedEmail = sharedPreferences.getString('email');
+
+//     setState(() {
+//       finalEmail = obtainedEmail!;
+// =======
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       currentIndex = index;
+// >>>>>>> master
     });
   }
 
@@ -56,7 +76,50 @@ class _LandingScreenState extends State<LandingScreen> {
                 Icons.settings,
                 size: 50,
               ),
-            ),
+// <<<<<<< hirush_adminLogin
+//                isUserLogged ?
+//                ListTile(
+//                 title: Text("Admin"),
+//                 subtitle: Text("Admin Dashboard"),
+//                 onTap: () {
+//                   Navigator.of(context).pushNamed(AdminDashboard.routeName);
+//                 },
+//               )
+//               :
+//               ListTile(
+//                 title: Text("Admin"),
+//                 subtitle: Text("Admin Login"),
+//                 onTap: () {
+//                   Navigator.of(context).pushNamed(AdminLogin.routeName);
+//                 },
+//               )
+//             ],
+//           ),
+//         ),
+//         body: SizedBox.expand(
+//           child: PageView(
+//             controller: _pageController,
+//             onPageChanged: (index) {
+//               setState(() => currentIndex = index);
+//             },
+//             children: screens,
+//           ),
+//         ),
+//         bottomNavigationBar: Container(
+//           padding: const EdgeInsets.all(30.0),
+//           child: Container(
+//             //padding: EdgeInsets.all(30.0),
+//             height: 60,
+//             decoration: BoxDecoration(
+//               color: Theme.of(context).primaryColor,
+//               borderRadius: const BorderRadius.only(
+//                   topLeft: Radius.circular(20),
+//                   topRight: Radius.circular(50),
+//                   bottomLeft: Radius.circular(50),
+//                   bottomRight: Radius.circular(20)),
+// =======
+// >>>>>>> master
+//             ),
             ListTile(
               title: const Text("Theme"),
               subtitle: Text(themeProvider.selectedTheme),
