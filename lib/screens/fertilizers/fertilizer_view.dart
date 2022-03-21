@@ -16,6 +16,9 @@ class FertilizerView extends StatefulWidget {
 class _FertilizerViewState extends State<FertilizerView> {
   @override
   Widget build(BuildContext context) {
+
+    Size size = MediaQuery.of(context).size;
+
     final data =
     ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
 
@@ -53,6 +56,7 @@ class _FertilizerViewState extends State<FertilizerView> {
                 style: const TextStyle(fontSize: 35),
               ),
             ),
+            SizedBox(height: size.height * 0.01),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,

@@ -73,12 +73,14 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                 );
                               },
                               icon: const Icon(Icons.edit),
+                              color: Colors.blueAccent,
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete_forever),
+                              color: Colors.redAccent,
                               onPressed: () {
                                 showDialog(
                                   context: context,
@@ -95,7 +97,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: const Text('Cancel',style: TextStyle(color: Colors.black),)),
+                                            child: const Text('Cancel',style: TextStyle(color: Colors.white70),)),
                                         ElevatedButton(
                                             style: ButtonStyle(
                                               backgroundColor: MaterialStateProperty.all(Colors.red),

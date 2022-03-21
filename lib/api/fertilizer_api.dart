@@ -1,5 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import '../models/fertilizer_model.dart';
 import '../models/fertilizer_model_id.dart';
 
@@ -9,9 +12,10 @@ class FertilizerApi {
         .collection('fertilizers')
         .add(fertilizer.toJson());
   }
+
   static Stream<List<Fertilizer>> readFertilizer() {
     return FirebaseFirestore.instance.collection('fertilizers').snapshots().map(
-            (querySnapshot) => querySnapshot.docs
+        (querySnapshot) => querySnapshot.docs
             .map((doc) => Fertilizer.fromJson(doc.data()))
             .toList());
   }
@@ -21,16 +25,17 @@ class FertilizerApi {
         .collection('fertilizers')
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
-        .map((DocumentSnapshot doc) => FertilizerWithId(
-      documentId: doc.id,
-      brandName: doc.data()!['brandName'],
-      type: doc.data()!['type'],
-      nitrogienValue: doc.data()!['nitrogienValue'],
-      phosporosValue: doc.data()!['phosporosValue'],
-      potasiamValue: doc.data()!['potasiamValue'],
-      description: doc.data()!['description'],
-      image: doc.data()!['image'],
-    )).toList());
+            .map((DocumentSnapshot doc) => FertilizerWithId(
+                  documentId: doc.id,
+                  brandName: doc.data()!['brandName'],
+                  type: doc.data()!['type'],
+                  nitrogienValue: doc.data()!['nitrogienValue'],
+                  phosporosValue: doc.data()!['phosporosValue'],
+                  potasiamValue: doc.data()!['potasiamValue'],
+                  description: doc.data()!['description'],
+                  image: doc.data()!['image'],
+                ))
+            .toList());
   }
 
   static Future<void> updateFertilizer(FertilizerWithId fertilizerWithId) {
@@ -49,6 +54,27 @@ class FertilizerApi {
         .delete()
         .then((value) => print('Fertilizer Delete Success!'))
         .catchError((error) => print('Fertilizer Delete Error: $error'));
+  }
+
+  static UploadTask? uploadImage(String id, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref('fertilizer_images/$id');
+      return ref.putFile(file);
+    } on FirebaseException catch (error) {
+      if (kDebugMode) {
+        print('Firebase Exception : ' + error.toString());
+      }
+      return null;
+    }
+  }
+
+  static Future<void> updateImageLink(String documentId, String link) {
+    return FirebaseFirestore.instance
+        .collection('fertilizers')
+        .doc(documentId)
+        .update({'image': link})
+        .then((value) => print("fertilizer Image Link Updated"))
+        .catchError((error) => print("Failed to update Image Link: $error"));
   }
 }
 
