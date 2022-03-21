@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
-import 'package:flower_info/models/fertilizer_model_id.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../models/fertilizer_model_id.dart';
 
-import 'fertilizer_admin_list.dart';
+
 
 class FertilizerEdit extends StatefulWidget {
   const FertilizerEdit({Key? key}) : super(key: key);
@@ -30,16 +30,15 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   final _potasiamValue = TextEditingController();
   final _description = TextEditingController();
 
+
   String _imageLink = "";
   UploadTask? task;
   File? image;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    final data = ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
-
+    final data =
+    ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
     _brandName.text = data.fertilizer.brandName;
     _type.text = data.fertilizer.type;
     _nitrogienValue.text = data.fertilizer.nitrogienValue;
@@ -49,7 +48,8 @@ class _FertilizerEditState extends State<FertilizerEdit> {
     _imageLink = data.fertilizer.image;
 
     void _onSubmit() async {
-      if(_formKey.currentState!.validate()) {
+
+      if (_formKey.currentState!.validate()) {
         FertilizerWithId fertilizer = FertilizerWithId(
           documentId: data.fertilizer.documentId,
           brandName: _brandName.text,
@@ -73,18 +73,18 @@ class _FertilizerEditState extends State<FertilizerEdit> {
         if (kDebugMode) {
           print(result);
         }
-        _notification('Done!');
-        Navigator.pushNamed(context, FertilizerAdmin.routeName);
+        _notification('Updated Done!');
+        Navigator.pop(context);
       }
     }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Edit Fertilizer'),
+        title: const Text("Fertilizer Update"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(15.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -150,23 +150,16 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                     ),
                   ],
                 ),
-                SizedBox(height: size.height * 0.05),
+                const SizedBox(height: 25),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    focusColor: Colors.green,
-                    labelText: 'Name of fertilizer brand',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.description
-                    // )
+                    labelText: 'Name of Fertilizer brand',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -179,19 +172,12 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    focusColor: Colors.green,
-                    labelText: 'Type of fertilizer',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.description
-                    // ),
+                    labelText: 'Type of Fertilizer',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -200,24 +186,19 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                     return null;
                   },
                   controller: _type,
+                  minLines: 1,
+                  maxLines: 10,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    focusColor: Colors.green,
-                    labelText: 'Nitrogien(N) value',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.confirmation_number
-                    // )
+                    labelText: 'Nitrogien(N) Value',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -226,24 +207,19 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                     return null;
                   },
                   controller: _nitrogienValue,
+                  minLines: 1,
+                  maxLines: 10,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    focusColor: Colors.green,
-                    labelText: 'Phosporos(P) value',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.confirmation_number
-                    // )
+                    labelText: 'Phosporos(P) Value',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -252,24 +228,19 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                     return null;
                   },
                   controller: _phosporosValue,
+                  minLines: 1,
+                  maxLines: 10,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
-                    helperText: '',
-                    focusColor: Colors.green,
-                    labelText: 'Potasiam(K) value',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.confirmation_number
-                    // )
+                    helperText: ' ',
+                    labelText: 'Potasiam(K) Value',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -278,23 +249,18 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                     return null;
                   },
                   controller: _potasiamValue,
+                  minLines: 1,
+                  maxLines: 10,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
+                        borderSide: BorderSide(color: Colors.cyan)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
-                    helperText: '',
-                    focusColor: Colors.green,
-                    labelText: 'Description',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                    // prefixIcon: Icon(
-                    //     Icons.description
-                    // )
+                    helperText: ' ',
+                    labelText: 'Description of Fertilizer',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -306,44 +272,18 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                   minLines: 1,
                   maxLines: 10,
                 ),
-                SizedBox(height: size.height * 0.01),
                 Padding(
-                    padding: const EdgeInsets.only(left: 0, top: 0, right: 0),
-                    child: SizedBox(
-                      height: 60,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            //borderRadius : new BorderRadius.circular(25.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 0.5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 5), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: RaisedButton(
-                            color: Colors.yellow,
-                            splashColor: Colors.white,
-                            onPressed: _onSubmit,
-                            child: const Text(
-                              'UPDATE',
-                              style: TextStyle(color: Colors.black54, fontSize: 19,fontWeight: FontWeight.w700),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                side: const BorderSide(color: Colors.white)
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+                  padding:
+                  const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _onSubmit,
+                      child: const Text('Save Changes'),
+                    ),
+                  ),
                 ),
-                SizedBox(height: size.height * 0.03),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -366,7 +306,6 @@ class _FertilizerEditState extends State<FertilizerEdit> {
       }
     }
   }
-
   // Image Uploading Process
   Future uploadImage(String newId) async {
     if (image == null) return;
