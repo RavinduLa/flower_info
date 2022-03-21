@@ -3,7 +3,6 @@ import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/models/fertilizer_model_id.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_edit.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FertilizerItemTileAdmin extends StatelessWidget {
@@ -13,6 +12,8 @@ class FertilizerItemTileAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String brandName = fertilizer.brandName;
 
     // Common Notification
     void _notification(String message) {
@@ -51,7 +52,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                         flex: 5,
                         child: ListTile(
                           title: Text(
-                            fertilizer.brandName,
+                            brandName,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -72,43 +73,49 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                   arguments: FertilizerSingleView(fertilizer),
                                 );
                               },
-                              icon: const Icon(Icons.edit),
-                              color: Colors.blueAccent,
+                              icon: const Icon(Icons.edit,
+                                  size: 30, color: Colors.green),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_forever),
-                              color: Colors.redAccent,
+                              icon: const Icon(Icons.delete,
+                                  size: 30, color: Colors.red),
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Delete This fertilizer?'),
-                                      content: const Text(
-                                          'This will delete the fertilizer permanently!'),
+                                      title: const Text('Delete This Disease?'),
+                                      content: Text(
+                                          'This will delete the $brandName permanently!'),
                                       actions: [
                                         ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Cancel',style: TextStyle(color: Colors.white70),)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel'),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.amber),
+                                          ),
+                                        ),
                                         ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all(Colors.red),
-                                            ),
-                                            onPressed: () {
-                                              Future<void> result =
-                                              _deleteFertilizer(fertilizer);
-                                              Navigator.of(context).pop();
-                                              _notification("Fertilizer Deleted!");
-                                            },
-                                            child: const Text('Yes'))
+                                          onPressed: () {
+                                            Future<void> result =
+                                            _deleteFertilizer(fertilizer);
+                                            Navigator.of(context).pop();
+                                            _notification("Fertilizer Deleted!");
+                                          },
+                                          child: const Text('Yes'),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.redAccent),
+                                          ),
+                                        ),
                                       ],
                                     );
                                   },
