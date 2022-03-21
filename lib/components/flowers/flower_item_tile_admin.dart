@@ -55,7 +55,12 @@ class FlowerItemTileAdmin extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('No')),
+                                child: const Text('Cancel'),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                MaterialStateProperty.all(Colors.amber),
+                              ),
+                            ),
                             ElevatedButton(
                               onPressed: () {
                                 Future<void> result =
