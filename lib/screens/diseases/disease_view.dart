@@ -30,6 +30,7 @@ class DiseaseView extends StatelessWidget {
                 imageUrl: data.disease.image,
                 width: 200,
                 height: 200,
+                fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error, size: 50),
                 placeholder: (context, url) => const CircularProgressIndicator(
