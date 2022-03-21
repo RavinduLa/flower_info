@@ -1,8 +1,10 @@
-import 'package:flower_info/screens/fertilizers/fertilizer_add.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
-import 'package:flower_info/screens/fertilizers/fertilizer_view.dart';
-import 'package:flutter/material.dart';
+import 'package:flower_info/screens/diseases/disease_admin.dart';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/theme_provider.dart';
 import '../flowers/flower_admin_list.dart';
 
 class AdminDashboard extends StatelessWidget {
@@ -14,30 +16,84 @@ class AdminDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: const Text('Admin Dashboard'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, FlowerAdminList.routeName);
-            },
-            child: Text(
-              'Flower Panel',
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Center(
+              heightFactor: 10,
+              child: Text(
+                "Hello Admin",
+                style: TextStyle(fontSize: 30),
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, FertilizerAdmin.routeName);
-            },
-            child: Text('Fertilizers Panel'),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Diesases Panel Panel'),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Flower Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, FlowerAdminList.routeName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Fertilizers Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>  
+                    Navigator.pushNamed(context, FertilizerAdmin.routeName),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Diseases Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                onTap: () =>
+                    Navigator.pushNamed(context, DiseaseAdmin.routeName),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

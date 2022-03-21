@@ -21,28 +21,37 @@ class _ThemeAlertState extends State<ThemeAlert> {
       alignment: Alignment.center,
       actions: [
         TextButton(
-            onPressed: () {
-              final provider =
-              Provider.of<ThemeProvider>(context, listen: false);
-              provider.changeTheme('system');
-            },
-            child: const Text('System Default')),
+          onPressed: () {
+            final provider = Provider.of<ThemeProvider>(context, listen: false);
+            provider.changeTheme('system');
+          },
+          child: const Text(
+            'System Default',
+            style: TextStyle(color: Colors.green),
+          ),
+        ),
         TextButton(
-            onPressed: () {
-              final provider =
-              Provider.of<ThemeProvider>(context, listen: false);
-              provider.changeTheme('light');
-            },
-            child: const Text('Light Theme')),
+          onPressed: () {
+            final provider = Provider.of<ThemeProvider>(context, listen: false);
+            provider.changeTheme('light');
+          },
+          child: const Text(
+            'Light Theme',
+            style: TextStyle(color: Colors.green),
+          ),
+        ),
         TextButton(
-            onPressed: () {
-              final provider =
-              Provider.of<ThemeProvider>(context, listen: false);
-              provider.changeTheme('dark');
-            },
-            child: const Text('Dark Theme')),
+          onPressed: () {
+            final provider = Provider.of<ThemeProvider>(context, listen: false);
+            provider.changeTheme('dark');
+          },
+          child: const Text(
+            'Dark Theme',
+            style: TextStyle(color: Colors.green),
+          ),
+        ),
       ],
-      backgroundColor: Theme.of(context).primaryColor,
+      //backgroundColor: Theme.of(context).primaryColor,
       //shape: CircleBorder(),
     );
   }
