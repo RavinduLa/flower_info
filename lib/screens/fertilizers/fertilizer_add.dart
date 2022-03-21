@@ -37,9 +37,6 @@ class _FertilizerAddState extends State<FertilizerAdd> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +44,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
         title: const Text('Add Fertilizer'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(15.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -91,7 +88,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                     ),
                   ],
                 ),
-                SizedBox(height: size.height * 0.05),
+                const SizedBox(height: 25),
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
@@ -105,11 +102,6 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                       labelStyle: TextStyle(
                           color: Colors.green
                       ),
-                      prefixIcon: Icon(
-                          Icons.description,
-                          color: Colors.green,
-
-                      )
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -124,16 +116,12 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.green),
+                      borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
                     labelText: 'Type of fertilizer',
                     labelStyle: TextStyle(
                         color: Colors.green
-                    ),
-                    prefixIcon: Icon(
-                        Icons.description,
-                        color: Colors.green,
                     ),
                   ),
                   validator: (value) {
@@ -152,17 +140,13 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
                       helperText: ' ',
                       labelText: 'Nitrogien(N) value',
                       labelStyle: TextStyle(
                           color: Colors.green
                       ),
-                      prefixIcon: Icon(
-                          Icons.confirmation_number,
-                          color: Colors.green,
-                      )
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -180,17 +164,13 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
                       helperText: ' ',
                       labelText: 'Phosporos(P) value',
                       labelStyle: TextStyle(
                           color: Colors.green
                       ),
-                      prefixIcon: Icon(
-                          Icons.confirmation_number,
-                        color: Colors.green,
-                      )
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -208,17 +188,13 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
                       helperText: '',
                       labelText: 'Potasiam(K) value',
                       labelStyle: TextStyle(
                           color: Colors.green
                       ),
-                      prefixIcon: Icon(
-                          Icons.confirmation_number,
-                          color: Colors.green,
-                      )
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -235,16 +211,12 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
                       helperText: '',
                       labelText: 'Description',
                       labelStyle: TextStyle(
                           color: Colors.green
-                      ),
-                      prefixIcon: Icon(
-                          Icons.description,
-                          color: Colors.green,
                       ),
                   ),
                   validator: (value) {
@@ -257,48 +229,18 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                   minLines: 1,
                   maxLines: 10,
                 ),
-                SizedBox(height: size.height * 0.01),
                 Padding(
-                    padding: const EdgeInsets.only(left: 0, top: 0, right: 0),
-                    child: SizedBox(
-                      height: 60,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 0, right: 0, top: 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            //borderRadius : new BorderRadius.circular(25.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 0.5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 5), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: RaisedButton(
-                            color: Colors.green,
-                            splashColor: Colors.white,
-                            onPressed: _onSubmit,
-                            child: const Text(
-                              'CREATE',
-                              style: TextStyle(color: Colors.white,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                side: const BorderSide(color: Colors.white)
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
+                  padding:
+                  const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _onSubmit,
+                      child: const Text('Add Fertilizer'),
+                    ),
+                  ),
                 ),
-                SizedBox(height: size.height * 0.03),
+                const SizedBox(height: 25),
               ],
             ),
           ),
@@ -351,12 +293,11 @@ class _FertilizerAddState extends State<FertilizerAdd> {
           updateImageUrl(newId, imageLink);
         }
         _clearFields();
-        _notification('Done!');
+        _notification('Created sucssfully!');
       }
     } else {
       _notification('Please select an image or take a photo!');
     }
-    Navigator.pushNamed(context, FertilizerAdmin.routeName);
   }
   // Image Uploading Process
   Future uploadImage(String newId) async {
