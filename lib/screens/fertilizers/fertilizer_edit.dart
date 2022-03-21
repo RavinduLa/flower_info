@@ -1,0 +1,342 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flower_info/api/fertilizer_api.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../models/fertilizer_model_id.dart';
+
+
+
+class FertilizerEdit extends StatefulWidget {
+  const FertilizerEdit({Key? key}) : super(key: key);
+
+  static String routeName = "/admin/fertilizer/fertilizer-edit";
+
+  @override
+  State<FertilizerEdit> createState() => _FertilizerEditState();
+}
+
+class _FertilizerEditState extends State<FertilizerEdit> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _brandName = TextEditingController();
+  final _type = TextEditingController();
+  final _nitrogienValue = TextEditingController();
+  final _phosporosValue = TextEditingController();
+  final _potasiamValue = TextEditingController();
+  final _description = TextEditingController();
+
+
+  String _imageLink = "";
+  UploadTask? task;
+  File? image;
+
+  @override
+  Widget build(BuildContext context) {
+    final data =
+    ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
+    _brandName.text = data.fertilizer.brandName;
+    _type.text = data.fertilizer.type;
+    _nitrogienValue.text = data.fertilizer.nitrogienValue;
+    _phosporosValue.text = data.fertilizer.phosporosValue;
+    _potasiamValue.text = data.fertilizer.potasiamValue;
+    _description.text = data.fertilizer.description;
+    _imageLink = data.fertilizer.image;
+
+    void _onSubmit() async {
+
+      if (_formKey.currentState!.validate()) {
+        FertilizerWithId fertilizer = FertilizerWithId(
+          documentId: data.fertilizer.documentId,
+          brandName: _brandName.text,
+          type: _type.text,
+          nitrogienValue: _nitrogienValue.text,
+          phosporosValue: _phosporosValue.text,
+          potasiamValue: _potasiamValue.text,
+          description: _description.text,
+          image: _imageLink,
+        );
+
+        Future<void> result = _updateFertilizer(fertilizer);
+
+        if(image != null) {
+          await uploadImage(data.fertilizer.documentId);
+          updateImageUrl(data.fertilizer.documentId, _imageLink);
+          if (kDebugMode) {
+            print("Image Uploading Processed!");
+          }
+        }
+        if (kDebugMode) {
+          print(result);
+        }
+        _notification('Updated Done!');
+        Navigator.pop(context);
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Fertilizer Update"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    image != null
+                        ? Image.file(
+                      image!,
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    )
+                        : _imageLink.isNotEmpty
+                        ? SizedBox(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: CachedNetworkImage(
+                          imageUrl: data.fertilizer.image,
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                          const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.green),
+                          ),
+                          errorWidget: (context, url, error) =>
+                          const Icon(
+                            Icons.error,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                    )
+                        : Image.asset(
+                      'assets/images/flower-info-logo.png',
+                      height: 150,
+                      width: 150,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => selectImage(ImageSource.camera),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.folder,
+                            size: 30,
+                            color: Colors.green,
+                          ),
+                          onPressed: () => selectImage(ImageSource.gallery),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 25),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Name of Fertilizer brand',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _brandName,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Type of Fertilizer',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _type,
+                  minLines: 1,
+                  maxLines: 10,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Nitrogien(N) Value',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _nitrogienValue,
+                  minLines: 1,
+                  maxLines: 10,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Phosporos(P) Value',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _phosporosValue,
+                  minLines: 1,
+                  maxLines: 10,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Potasiam(K) Value',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _potasiamValue,
+                  minLines: 1,
+                  maxLines: 10,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.cyan)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: ' ',
+                    labelText: 'Description of Fertilizer',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the field!";
+                    }
+                    return null;
+                  },
+                  controller: _description,
+                  minLines: 1,
+                  maxLines: 10,
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _onSubmit,
+                      child: const Text('Save Changes'),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Image Selector Method
+  Future selectImage(ImageSource source) async {
+    try {
+      final image =
+      await ImagePicker().pickImage(source: source, imageQuality: 10);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (error) {
+      if (kDebugMode) {
+        print('Failed to select image : $error');
+      }
+    }
+  }
+  // Image Uploading Process
+  Future uploadImage(String newId) async {
+    if (image == null) return;
+    task = FertilizerApi.uploadImage(newId, image!);
+    if (task == null) return;
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    setState(() {
+      _imageLink = urlDownload;
+    });
+
+    if (kDebugMode) {
+      print('Image Link : $_imageLink');
+    }
+  }
+
+  // CRUD : Update Method Caller
+  Future<void> _updateFertilizer(FertilizerWithId fertilizer) async {
+    FertilizerApi.updateFertilizer(fertilizer);
+  }
+
+  // CRUD : Update Image URL Method Caller
+  void updateImageUrl(String documentId, String link) {
+    FertilizerApi.updateImageLink(documentId, link);
+  }
+  // Common Notification
+  void _notification(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+}

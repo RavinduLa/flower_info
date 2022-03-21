@@ -42,13 +42,19 @@ class _LandingScreenState extends State<LandingScreen> {
     super.dispose();
   }
 
-  Future getUserValidationData() async {
-    final SharedPreferences sharedPreferences =
-    await SharedPreferences.getInstance();
-    var obtainedEmail = sharedPreferences.getString('email');
+// <<<<<<< hirush_adminLogin
+//   Future getUserValidationData() async {
+//     final SharedPreferences sharedPreferences =
+//     await SharedPreferences.getInstance();
+//     var obtainedEmail = sharedPreferences.getString('email');
 
-    setState(() {
-      finalEmail = obtainedEmail!;
+//     setState(() {
+//       finalEmail = obtainedEmail!;
+// =======
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       currentIndex = index;
+// >>>>>>> master
     });
   }
 
@@ -56,146 +62,112 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Flower Info"),
-          actions: const [],
-        ),
-        drawer: Drawer(
-          backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
-          child: ListView(
-            children: [
-              const DrawerHeader(
-                child: Icon(
-                  Icons.settings,
-                  size: 50,
-                ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Flower Info"),
+        actions: const [],
+      ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Icon(
+                Icons.settings,
+                size: 50,
               ),
-              ListTile(
-                title: const Text("Theme"),
-                subtitle: Text(themeProvider.selectedTheme),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => const ThemeAlert(),
-                      barrierDismissible: true);
-                },
-              ),
-               isUserLogged ?
-               ListTile(
-                title: Text("Admin"),
-                subtitle: Text("Admin Dashboard"),
-                onTap: () {
-                  Navigator.of(context).pushNamed(AdminDashboard.routeName);
-                },
-              )
-              :
-              ListTile(
-                title: Text("Admin"),
-                subtitle: Text("Admin Login"),
-                onTap: () {
-                  Navigator.of(context).pushNamed(AdminLogin.routeName);
-                },
-              )
-            ],
-          ),
-        ),
-        body: SizedBox.expand(
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() => currentIndex = index);
-            },
-            children: screens,
-          ),
-        ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.all(30.0),
-          child: Container(
-            //padding: EdgeInsets.all(30.0),
-            height: 60,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(20)),
+// <<<<<<< hirush_adminLogin
+//                isUserLogged ?
+//                ListTile(
+//                 title: Text("Admin"),
+//                 subtitle: Text("Admin Dashboard"),
+//                 onTap: () {
+//                   Navigator.of(context).pushNamed(AdminDashboard.routeName);
+//                 },
+//               )
+//               :
+//               ListTile(
+//                 title: Text("Admin"),
+//                 subtitle: Text("Admin Login"),
+//                 onTap: () {
+//                   Navigator.of(context).pushNamed(AdminLogin.routeName);
+//                 },
+//               )
+//             ],
+//           ),
+//         ),
+//         body: SizedBox.expand(
+//           child: PageView(
+//             controller: _pageController,
+//             onPageChanged: (index) {
+//               setState(() => currentIndex = index);
+//             },
+//             children: screens,
+//           ),
+//         ),
+//         bottomNavigationBar: Container(
+//           padding: const EdgeInsets.all(30.0),
+//           child: Container(
+//             //padding: EdgeInsets.all(30.0),
+//             height: 60,
+//             decoration: BoxDecoration(
+//               color: Theme.of(context).primaryColor,
+//               borderRadius: const BorderRadius.only(
+//                   topLeft: Radius.circular(20),
+//                   topRight: Radius.circular(50),
+//                   bottomLeft: Radius.circular(50),
+//                   bottomRight: Radius.circular(20)),
+// =======
+// >>>>>>> master
+//             ),
+            ListTile(
+              title: const Text("Theme"),
+              subtitle: Text(themeProvider.selectedTheme),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => const ThemeAlert(),
+                    barrierDismissible: true);
+              },
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  enableFeedback: false,
-                  onPressed: () {
-                    setState(() {
-                      currentIndex = 0;
-
-                      _pageController.animateToPage(currentIndex,
-                          duration: const Duration(milliseconds: 200),
-                          curve: Curves.easeIn);
-                    });
-                  },
-                  icon: currentIndex == 0
-                      ? Icon(
-                          Icons.home_filled,
-                          color: Theme.of(context).colorScheme.secondary,
-                          size: 35,
-                        )
-                      : Icon(
-                          Icons.home_filled,
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                          size: 35,
-                        ),
-                ),
-                IconButton(
-                  enableFeedback: false,
-                  onPressed: () {
-                    setState(() {
-                      currentIndex = 1;
-
-                      _pageController.animateToPage(currentIndex,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeOut);
-                    });
-                  },
-                  icon: currentIndex == 1
-                      ? Icon(
-                          Icons.water_drop_rounded,
-                          color: Theme.of(context).colorScheme.secondary,
-                          size: 35,
-                        )
-                      : Icon(
-                          Icons.water_drop_rounded,
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                          size: 35,
-                        ),
-                ),
-                IconButton(
-                  enableFeedback: false,
-                  onPressed: () {
-                    setState(() {
-                      currentIndex = 2;
-
-                      _pageController.animateToPage(currentIndex,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeOut);
-                    });
-                  },
-                  icon: currentIndex == 2
-                      ? Icon(
-                          Icons.coronavirus,
-                          color: Theme.of(context).colorScheme.secondary,
-                          size: 35,
-                        )
-                      : Icon(
-                          Icons.coronavirus,
-                          color: Theme.of(context).colorScheme.secondaryVariant,
-                          size: 35,
-                        ),
-                ),
-              ],
-            ),
+            ListTile(
+              title: const Text("Admin"),
+              subtitle: const Text("Admin Dashboard"),
+              onTap: () {
+                Navigator.of(context).pushNamed(AdminDashboard.routeName);
+              },
+            )
+          ],
+        ),
+      ),
+      body: SizedBox.expand(
+        child: Center(
+          child: screens.elementAt(currentIndex),
+        )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.water_drop),
+            label: 'Fertilizers',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.coronavirus),
+            label: 'Diseases',
+          ),
+        ],
+        currentIndex: currentIndex,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
+        iconSize: 40,
+        selectedFontSize: 15,
+        unselectedFontSize: 10,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

@@ -1,5 +1,15 @@
-import 'package:flutter/material.dart';import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:flower_info/screens/fertilizers/fertilizer_admin_list.dart';
+import 'package:flower_info/screens/diseases/disease_admin.dart';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+
+import '../../providers/theme_provider.dart';
 import '../flowers/flower_admin_list.dart';
 import '../home.dart';
 
@@ -43,59 +53,135 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        centerTitle: true,
+        title: const Text('Admin Dashboard'),
       ),
-      body: Container(
-        margin: EdgeInsets.all(5),
+      
+//hirush_adminLogin
+//       body: Container(
+//         margin: EdgeInsets.all(5),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.stretch,
+//           children: [
+//             SizedBox(height: size.height * 0.05),
+//             Center(
+//                 child: Text('Hello $finalEmail', style: const TextStyle(fontSize: 20, color: Colors.green),),
+//             ),
+//             SizedBox(height: size.height * 0.1),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, FlowerAdminList.routeName);
+//               },
+//               child: Text(
+//                 'Flower Panel',
+//               ),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {},
+//               child: Text('Fertilizers Panel'),
+//             ),
+//             ElevatedButton(
+//               onPressed: () {},
+//               child: Text('Diesases Panel Panel'),
+//             ),
+//             SizedBox(height: size.height * 0.3),
+//             ElevatedButton(
+//               onPressed: () async {
+//                 final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+//                 sharedPreferences.remove('email');
+
+//                 isUserLogged = false;
+
+//                 Navigator.pushReplacement<void, void>(
+//                   context,
+//                   MaterialPageRoute<void>(
+//                     builder: (BuildContext context) => Home(),
+//                   ),
+//                 );
+//               },
+//               child: const Text(
+//                 'Log out',
+//                 style: TextStyle(
+//                     fontSize: 18,
+//                     color: Colors.black87,
+//                     fontWeight: FontWeight.bold
+//                 ),
+//               ),
+//               style: ElevatedButton.styleFrom(
+//                 primary: Colors.yellow
+    //=======
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: size.height * 0.05),
-            Center(
-                child: Text('Hello $finalEmail', style: const TextStyle(fontSize: 20, color: Colors.green),),
-            ),
-            SizedBox(height: size.height * 0.1),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, FlowerAdminList.routeName);
-              },
+            const Center(
+              heightFactor: 10,
               child: Text(
-                'Flower Panel',
+                "Hello Admin",
+                style: TextStyle(fontSize: 30),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Fertilizers Panel'),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Diesases Panel Panel'),
-            ),
-            SizedBox(height: size.height * 0.3),
-            ElevatedButton(
-              onPressed: () async {
-                final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                sharedPreferences.remove('email');
-
-                isUserLogged = false;
-
-                Navigator.pushReplacement<void, void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => Home(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: ()=>Navigator.pushNamed(context, FlowerAdminList.routeName),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Flower Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
                   ),
-                );
-              },
-              child: const Text(
-                'Log out',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.yellow
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => Navigator.pushNamed(context, FertilizerAdmin.routeName),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Fertilizers Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => Navigator.pushNamed(context, DiseaseAdmin.routeName),
+                  child: const SizedBox(
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "Diseases Panel",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
