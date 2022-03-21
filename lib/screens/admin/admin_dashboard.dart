@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../flowers/flower_admin_list.dart';
 import '../home.dart';
+import 'admin_dashboard_checked.dart';
 
 String finalEmail = '';
-bool isUserLogged = false;
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -49,76 +49,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Admin Dashboard'),
       ),
-      
-//hirush_adminLogin
-//       body: Container(
-//         margin: EdgeInsets.all(5),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.stretch,
-//           children: [
-//             SizedBox(height: size.height * 0.05),
-//             Center(
-//                 child: Text('Hello $finalEmail', style: const TextStyle(fontSize: 20, color: Colors.green),),
-//             ),
-//             SizedBox(height: size.height * 0.1),
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.pushNamed(context, FlowerAdminList.routeName);
-//               },
-//               child: Text(
-//                 'Flower Panel',
-//               ),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {},
-//               child: Text('Fertilizers Panel'),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {},
-//               child: Text('Diesases Panel Panel'),
-//             ),
-//             SizedBox(height: size.height * 0.3),
-//             ElevatedButton(
-//               onPressed: () async {
-//                 final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-//                 sharedPreferences.remove('email');
-
-//                 isUserLogged = false;
-
-//                 Navigator.pushReplacement<void, void>(
-//                   context,
-//                   MaterialPageRoute<void>(
-//                     builder: (BuildContext context) => Home(),
-//                   ),
-//                 );
-//               },
-//               child: const Text(
-//                 'Log out',
-//                 style: TextStyle(
-//                     fontSize: 18,
-//                     color: Colors.black87,
-//                     fontWeight: FontWeight.bold
-//                 ),
-//               ),
-//               style: ElevatedButton.styleFrom(
-//                 primary: Colors.yellow
-    //=======
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(
-              heightFactor: 10,
+            Center(
+              heightFactor: 5,
               child: Text(
-                "Hello Admin",
-                style: TextStyle(fontSize: 30),
+                "Hello $finalEmail",
+                style: const TextStyle(fontSize: 30),
               ),
             ),
             Padding(
@@ -184,6 +129,36 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
               ),
             ),
+            const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () async {
+                    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                    sharedPreferences.remove('email');
+
+                    isUserLogged = false;
+
+                    Navigator.pushReplacement<void, void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => Home(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'Log out',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.yellow)
+              ),
+            ),
+            const SizedBox(height: 25),
           ],
         ),
       ),
