@@ -51,12 +51,12 @@ class _BodyState extends State<Body> {
 
   Future<void> _onSubmit() async {
     if(!_formKey.currentState!.validate())
-      {
-        return;
-      }
-      _formKey.currentState!.save();
-       String email = _authData['email'].toString();
-       String password = _authData['password'].toString();
+    {
+      return;
+    }
+    _formKey.currentState!.save();
+    String email = _authData['email'].toString();
+    String password = _authData['password'].toString();
 
     try {
       print("------------- SIGN IN ---------------  ");
@@ -75,6 +75,14 @@ class _BodyState extends State<Body> {
                 builder: (BuildContext context) => AdminDashboard(),
               ),
             );
+
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (BuildContext context) => AdminDashboard(),
+      //   ),
+      //       (route) => Home(),
+      // );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         _showErrorDialog("Your email is wrong");
@@ -89,6 +97,7 @@ class _BodyState extends State<Body> {
     Size size = MediaQuery.of(context).size;
     // final ValueChanged<String> onChanged;
     IconData icon;
+
     return Background(
       child: SingleChildScrollView(
         child: SafeArea(
@@ -119,35 +128,40 @@ class _BodyState extends State<Body> {
                         ],
                       ),
                       child: Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 15, top: 0),
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                icon: Icon(Icons.email, color: Colors.grey),
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                    color: Colors.grey
-                                )
+                        padding: const EdgeInsets.only(left: 15, right: 15, top: 0),
+                        child: Theme(
+                            data: ThemeData(
+                              disabledColor: Colors.white,
                             ),
-                            validator: (value) {
-                              if(value!.isEmpty)
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  icon: Icon(Icons.email, color: Colors.green),
+                                  labelText: 'Email',
+                                  labelStyle: TextStyle(
+                                      color: Colors.green
+                                  )
+                              ),
+                              validator: (value) {
+                                if(value!.isEmpty)
+                                {
+                                  return 'Invalid email!';
+                                }
+                                if (!RegExp(
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                    .hasMatch(value)) {
+                                  return ("Please enter a valid email");
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value)
                               {
-                                return 'Invalid email!';
-                              }
-                              if (!RegExp(
-                                  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                  .hasMatch(value)) {
-                                return ("Please enter a valid email");
-                              } else {
-                                return null;
-                              }
-                            },
-                            onSaved: (value)
-                            {
-                              _authData['email'] = value!;
-                              //emailController.text = value!;
-                            },
-                          )
+                                _authData['email'] = value!;
+                                //emailController.text = value!;
+                              },
+                            )
+                        ),
                       )
                   ),
                 ),
@@ -173,14 +187,18 @@ class _BodyState extends State<Body> {
                           child: Padding(
                             padding:
                             const EdgeInsets.only(left: 15, right: 15, top: 0),
+                            child: Theme(
+                              data: ThemeData(
+                                disabledColor: Colors.white,
+                              ),
                             child: TextFormField(
                               obscureText: true ? isObscurePassword : false,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                icon: Icon(Icons.lock, color: Colors.grey,),
+                                icon: Icon(Icons.lock, color: Colors.green,),
                                 labelText: 'Password',
                                 labelStyle: TextStyle(
-                                    color: Colors.grey
+                                    color: Colors.green
                                 ),
                               ),
                               validator: (value)
@@ -197,6 +215,7 @@ class _BodyState extends State<Body> {
                                 //passwordController.text = value!;
                               },
                             ),
+                          ),
                           )
                       ),
                       Positioned(
@@ -221,43 +240,30 @@ class _BodyState extends State<Body> {
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 15, right: 15, top: 0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            //borderRadius : new BorderRadius.circular(25.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 7,
-                                offset: const Offset(0, 5), // changes position of shadow
-                              ),
-                            ],
+                        child: RaisedButton(
+                          color: Colors.green,
+                          splashColor: Colors.white,
+                          onPressed: () {
+                            // Validate returns true if the form is valid, or false
+                            // otherwise.
+                            if (_formKey.currentState!.validate()) {
+                              // If the form is valid, display a Snackbar.
+                              _onSubmit();
+                              Scaffold.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Checking Credentials!',textAlign: TextAlign.center,),
+                                    backgroundColor: Colors.grey,
+                                  )
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'SIGN IN',
+                            style: TextStyle(color: Colors.white, fontSize: 17,fontWeight: FontWeight.w700),
                           ),
-                          child: RaisedButton(
-                            color: Colors.green,
-                            splashColor: Colors.white,
-                            onPressed: () {
-                              // Validate returns true if the form is valid, or false
-                              // otherwise.
-                              if (_formKey.currentState!.validate()) {
-                                // If the form is valid, display a Snackbar.
-                                _onSubmit();
-                                Scaffold.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Checking Credentials!',textAlign: TextAlign.center,),
-                                      backgroundColor: Colors.grey,
-                                    )
-                                );
-                              }
-                            },
-                            child: const Text(
-                              'SIGN IN',
-                              style: TextStyle(color: Colors.white, fontSize: 17,fontWeight: FontWeight.w700),
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                side: const BorderSide(color: Colors.white)
-                            ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: const BorderSide(color: Colors.white)
                           ),
                         ),
                       ),
