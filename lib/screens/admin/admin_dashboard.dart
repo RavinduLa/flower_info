@@ -1,4 +1,5 @@
 
+import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,12 +61,42 @@ class _AdminDashboardState extends State<AdminDashboard> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Center(
-              heightFactor: 5,
+              heightFactor: 3,
               child: Text(
                 "Hello $finalEmail",
                 style: const TextStyle(fontSize: 30),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 75, right: 75),
+              child: ElevatedButton(
+                  onPressed: () async {
+                    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                    sharedPreferences.remove('email');
+
+                    isUserLogged = false;
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Home(),
+                      ),
+                          (route) => false,
+                    );
+                  },
+                  child: const Text(
+                    'LOG OUT',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.yellow)
+              ),
+            ),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
@@ -127,35 +158,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () async {
-                    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                    sharedPreferences.remove('email');
-
-                    isUserLogged = false;
-
-                    Navigator.pushReplacement<void, void>(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => Home(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Log out',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.yellow)
               ),
             ),
             const SizedBox(height: 25),
