@@ -32,7 +32,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
             )
         ),
         elevation: 4,
-        margin: const EdgeInsets.only(left: 8, right: 8, top: 15),
+        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
         child: SizedBox(
           height: 100,
           child: Row(
