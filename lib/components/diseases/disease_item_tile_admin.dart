@@ -117,7 +117,11 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text(Constants.cancel),
+                                          child: const Text(
+                                            Constants.cancel,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(

@@ -108,7 +108,7 @@ class _BodyState extends State<Body> {
               children: <Widget>[
                 SizedBox(height: size.height * 0.28),
                 const Text(
-                  'LOGIN',
+                  'Login',
                   style: TextStyle(fontSize: 40,fontWeight: FontWeight.w700),
                 ),
                 SizedBox(height: size.height * 0.05),
@@ -258,7 +258,7 @@ class _BodyState extends State<Body> {
                             }
                           },
                           child: const Text(
-                            'SIGN IN',
+                            'Sign In',
                             style: TextStyle(color: Colors.white, fontSize: 17,fontWeight: FontWeight.w700),
                           ),
                           shape: RoundedRectangleBorder(

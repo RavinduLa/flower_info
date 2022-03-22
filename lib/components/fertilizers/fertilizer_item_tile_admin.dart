@@ -6,13 +6,12 @@ import 'package:flower_info/screens/fertilizers/fertilizer_view.dart';
 import 'package:flutter/material.dart';
 
 class FertilizerItemTileAdmin extends StatelessWidget {
-
   final FertilizerWithId fertilizer;
-  const FertilizerItemTileAdmin({Key? key, required this.fertilizer}) : super(key: key);
+  const FertilizerItemTileAdmin({Key? key, required this.fertilizer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     String brandName = fertilizer.brandName;
     String type = fertilizer.type;
 
@@ -24,15 +23,15 @@ class FertilizerItemTileAdmin extends StatelessWidget {
         ),
       );
     }
+
     return GestureDetector(
       child: Card(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            )
-        ),
+          Radius.circular(10),
+        )),
         elevation: 4,
-        margin: const EdgeInsets.only(left: 8, right: 8, top: 15),
+        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
         child: SizedBox(
           height: 100,
           child: Row(
@@ -50,9 +49,9 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                       height: 80,
                       fit: BoxFit.cover,
                       errorWidget: (context, url, error) =>
-                      const Icon(Icons.error, size: 25),
+                          const Icon(Icons.error, size: 25),
                       placeholder: (context, url) =>
-                      const CircularProgressIndicator(
+                          const CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                       ),
                     ),
@@ -123,25 +122,30 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text('Cancel'),
+                                          child: const Text(
+                                            'Cancel',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           style: ButtonStyle(
                                             backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.amber),
+                                                MaterialStateProperty.all(
+                                                    Colors.amber),
                                           ),
                                         ),
                                         ElevatedButton(
                                           onPressed: () {
                                             Future<void> result =
-                                            _deleteFertilizer(fertilizer);
+                                                _deleteFertilizer(fertilizer);
                                             Navigator.of(context).pop();
-                                            _notification("Fertilizer Deleted!");
+                                            _notification(
+                                                "Fertilizer Deleted!");
                                           },
                                           child: const Text('Yes'),
                                           style: ButtonStyle(
                                             backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.redAccent),
+                                                MaterialStateProperty.all(
+                                                    Colors.redAccent),
                                           ),
                                         ),
                                       ],
@@ -174,6 +178,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
       },
     );
   }
+
   // CRUD : Delete Method Caller
   Future<void> _deleteFertilizer(FertilizerWithId fertilizer) async {
     FertilizerApi.deleteFertilizer(fertilizer);
