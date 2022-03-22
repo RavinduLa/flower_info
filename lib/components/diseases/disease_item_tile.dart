@@ -11,6 +11,13 @@ class DiseaseItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _name = disease.name;
+    String _image = disease.image;
+    String _look = disease.look;
+    String _cause = disease.cause;
+    String _treat = disease.treat;
+    String _prevent = disease.prevent;
+
     return GestureDetector(
       child: Card(
         elevation: 2,
@@ -28,7 +35,7 @@ class DiseaseItemTile extends StatelessWidget {
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
-                      imageUrl: disease.image,
+                      imageUrl: _image,
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error, size: 50),
                       placeholder: (context, url) =>
@@ -38,7 +45,7 @@ class DiseaseItemTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(disease.name),
+                Text(_name),
               ],
             ),
           ),

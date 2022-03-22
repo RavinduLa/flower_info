@@ -1,3 +1,4 @@
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/components/diseases/disease_item_tile.dart';
@@ -20,7 +21,7 @@ class Diseases extends StatelessWidget {
             AsyncSnapshot<List<DiseaseWithId>> snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Text('Something went wrong!'),
+              child: Text(Constants.somethingWentWrong),
             );
           }
 

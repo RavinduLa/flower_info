@@ -1,3 +1,4 @@
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/disease_api.dart';
@@ -14,7 +15,12 @@ class DiseaseItemTileAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String diseaseName = disease.name;
+    String _name = disease.name;
+    String _image = disease.image;
+    String _look = disease.look;
+    String _cause = disease.cause;
+    String _treat = disease.treat;
+    String _prevent = disease.prevent;
 
     // Common Notification
     void _notification(String message) {
@@ -46,7 +52,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: CachedNetworkImage(
-                      imageUrl: disease.image,
+                      imageUrl: _image,
                       width: 80,
                       height: 80,
                       fit: BoxFit.cover,
@@ -69,7 +75,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                         flex: 5,
                         child: ListTile(
                           title: Text(
-                            diseaseName,
+                            _name,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -104,15 +110,14 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Delete This Disease?'),
-                                      content: Text(
-                                          'This will delete the $diseaseName permanently!'),
+                                      title: const Text(Constants.diseaseDeleteAsk),
+                                      content: Text(Constants.deletePermanently + _name),
                                       actions: [
                                         ElevatedButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text('Cancel'),
+                                          child: const Text(Constants.cancel),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
@@ -124,9 +129,9 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                             Future<void> result =
                                                 _deleteDisease(disease);
                                             Navigator.of(context).pop();
-                                            _notification("Disease Deleted!");
+                                            _notification(Constants.diseaseDeleted);
                                           },
-                                          child: const Text('Yes'),
+                                          child: const Text(Constants.yes),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
