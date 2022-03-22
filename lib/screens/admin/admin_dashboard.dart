@@ -85,7 +85,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     );
                   },
                   child: const Text(
-                    'LOG OUT',
+                    'Log Out',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,
