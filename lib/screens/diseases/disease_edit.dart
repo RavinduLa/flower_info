@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/disease_api.dart';
+import 'package:flower_info/components/constants.dart';
 import 'package:flower_info/models/diseases/disease_model_id.dart';
 import 'package:flower_info/models/diseases/disease_single_view.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 class DiseaseEdit extends StatefulWidget {
   const DiseaseEdit({Key? key}) : super(key: key);
 
-  static String routeName = "/admin/disease/disease-edit";
+  static String routeName = Constants.routeNameDiseaseEdit;
 
   @override
   State<DiseaseEdit> createState() => _DiseaseEditState();
@@ -44,7 +45,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
     _imageLink = data.disease.image;
 
     void processingData() async {
-      _notification('Processing Data');
+      _notification(Constants.processingData);
 
       if (_formKey.currentState!.validate()) {
         DiseaseWithId disease = DiseaseWithId(
@@ -63,21 +64,21 @@ class _DiseaseEditState extends State<DiseaseEdit> {
           await uploadImage(data.disease.documentId);
           updateImageUrl(data.disease.documentId, _imageLink);
           if (kDebugMode) {
-            print("Image Uploading Process!");
+            print(Constants.imageUploading);
           }
         }
 
         if (kDebugMode) {
           print(result);
         }
-        _notification('Disease Updating Done!');
+        _notification(Constants.diseaseUpdatingDone);
       }
     }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Disease Update"),
+        title: const Text(Constants.diseaseUpdate),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -119,7 +120,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                                 ),
                               )
                             : Image.asset(
-                                'assets/images/flower-info-logo.png',
+                                Constants.logoImagePath,
                                 height: 150,
                                 width: 150,
                               ),
@@ -153,7 +154,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                       borderSide: BorderSide(color: Colors.cyan),
                     ),
                     helperText: '',
-                    labelText: 'Name of Diseases/Pests',
+                    labelText: Constants.diseaseLabelName,
                     focusColor: Colors.green,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
@@ -161,7 +162,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
+                      return Constants.fieldValidation;
                     }
                     return null;
                   },
@@ -172,7 +173,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
                     helperText: '',
-                    labelText: 'What Does it Look Like?',
+                    labelText: Constants.diseaseLabelLook,
                     focusColor: Colors.green,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
@@ -180,7 +181,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
+                      return Constants.fieldValidation;
                     }
                     return null;
                   },
@@ -193,7 +194,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
                     helperText: '',
-                    labelText: 'What Causes it?',
+                    labelText: Constants.diseaseLabelCause,
                     focusColor: Colors.green,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
@@ -201,7 +202,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
+                      return Constants.fieldValidation;
                     }
                     return null;
                   },
@@ -214,7 +215,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
                     helperText: '',
-                    labelText: 'How to Treat it?',
+                    labelText: Constants.diseaseLabelTreat,
                     focusColor: Colors.green,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
@@ -222,7 +223,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
+                      return Constants.fieldValidation;
                     }
                     return null;
                   },
@@ -235,7 +236,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.cyan)),
                     helperText: '',
-                    labelText: 'How to Prevent it?',
+                    labelText: Constants.diseaseLabelPrevent,
                     focusColor: Colors.green,
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green),
@@ -243,7 +244,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
+                      return Constants.fieldValidation;
                     }
                     return null;
                   },
@@ -256,7 +257,7 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   child: ElevatedButton(
                     onPressed: processingData,
                     child: const Text(
-                      'Save Changes',
+                      Constants.saveChanges,
                     ),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
