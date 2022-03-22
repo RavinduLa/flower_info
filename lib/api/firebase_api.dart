@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../models/flower_model.dart';
 
@@ -29,6 +30,17 @@ class FirebaseApi {
       if (kDebugMode) {
         print("Image re-uploaded when editing");
       }
+      DefaultCacheManager().removeFile(flowerWithId.imageLink).then((value) {
+        if (kDebugMode) {
+          print("Image removed from cache");
+        }
+      }).onError((error, stackTrace) {
+        if (kDebugMode) {
+          print("Could not remove cached image");
+          print("Error : $error" );
+        }
+
+      });
     }
 
 
