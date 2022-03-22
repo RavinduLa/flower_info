@@ -5,6 +5,7 @@ import 'package:flower_info/screens/diseases/diseases.dart';
 import 'package:flower_info/screens/fertilizers/fertilizers.dart';
 import 'package:flower_info/screens/flowers/flowers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 
@@ -50,6 +51,31 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
+    emptyCache() {
+      var result = DefaultCacheManager().emptyCache();
+      result.whenComplete(
+        () => showDialog(context: context, builder: (BuildContext context){
+          return AlertDialog(
+            title: const Text("Success"),
+            content:
+            const Text("Data has been reloaded successfully"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "OK",
+                  style: TextStyle(color: Colors.green),
+                ),
+              )
+            ],
+          );
+        })
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -89,7 +115,7 @@ class _LandingScreenState extends State<LandingScreen> {
               subtitle: const Text("Clear cache and reload all data"),
               onTap: () {
                 isConnected
-                    ? print("Internet Connected")
+                    ? emptyCache()
                     : showDialog(
                         context: context,
                         barrierDismissible: true,
