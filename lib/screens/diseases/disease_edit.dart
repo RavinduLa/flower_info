@@ -256,11 +256,10 @@ class _DiseaseEditState extends State<DiseaseEdit> {
                   child: ElevatedButton(
                     onPressed: processingData,
                     child: const Text(
-                      'Update',
-                      style: TextStyle(fontSize: 18),
+                      'Save Changes',
                     ),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.amber),
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
                   ),
                 ),
