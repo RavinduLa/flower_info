@@ -35,12 +35,14 @@ class _FertilizerViewState extends State<FertilizerView> {
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
+            const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: CachedNetworkImage(
                 imageUrl: data.fertilizer.image,
-                width: 200,
-                height: 200,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                 const Icon(Icons.error, size: 50),
                 placeholder: (context, url) => const CircularProgressIndicator(
@@ -57,31 +59,44 @@ class _FertilizerViewState extends State<FertilizerView> {
               ),
             ),
             SizedBox(height: size.height * 0.01),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                informationSection(
-                  "Type of fertilizer",
-                  data.fertilizer.type,
+            Container(
+              padding: const EdgeInsets.all(5.0),
+              margin: const EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.green,
+                  width: 2,
                 ),
-                informationSection(
-                  "Nitrogien(N) value",
-                  data.fertilizer.nitrogienValue,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5.0),
                 ),
-                informationSection(
-                  "Phosporos(P) value",
-                  data.fertilizer.phosporosValue,
-                ),
-                informationSection(
-                  "Potasiam(K) value",
-                  data.fertilizer.potasiamValue,
-                ),
-                informationSection(
-                  "Description",
-                  data.fertilizer.description,
-                ),
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  informationSection(
+                    "Type of fertilizer",
+                    data.fertilizer.type,
+                  ),
+                  informationSection(
+                    "Nitrogien(N) value",
+                    data.fertilizer.nitrogienValue,
+                  ),
+                  informationSection(
+                    "Phosporos(P) value",
+                    data.fertilizer.phosporosValue,
+                  ),
+                  informationSection(
+                    "Potasiam(K) value",
+                    data.fertilizer.potasiamValue,
+                  ),
+                  informationSection(
+                    "Description",
+                    data.fertilizer.description,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
           ],

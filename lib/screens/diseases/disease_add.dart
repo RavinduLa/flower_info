@@ -193,8 +193,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
                   child: ElevatedButton(
                     onPressed: processingData,
                     child: const Text(
-                      'Create',
-                      style: TextStyle(fontSize: 18),
+                      'Add Disease',
                     ),
                   ),
                 ),

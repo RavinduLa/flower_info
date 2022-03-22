@@ -14,6 +14,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String brandName = fertilizer.brandName;
+    String type = fertilizer.type;
 
     // Common Notification
     void _notification(String message) {
@@ -25,21 +26,36 @@ class FertilizerItemTileAdmin extends StatelessWidget {
     }
     return GestureDetector(
       child: Card(
-        elevation: 8,
-        margin: const EdgeInsets.all(10),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            )
+        ),
+        elevation: 4,
+        margin: const EdgeInsets.only(left: 8, right: 8, top: 15),
         child: SizedBox(
           height: 100,
           child: Row(
             children: [
-              SizedBox(
-                width: 106,
-                child: CachedNetworkImage(
-                  imageUrl: fertilizer.image,
-                  errorWidget: (context, url, error) =>
-                  const Icon(Icons.error, size: 25),
-                  placeholder: (context, url) =>
-                  const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: fertilizer.image,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                      const Icon(Icons.error, size: 25),
+                      placeholder: (context, url) =>
+                      const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -49,12 +65,24 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 3,
                         child: ListTile(
                           title: Text(
                             brandName,
                             style: const TextStyle(
                               fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: ListTile(
+                          title: Text(
+                            type,
+                            style: const TextStyle(
+                              fontSize: 15,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
