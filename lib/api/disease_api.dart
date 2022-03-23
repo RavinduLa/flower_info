@@ -33,6 +33,7 @@ class DiseaseApi {
                   treat: doc.data()!['treat'],
                   prevent: doc.data()!['prevent'],
                   image: doc.data()!['image'],
+                  created: doc.data()!['created'],
                 ))
             .toList());
   }

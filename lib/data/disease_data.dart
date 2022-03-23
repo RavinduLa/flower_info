@@ -8,6 +8,7 @@ const List<Disease> diseaseList = [
     treat: "Plant onions in well-drained soil. Water early in the day so the leaves can dry before cool evening temperatures set in.",
     prevent: "To scale back the severity of Botrytis Leaf Blight, consider the following: Contaminated leaves and onion cuttings should be discarded and destroyed.",
     image: "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/disease_images%2Fdisease1.jpg?alt=media&token=1ed7ed0f-d257-474d-a42d-dcdf7a83dc8b",
+    created: '',
   ),
   Disease(
     name: "Powdery mildew",
@@ -16,5 +17,6 @@ const List<Disease> diseaseList = [
     treat: "Powdery mildew is best treated with fungicides. It is recommended to spray any affected plants down with fungicide, including neem oil and lime-sulfur. If you'd prefer a more natural option, baking soda can also do the trick. Just mix roughly 1 tsp of baking soda with 1 quart of water.",
     prevent: "Powdery mildew is most effectively prevented by providing plenty of sunlight. Air circulation is also important, so don't let any debris collect around your plants. Just these two things will go a long way to preventing powdery mildew!",
     image: "https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/disease_images%2Fdisease1.jpg?alt=media&token=1ed7ed0f-d257-474d-a42d-dcdf7a83dc8b",
+    created: '',
   ),
 ];

@@ -21,6 +21,7 @@ class DiseaseItemTileAdmin extends StatelessWidget {
     String _cause = disease.cause;
     String _treat = disease.treat;
     String _prevent = disease.prevent;
+    String _created = disease.created;
 
     // Common Notification
     void _notification(String message) {
@@ -65,13 +66,26 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 3,
                         child: ListTile(
                           title: Text(
                             _name,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: ListTile(
+                          title: Text(
+                            _created,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
                         ),
