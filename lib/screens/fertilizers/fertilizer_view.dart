@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FertilizerView extends StatefulWidget {
-  static String routeName = "/admin/fertilizer/fertilizer-view";
 
+  static String routeName = Constants.routNameFertilizerView;
   const FertilizerView({Key? key}) : super(key: key);
 
   @override
@@ -76,23 +77,23 @@ class _FertilizerViewState extends State<FertilizerView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   informationSection(
-                    "Type of fertilizer",
+                    Constants.fertilizerLabelType,
                     data.fertilizer.type,
                   ),
                   informationSection(
-                    "Nitrogien(N) value",
+                    Constants.fertilizerLabelNitrogenValue,
                     data.fertilizer.nitrogienValue,
                   ),
                   informationSection(
-                    "Phosporos(P) value",
+                    Constants.fertilizerLabelPhosphorusValue,
                     data.fertilizer.phosporosValue,
                   ),
                   informationSection(
-                    "Potasiam(K) value",
+                    Constants.fertilizerLabelPotassiumValue,
                     data.fertilizer.potasiamValue,
                   ),
                   informationSection(
-                    "Description",
+                    Constants.fertilizerLabelDescription,
                     data.fertilizer.description,
                   ),
                 ],

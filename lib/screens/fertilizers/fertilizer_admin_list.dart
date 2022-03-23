@@ -1,5 +1,6 @@
 import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/components/Fertilizers/fertilizer_item_tile_admin.dart';
+import 'package:flower_info/components/constants.dart';
 import 'package:flower_info/models/fertilizer_model_id.dart';
 import 'package:flower_info/screens/fertilizers/fertilizer_add.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 class FertilizerAdmin extends StatelessWidget {
   const FertilizerAdmin({Key? key}) : super(key: key);
 
-  static String routeName = "/admin/fertilizer/fertilizer-list";
+  static String routeName = Constants.routNameFertilizerList;
 
   @override
   Widget build(BuildContext context) {

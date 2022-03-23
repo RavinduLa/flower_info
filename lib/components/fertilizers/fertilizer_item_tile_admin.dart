@@ -19,7 +19,10 @@ class FertilizerItemTileAdmin extends StatelessWidget {
     void _notification(String message) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(message),
+          content: Center(
+              widthFactor: double.infinity,
+              heightFactor: 1,
+              child: Text(message)),
         ),
       );
     }
@@ -114,7 +117,7 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Delete This Disease?'),
+                                      title: const Text('Delete This Fertilizer?'),
                                       content: Text(
                                           'This will delete the $brandName permanently!'),
                                       actions: [

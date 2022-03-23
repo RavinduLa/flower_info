@@ -2,12 +2,14 @@ import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/constants.dart';
+
 
 bool isUserLogged = false;
 class AdminDashboardChecked extends StatefulWidget {
   const AdminDashboardChecked({Key? key}) : super(key: key);
 
-  static String routeName = "/admin-dashboard-checked";
+  static String routeName =  Constants.routeNameAdminDashboardChecked;
 
   @override
   State<AdminDashboardChecked> createState() => _AdminDashboardCheckedState();
