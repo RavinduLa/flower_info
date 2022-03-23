@@ -1,5 +1,5 @@
+import 'package:flower_info/components/no_connection_alert.dart';
 import 'package:flower_info/components/theme_alert.dart';
-import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/admin/admin_dashboard_checked.dart';
 import 'package:flower_info/screens/diseases/diseases.dart';
 import 'package:flower_info/screens/fertilizers/fertilizers.dart';
@@ -29,11 +29,27 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
-    _simpleConnectionChecker.onConnectionChange.listen((connected) {
-      setState(() {
-        isConnected = connected;
-      });
-    });
+    _checkConnection();
+  }
+
+  _checkConnection() async {
+    await _simpleConnectionChecker.onConnectionChange.listen(
+      (connected) {
+        if (connected) {
+          DefaultCacheManager().emptyCache();
+        } else {
+          _showConnectionAlert(context);
+        }
+      },
+    );
+  }
+
+  void _showConnectionAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => const NoConnectionAlert(),
+      barrierDismissible: true,
+    );
   }
 
   @override
@@ -51,30 +67,6 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
-    emptyCache() {
-      var result = DefaultCacheManager().emptyCache();
-      result.whenComplete(
-        () => showDialog(context: context, builder: (BuildContext context){
-          return AlertDialog(
-            title: const Text("Success"),
-            content:
-            const Text("Data has been reloaded successfully"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  "OK",
-                  style: TextStyle(color: Colors.green),
-                ),
-              )
-            ],
-          );
-        })
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -110,42 +102,14 @@ class _LandingScreenState extends State<LandingScreen> {
                     .pushNamed(AdminDashboardChecked.routeName);
               },
             ),
-            ListTile(
-              title: const Text("Reload App"),
-              subtitle: const Text("Clear cache and reload all data"),
-              onTap: () {
-                isConnected
-                    ? emptyCache()
-                    : showDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("No Internet"),
-                            content:
-                                const Text("Cannot reload without internet"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text(
-                                  "OK",
-                                  style: TextStyle(color: Colors.green),
-                                ),
-                              )
-                            ],
-                          );
-                        });
-              },
-            ),
           ],
         ),
       ),
       body: SizedBox.expand(
-          child: Center(
-        child: screens.elementAt(currentIndex),
-      )),
+        child: Center(
+          child: screens.elementAt(currentIndex),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -165,8 +129,6 @@ class _LandingScreenState extends State<LandingScreen> {
         selectedItemColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
         iconSize: 40,
-        selectedFontSize: 15,
-        unselectedFontSize: 10,
         onTap: _onItemTapped,
       ),
     );

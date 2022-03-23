@@ -22,8 +22,7 @@ class FirebaseApi {
   }
 
   static Future<void> editFlower(FlowerWithId flowerWithId, File? file) {
-
-    if(file != null){
+    if (file != null) {
       String id = flowerWithId.documentId;
       String destination = "flower_images/$id";
       uploadFile(destination, file);
@@ -37,12 +36,10 @@ class FirebaseApi {
       }).onError((error, stackTrace) {
         if (kDebugMode) {
           print("Could not remove cached image");
-          print("Error : $error" );
+          print("Error : $error");
         }
-
       });
     }
-
 
     return FirebaseFirestore.instance
         .collection('flowers')
@@ -56,25 +53,43 @@ class FirebaseApi {
             'imageLink': flowerWithId.imageLink
           },
         )
-        .then((value) => print("Flower Updated"))
+        .then(
+          (value) => () {
+            if (kDebugMode) {
+              print("Flower Updated");
+            }
+          },
+        )
         .catchError(
-          (error) => print("Failed to update flower"),
+          (error) => () {
+            if (kDebugMode) {
+              print("Failed to update flower");
+            }
+          },
         );
   }
 
-  static Future<void> updateFlowerImageLink(String id, String link){
+  static Future<void> updateFlowerImageLink(String id, String link) {
     return FirebaseFirestore.instance
         .collection('flowers')
         .doc(id)
         .update(
-      {
-        'imageLink': link
-      },
-    )
-        .then((value) => print("Flower Updated"))
+          {'imageLink': link},
+        )
+        .then(
+          (value) => () {
+            if (kDebugMode) {
+              print("Flower Updated");
+            }
+          },
+        )
         .catchError(
-          (error) => print("Failed to update flower"),
-    );
+          (error) => () {
+            if (kDebugMode) {
+              print("Failed to update flower");
+            }
+          },
+        );
   }
 
   static Future<void> deleteFlower(String id) {
@@ -82,9 +97,19 @@ class FirebaseApi {
         .collection('flowers')
         .doc(id)
         .delete()
-        .then((value) => print('Flower deleted'))
+        .then(
+          (value) => () {
+            if (kDebugMode) {
+              print('Flower deleted');
+            }
+          },
+        )
         .catchError(
-          (error) => print('Failed to delete flower'),
+          (error) => () {
+            if (kDebugMode) {
+              print('Failed to delete flower');
+            }
+          },
         );
   }
 
@@ -136,12 +161,11 @@ class FirebaseApi {
     }
   }
 
-  static void deleteFlowerImage(String id){
-    try{
+  static void deleteFlowerImage(String id) {
+    try {
       final ref = FirebaseStorage.instance.ref("flower_images/$id");
       ref.delete();
-    }
-    on FirebaseException catch (e){
+    } on FirebaseException catch (e) {
       if (kDebugMode) {
         print('Firebase Exception : ' + e.toString());
       }
@@ -149,7 +173,9 @@ class FirebaseApi {
   }
 
   static void getFlowersTest() async {
-    print('running get flowers test');
+    if (kDebugMode) {
+      print('running get flowers test');
+    }
     List<String> idList = [];
     QuerySnapshot querySnapshot;
     try {
@@ -157,23 +183,24 @@ class FirebaseApi {
           await FirebaseFirestore.instance.collection('flowers').get();
       if (querySnapshot.docs.isNotEmpty) {
         for (var doc in querySnapshot.docs.toList()) {
-          print("Id : " + doc.id);
+          if (kDebugMode) {
+            print("Id : " + doc.id);
+          }
         }
       } else {
-        print('querysnapshot is empty');
+        if (kDebugMode) {
+          print('querysnapshot is empty');
+        }
       }
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
-    print(idList.length);
-    /*FirebaseFirestore.instance.collection('flowers').snapshots().map(
-          (QuerySnapshot querySnapshot) => querySnapshot.docs.map(
-            (DocumentSnapshot documentSnapshot) {
-              print('id : '  + documentSnapshot.reference.id.toString());
-            },
-          ),
-        );*/
+    if (kDebugMode) {
+      print(idList.length);
+    }
   }
 
   static void testEditFlower(String id) {
@@ -183,7 +210,19 @@ class FirebaseApi {
     collectionReference
         .doc(uid)
         .update({'commonName': 'Wathusudu'})
-        .then((value) => print('Flower updated'))
-        .catchError((error) => print("Error updating flower : $error"));
+        .then(
+          (value) => () {
+            if (kDebugMode) {
+              print('Flower updated');
+            }
+          },
+        )
+        .catchError(
+          (error) => () {
+            if (kDebugMode) {
+              print("Error updating flower : $error");
+            }
+          },
+        );
   }
 }

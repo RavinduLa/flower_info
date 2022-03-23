@@ -15,13 +15,13 @@ class FlowerAdminList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flowers Admin Panel'),
+        title: const Text('Flowers Admin Panel'),
       ),
       body: StreamBuilder(
         stream: FirebaseApi.flowersWithId,
         builder: (BuildContext context, AsyncSnapshot<List<FlowerWithId>> snapshot) {
           if(snapshot.hasError){
-            return Center(child: Text('Oops Something went wrong'),);
+            return const Center(child: Text('Oops Something went wrong'),);
           }
           if (snapshot.hasData) {
             return ListView.builder(
