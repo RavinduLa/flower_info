@@ -31,15 +31,8 @@ class DiseaseItemTileAdmin extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
-      child: Card(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        elevation: 4,
-        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
+    return Card(
+      child: InkWell(
         child: SizedBox(
           height: 100,
           child: Row(
@@ -110,8 +103,10 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text(Constants.diseaseDeleteAsk),
-                                      content: Text(Constants.deletePermanently + _name),
+                                      title: const Text(
+                                          Constants.diseaseDeleteAsk),
+                                      content: Text(
+                                          Constants.deletePermanently + _name),
                                       actions: [
                                         ElevatedButton(
                                           onPressed: () {
@@ -133,7 +128,8 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                             Future<void> result =
                                                 _deleteDisease(disease);
                                             Navigator.of(context).pop();
-                                            _notification(Constants.diseaseDeleted);
+                                            _notification(
+                                                Constants.diseaseDeleted);
                                           },
                                           child: const Text(Constants.yes),
                                           style: ButtonStyle(
@@ -162,14 +158,21 @@ class DiseaseItemTileAdmin extends StatelessWidget {
             ],
           ),
         ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            DiseaseView.routeName,
+            arguments: DiseaseSingleView(disease),
+          );
+        },
       ),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          DiseaseView.routeName,
-          arguments: DiseaseSingleView(disease),
-        );
-      },
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
+      elevation: 4,
     );
   }
 
