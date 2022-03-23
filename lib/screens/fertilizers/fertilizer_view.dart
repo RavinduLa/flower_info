@@ -51,12 +51,13 @@ class _FertilizerViewState extends State<FertilizerView> {
                 ),
               ),
             ),
+            SizedBox(height: size.height * 0.01),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 data.fertilizer.brandName,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 35),
+                style: const TextStyle(fontSize: 30),
               ),
             ),
             SizedBox(height: size.height * 0.01),
@@ -115,11 +116,12 @@ class _FertilizerViewState extends State<FertilizerView> {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20, ),
             ),
+            const SizedBox(height: 6),
             Text(
               text,
-              style: const TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15,fontStyle: FontStyle.italic),
             ),
           ],
         ),
