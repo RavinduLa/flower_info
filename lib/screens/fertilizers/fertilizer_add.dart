@@ -24,16 +24,27 @@ class _FertilizerAddState extends State<FertilizerAdd> {
   final _formKey = GlobalKey<FormState>();
 
   final _brandName = TextEditingController();
-  final _type = TextEditingController();
+  String _type = "";
   final _nitrogienValue = TextEditingController();
   final _phosporosValue = TextEditingController();
   final _potasiamValue = TextEditingController();
   final _description = TextEditingController();
   final _imageUri = 'https://firebasestorage.googleapis.com/v0/b/flower-info.appspot.com/o/fertilizer_images%2F81evxmRskyL._AA100_.jpg?alt=media&token=94d619eb-7756-4d86-b2f6-194f2f8b2ca6';
 
+  String? selectedValue;
   String imageLink = "";
   UploadTask? task;
   File? image;
+
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Chemical"),value: "Chemical"),
+      const DropdownMenuItem(child: Text("Foliar"),value: "Foliar"),
+      const DropdownMenuItem(child: Text("Organic"),value: "Organic"),
+      const DropdownMenuItem(child: Text("Simple "),value: "Simple"),
+    ];
+    return menuItems;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,16 +100,44 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                   ],
                 ),
                 const SizedBox(height: 25),
+                DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      labelText: 'Type of Fertilizer',
+                      labelStyle: TextStyle(
+                          color: Colors.green
+                      ),
+                      helperText: ' ',
+                    ),
+                    validator: (value) => value == null ? "Select a type" : null,
+                    value: selectedValue,
+                    // style: const TextStyle(
+                    //   color: Colors.black,
+                    //   fontSize: 16
+                    // ),
+                    focusColor: Colors.green,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        _type = selectedValue!;
+                      });
+                    },
+                    items: dropdownItems
+                ),
                 TextFormField(
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green)),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
                       helperText: ' ',
                       focusColor: Colors.green,
-                      labelText: 'Name of fertilizer brand',
+                      labelText: 'Name of Fertilizer Brand',
                       labelStyle: TextStyle(
                           color: Colors.green
                       ),
@@ -111,29 +150,29 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                   },
                   controller: _brandName,
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    helperText: ' ',
-                    labelText: 'Type of fertilizer',
-                    labelStyle: TextStyle(
-                        color: Colors.green
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
-                    }
-                    return null;
-                  },
-                  controller: _type,
-                  minLines: 1,
-                  maxLines: 10,
-                ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     border: OutlineInputBorder(
+                //         borderSide: BorderSide(color: Colors.green)),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(color: Colors.green),
+                //     ),
+                //     helperText: ' ',
+                //     labelText: 'Type of fertilizer',
+                //     labelStyle: TextStyle(
+                //         color: Colors.green
+                //     ),
+                //   ),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return "Please enter the field!";
+                //     }
+                //     return null;
+                //   },
+                //   controller: _type,
+                //   minLines: 1,
+                //   maxLines: 10,
+                // ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -208,16 +247,16 @@ class _FertilizerAddState extends State<FertilizerAdd> {
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.green)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      helperText: '',
-                      labelText: 'Description',
-                      labelStyle: TextStyle(
-                          color: Colors.green
-                      ),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green)),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    helperText: '',
+                    labelText: 'Description',
+                    labelStyle: TextStyle(
+                        color: Colors.green
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -271,7 +310,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
 
         Fertilizer fertilizer = Fertilizer(
           brandName: _brandName.text,
-          type: _type.text,
+          type: _type,
           nitrogienValue: _nitrogienValue.text,
           phosporosValue: _phosporosValue.text,
           potasiamValue: _potasiamValue.text,
@@ -293,7 +332,8 @@ class _FertilizerAddState extends State<FertilizerAdd> {
           updateImageUrl(newId, imageLink);
         }
         _clearFields();
-        _notification('Created sucssfully!');
+        _notification('Created successfully!');
+        Navigator.pop(context);
       }
     } else {
       _notification('Please select an image or take a photo!');
@@ -329,7 +369,11 @@ class _FertilizerAddState extends State<FertilizerAdd> {
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Center(
+          widthFactor: double.infinity,
+            heightFactor: 1,
+            child: Text(message)
+        ),
       ),
     );
   }
@@ -337,7 +381,6 @@ class _FertilizerAddState extends State<FertilizerAdd> {
 // Clear Form Fields
   void _clearFields() {
     _brandName.clear();
-    _type.clear();
     _nitrogienValue.clear();
     _phosporosValue.clear();
     _potasiamValue.clear();

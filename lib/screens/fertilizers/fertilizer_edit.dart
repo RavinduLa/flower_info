@@ -24,43 +24,61 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   final _formKey = GlobalKey<FormState>();
 
   final _brandName = TextEditingController();
-  final _type = TextEditingController();
+  String _type = "";
   final _nitrogienValue = TextEditingController();
   final _phosporosValue = TextEditingController();
   final _potasiamValue = TextEditingController();
   final _description = TextEditingController();
 
-
+  late String selectedValue;
   String _imageLink = "";
   UploadTask? task;
   File? image;
 
+  List<DropdownMenuItem<String>> get dropdownItems{
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Chemical"),value: "Chemical"),
+      const DropdownMenuItem(child: Text("Foliar"),value: "Foliar"),
+      const DropdownMenuItem(child: Text("Organic"),value: "Organic"),
+      const DropdownMenuItem(child: Text("Simple "),value: "Simple"),
+    ];
+    return menuItems;
+  }
+
   @override
   Widget build(BuildContext context) {
+
     final data =
     ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
     _brandName.text = data.fertilizer.brandName;
-    _type.text = data.fertilizer.type;
+    selectedValue = data.fertilizer.type;
     _nitrogienValue.text = data.fertilizer.nitrogienValue;
     _phosporosValue.text = data.fertilizer.phosporosValue;
     _potasiamValue.text = data.fertilizer.potasiamValue;
     _description.text = data.fertilizer.description;
     _imageLink = data.fertilizer.image;
 
+
     void _onSubmit() async {
+
+      if(_type.isEmpty){
+        setState(() {
+          _type = selectedValue.toString();
+        });
+      }
 
       if (_formKey.currentState!.validate()) {
         FertilizerWithId fertilizer = FertilizerWithId(
           documentId: data.fertilizer.documentId,
           brandName: _brandName.text,
-          type: _type.text,
+          type: _type,
           nitrogienValue: _nitrogienValue.text,
           phosporosValue: _phosporosValue.text,
           potasiamValue: _potasiamValue.text,
           description: _description.text,
           image: _imageLink,
         );
-
+        print("----------- TYPE ------- "+ _type);
         Future<void> result = _updateFertilizer(fertilizer);
 
         if(image != null) {
@@ -151,6 +169,29 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                   ],
                 ),
                 const SizedBox(height: 25),
+                DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      labelText: 'Type of Fertilizer',
+                      labelStyle: TextStyle(
+                          color: Colors.green
+                      ),
+                      helperText: ' ',
+                    ),
+                    value: selectedValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        _type = selectedValue;
+                      });
+                    },
+                    items: dropdownItems
+                ),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -159,7 +200,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Name of Fertilizer brand',
+                    labelText: 'Name of Fertilizer Brand',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -169,26 +210,26 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                   },
                   controller: _brandName,
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.cyan)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    helperText: ' ',
-                    labelText: 'Type of Fertilizer',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter the field!";
-                    }
-                    return null;
-                  },
-                  controller: _type,
-                  minLines: 1,
-                  maxLines: 10,
-                ),
+                // TextFormField(
+                //   decoration: const InputDecoration(
+                //     border: OutlineInputBorder(
+                //         borderSide: BorderSide(color: Colors.cyan)),
+                //     focusedBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(color: Colors.green),
+                //     ),
+                //     helperText: ' ',
+                //     labelText: 'Type of Fertilizer',
+                //   ),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return "Please enter the field!";
+                //     }
+                //     return null;
+                //   },
+                //   controller: _type,
+                //   minLines: 1,
+                //   maxLines: 10,
+                // ),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
@@ -335,7 +376,11 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Center(
+            widthFactor: double.infinity,
+            heightFactor: 1,
+            child: Text(message)
+        ),
       ),
     );
   }

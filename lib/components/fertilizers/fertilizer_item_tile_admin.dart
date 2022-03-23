@@ -124,8 +124,6 @@ class FertilizerItemTileAdmin extends StatelessWidget {
                                           },
                                           child: const Text(
                                             'Cancel',
-                                            style:
-                                                TextStyle(color: Colors.black),
                                           ),
                                           style: ButtonStyle(
                                             backgroundColor:
