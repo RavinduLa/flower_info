@@ -1,3 +1,4 @@
+import 'package:flower_info/components/no_connection_alert.dart';
 import 'package:flower_info/components/theme_alert.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/admin/admin_dashboard_checked.dart';
@@ -29,11 +30,36 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
-    _simpleConnectionChecker.onConnectionChange.listen((connected) {
-      setState(() {
-        isConnected = connected;
-      });
-    });
+    _simpleConnectionChecker.onConnectionChange.listen(
+      (connected) {
+        setState(
+          () {
+            isConnected = connected;
+          },
+        );
+      },
+    );
+    _checkConnection();
+  }
+
+  _checkConnection() async {
+    await _simpleConnectionChecker.onConnectionChange.listen(
+      (connected) {
+        if (connected) {
+          print("_checkConnection Method : Connection Detected");
+        } else {
+          _showConnectionAlert(context);
+        }
+      },
+    );
+  }
+
+  void _showConnectionAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => const NoConnectionAlert(),
+      barrierDismissible: true,
+    );
   }
 
   @override
@@ -54,26 +80,25 @@ class _LandingScreenState extends State<LandingScreen> {
 
     emptyCache() {
       var result = DefaultCacheManager().emptyCache();
-      result.whenComplete(
-        () => showDialog(context: context, builder: (BuildContext context){
-          return AlertDialog(
-            title: const Text("Success"),
-            content:
-            const Text("Data has been reloaded successfully"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  "OK",
-                  style: TextStyle(color: Colors.green),
-                ),
-              )
-            ],
-          );
-        })
-      );
+      result.whenComplete(() => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Success"),
+              content: const Text("Data has been reloaded successfully"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "OK",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                )
+              ],
+            );
+          }));
     }
 
     return Scaffold(
