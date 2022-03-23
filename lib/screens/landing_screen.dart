@@ -1,6 +1,5 @@
 import 'package:flower_info/components/no_connection_alert.dart';
 import 'package:flower_info/components/theme_alert.dart';
-import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/admin/admin_dashboard_checked.dart';
 import 'package:flower_info/screens/diseases/diseases.dart';
 import 'package:flower_info/screens/fertilizers/fertilizers.dart';
@@ -38,7 +37,6 @@ class _LandingScreenState extends State<LandingScreen> {
       (connected) {
         if (connected) {
           DefaultCacheManager().emptyCache();
-          print("_checkConnection Method : Connection Detected");
         } else {
           _showConnectionAlert(context);
         }
@@ -108,9 +106,10 @@ class _LandingScreenState extends State<LandingScreen> {
         ),
       ),
       body: SizedBox.expand(
-          child: Center(
-        child: screens.elementAt(currentIndex),
-      )),
+        child: Center(
+          child: screens.elementAt(currentIndex),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -130,8 +129,6 @@ class _LandingScreenState extends State<LandingScreen> {
         selectedItemColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
         iconSize: 40,
-        selectedFontSize: 15,
-        unselectedFontSize: 10,
         onTap: _onItemTapped,
       ),
     );
