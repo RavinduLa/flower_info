@@ -6,6 +6,7 @@ class DiseaseWithId {
   final String treat;
   final String prevent;
   final String image;
+  final String created;
 
   const DiseaseWithId({
     required this.documentId,
@@ -15,6 +16,7 @@ class DiseaseWithId {
     required this.treat,
     required this.prevent,
     required this.image,
+    required this.created,
   });
 
   static DiseaseWithId fromJson(Map<String, dynamic> json) => DiseaseWithId(
@@ -25,6 +27,7 @@ class DiseaseWithId {
         treat: json['treat'],
         prevent: json['prevent'],
         image: json['image'],
+        created: json['created'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,6 +38,7 @@ class DiseaseWithId {
         'treat': treat,
         'prevent': prevent,
         'image': image,
+        'created': created,
       };
 
   Map<String, dynamic> toJsonForUpdate() => {
@@ -44,5 +48,6 @@ class DiseaseWithId {
         'treat': treat,
         'prevent': prevent,
         'image': image,
+        'created': created,
       };
 }

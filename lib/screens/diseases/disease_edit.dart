@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class DiseaseEdit extends StatefulWidget {
   const DiseaseEdit({Key? key}) : super(key: key);
@@ -48,14 +49,18 @@ class _DiseaseEditState extends State<DiseaseEdit> {
       _notification(Constants.processingData);
 
       if (_formKey.currentState!.validate()) {
+        String currentTime = DateFormat.yMd().add_jm().format(DateTime.now());
+
         DiseaseWithId disease = DiseaseWithId(
-            documentId: data.disease.documentId,
-            name: _name.text,
-            look: _look.text,
-            cause: _cause.text,
-            treat: _treat.text,
-            prevent: _prevent.text,
-            image: _imageLink);
+          documentId: data.disease.documentId,
+          name: _name.text,
+          look: _look.text,
+          cause: _cause.text,
+          treat: _treat.text,
+          prevent: _prevent.text,
+          image: _imageLink,
+          created: currentTime,
+        );
 
         Future<void> result = _updateDisease(disease);
 

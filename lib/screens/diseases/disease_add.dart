@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/models/diseases/disease_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class DiseaseAdd extends StatefulWidget {
   const DiseaseAdd({Key? key}) : super(key: key);
@@ -235,13 +236,17 @@ class _DiseaseAddState extends State<DiseaseAdd> {
 
         String newId = "";
 
+        String currentTime = DateFormat.yMd().add_jm().format(DateTime.now());
+
         Disease disease = Disease(
-            name: _name.text,
-            look: _look.text,
-            cause: _cause.text,
-            treat: _treat.text,
-            prevent: _prevent.text,
-            image: _imageUrl);
+          name: _name.text,
+          look: _look.text,
+          cause: _cause.text,
+          treat: _treat.text,
+          prevent: _prevent.text,
+          image: _imageUrl,
+          created: currentTime,
+        );
 
         DocumentReference res = await _createDisease(disease).then((value) {
           newId = value.id;
