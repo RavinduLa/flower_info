@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/components/flowers/flower_singleview_info_container.dart';
-import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flower_info/models/flower_single_view_arguments.dart';
 import 'package:flutter/material.dart';
 
