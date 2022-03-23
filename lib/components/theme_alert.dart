@@ -29,6 +29,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
             'System Default',
             style: TextStyle(color: Colors.green),
           ),
+          style: ButtonStyle(
+            overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
+          ),
         ),
         TextButton(
           onPressed: () {
@@ -39,6 +42,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
             'Light Theme',
             style: TextStyle(color: Colors.green),
           ),
+          style: ButtonStyle(
+              overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
+          ),
         ),
         TextButton(
           onPressed: () {
@@ -48,6 +54,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
           child: const Text(
             'Dark Theme',
             style: TextStyle(color: Colors.green),
+          ),
+          style: ButtonStyle(
+              overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
           ),
         ),
       ],
