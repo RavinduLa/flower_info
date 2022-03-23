@@ -3,18 +3,17 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../models/fertilizer_model_id.dart';
 
-
-
 class FertilizerEdit extends StatefulWidget {
   const FertilizerEdit({Key? key}) : super(key: key);
 
-  static String routeName = "/admin/fertilizer/fertilizer-edit";
+  static String routeName = Constants.routNameFertilizerEdit;
 
   @override
   State<FertilizerEdit> createState() => _FertilizerEditState();
@@ -35,21 +34,28 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   UploadTask? task;
   File? image;
 
-  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Chemical"),value: "Chemical"),
-      const DropdownMenuItem(child: Text("Foliar"),value: "Foliar"),
-      const DropdownMenuItem(child: Text("Organic"),value: "Organic"),
-      const DropdownMenuItem(child: Text("Simple "),value: "Simple"),
+      const DropdownMenuItem(
+          child: Text(Constants.fertilizerDropdownItemTextChemical),
+          value: Constants.fertilizerDropdownItemTextChemical),
+      const DropdownMenuItem(
+          child: Text(Constants.fertilizerDropdownItemTextFoliar),
+          value: Constants.fertilizerDropdownItemTextFoliar),
+      const DropdownMenuItem(
+          child: Text(Constants.fertilizerDropdownItemTextOrganic),
+          value: Constants.fertilizerDropdownItemTextOrganic),
+      const DropdownMenuItem(
+          child: Text(Constants.fertilizerDropdownItemTextSimple),
+          value: Constants.fertilizerDropdownItemTextSimple),
     ];
     return menuItems;
   }
 
   @override
   Widget build(BuildContext context) {
-
     final data =
-    ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
+        ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
     _brandName.text = data.fertilizer.brandName;
     selectedValue = data.fertilizer.type;
     _nitrogienValue.text = data.fertilizer.nitrogienValue;
@@ -58,10 +64,8 @@ class _FertilizerEditState extends State<FertilizerEdit> {
     _description.text = data.fertilizer.description;
     _imageLink = data.fertilizer.image;
 
-
     void _onSubmit() async {
-
-      if(_type.isEmpty){
+      if (_type.isEmpty) {
         setState(() {
           _type = selectedValue.toString();
         });
@@ -78,10 +82,10 @@ class _FertilizerEditState extends State<FertilizerEdit> {
           description: _description.text,
           image: _imageLink,
         );
-        print("----------- TYPE ------- "+ _type);
+
         Future<void> result = _updateFertilizer(fertilizer);
 
-        if(image != null) {
+        if (image != null) {
           await uploadImage(data.fertilizer.documentId);
           updateImageUrl(data.fertilizer.documentId, _imageLink);
           if (kDebugMode) {
@@ -113,38 +117,38 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                   children: [
                     image != null
                         ? Image.file(
-                      image!,
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.cover,
-                    )
+                            image!,
+                            width: 150,
+                            height: 150,
+                            fit: BoxFit.cover,
+                          )
                         : _imageLink.isNotEmpty
-                        ? SizedBox(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: CachedNetworkImage(
-                          imageUrl: data.fertilizer.image,
-                          height: 150,
-                          width: 150,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                          const CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.green),
-                          ),
-                          errorWidget: (context, url, error) =>
-                          const Icon(
-                            Icons.error,
-                            size: 50,
-                          ),
-                        ),
-                      ),
-                    )
-                        : Image.asset(
-                      'assets/images/flower-info-logo.png',
-                      height: 150,
-                      width: 150,
-                    ),
+                            ? SizedBox(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: CachedNetworkImage(
+                                    imageUrl: data.fertilizer.image,
+                                    height: 150,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        const CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.green),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(
+                                      Icons.error,
+                                      size: 50,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Image.asset(
+                                'assets/images/flower-info-logo.png',
+                                height: 150,
+                                width: 150,
+                              ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -177,10 +181,8 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green),
                       ),
-                      labelText: 'Type of Fertilizer',
-                      labelStyle: TextStyle(
-                          color: Colors.green
-                      ),
+                      labelText: Constants.fertilizerLabelType,
+                      labelStyle: TextStyle(color: Colors.green),
                       helperText: ' ',
                     ),
                     value: selectedValue,
@@ -190,8 +192,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                         _type = selectedValue;
                       });
                     },
-                    items: dropdownItems
-                ),
+                    items: dropdownItems),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
@@ -200,7 +201,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Name of Fertilizer Brand',
+                    labelText: Constants.fertilizerLabelBrandName,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -239,7 +240,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Nitrogien(N) Value',
+                    labelText: Constants.fertilizerLabelNitrogenValue,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -260,7 +261,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Phosporos(P) Value',
+                    labelText: Constants.fertilizerLabelPhosphorusValue,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -281,7 +282,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Potasiam(K) Value',
+                    labelText: Constants.fertilizerLabelPotassiumValue,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -301,7 +302,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                     helperText: ' ',
-                    labelText: 'Description of Fertilizer',
+                    labelText: Constants.fertilizerLabelDescription,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -315,7 +316,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
+                      const EdgeInsets.only(top: 20.0, left: 2.0, right: 2.0),
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -337,7 +338,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   Future selectImage(ImageSource source) async {
     try {
       final image =
-      await ImagePicker().pickImage(source: source, imageQuality: 10);
+          await ImagePicker().pickImage(source: source, imageQuality: 10);
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
@@ -347,6 +348,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
       }
     }
   }
+
   // Image Uploading Process
   Future uploadImage(String newId) async {
     if (image == null) return;
@@ -372,6 +374,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
   void updateImageUrl(String documentId, String link) {
     FertilizerApi.updateImageLink(documentId, link);
   }
+
   // Common Notification
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -379,8 +382,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
         content: Center(
             widthFactor: double.infinity,
             heightFactor: 1,
-            child: Text(message)
-        ),
+            child: Text(message)),
       ),
     );
   }
