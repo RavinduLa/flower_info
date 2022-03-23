@@ -14,7 +14,7 @@ import '../../components/constants.dart';
 class FertilizerAdd extends StatefulWidget {
   const FertilizerAdd({Key? key}) : super(key: key);
 
-  static String routeName = Constants.routeNameDiseaseAdd;
+  static String routeName = Constants.routNameFertilizerAdd;
 
   @override
   State<FertilizerAdd> createState() => _FertilizerAddState();
