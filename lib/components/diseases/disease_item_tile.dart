@@ -18,9 +18,8 @@ class DiseaseItemTile extends StatelessWidget {
     String _treat = disease.treat;
     String _prevent = disease.prevent;
 
-    return GestureDetector(
-      child: Card(
-        elevation: 2,
+    return Card(
+      child: InkWell(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridTile(
@@ -50,19 +49,20 @@ class DiseaseItemTile extends StatelessWidget {
             ),
           ),
         ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            DiseaseView.routeName,
+            arguments: DiseaseSingleView(disease),
+          );
+        },
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
         ),
       ),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          DiseaseView.routeName,
-          arguments: DiseaseSingleView(disease),
-        );
-      },
+      elevation: 2,
     );
   }
 }
