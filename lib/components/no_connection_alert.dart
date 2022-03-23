@@ -13,7 +13,7 @@ class _NoConnectionAlertState extends State<NoConnectionAlert> {
     return AlertDialog(
       title: const Text("No Internet"),
       content: const Text(
-          "Flower Info needs an internet connection to work. Please connect to internet"),
+          "Flower Info needs an active internet connection to work. Please connect to internet to load latest info"),
       elevation: 24,
       actions: [
         ElevatedButton(

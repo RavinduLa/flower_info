@@ -30,15 +30,6 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
-    _simpleConnectionChecker.onConnectionChange.listen(
-      (connected) {
-        setState(
-          () {
-            isConnected = connected;
-          },
-        );
-      },
-    );
     _checkConnection();
   }
 
@@ -46,6 +37,7 @@ class _LandingScreenState extends State<LandingScreen> {
     await _simpleConnectionChecker.onConnectionChange.listen(
       (connected) {
         if (connected) {
+          DefaultCacheManager().emptyCache();
           print("_checkConnection Method : Connection Detected");
         } else {
           _showConnectionAlert(context);
@@ -77,29 +69,6 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-
-    emptyCache() {
-      var result = DefaultCacheManager().emptyCache();
-      result.whenComplete(() => showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Success"),
-              content: const Text("Data has been reloaded successfully"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text(
-                    "OK",
-                    style: TextStyle(color: Colors.green),
-                  ),
-                )
-              ],
-            );
-          }));
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -133,35 +102,6 @@ class _LandingScreenState extends State<LandingScreen> {
               onTap: () {
                 Navigator.of(context)
                     .pushNamed(AdminDashboardChecked.routeName);
-              },
-            ),
-            ListTile(
-              title: const Text("Reload App"),
-              subtitle: const Text("Clear cache and reload all data"),
-              onTap: () {
-                isConnected
-                    ? emptyCache()
-                    : showDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("No Internet"),
-                            content:
-                                const Text("Cannot reload without internet"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text(
-                                  "OK",
-                                  style: TextStyle(color: Colors.green),
-                                ),
-                              )
-                            ],
-                          );
-                        });
               },
             ),
           ],
