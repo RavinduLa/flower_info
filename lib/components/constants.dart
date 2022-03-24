@@ -49,6 +49,8 @@ class Constants {
   static const String processingData = 'Processing Data!';
   static const String imageUploading = 'Image Uploading!';
   static const String saveChanges = 'Save Changes';
+  static const String imageNotFound = 'Image not Found!';
+  static const String ok = 'Ok';
   static const String yes = 'Yes';
   static const String cancel = 'Cancel';
   static const String imageSelectOrTakePhoto = 'Please select an image or take a photo!';
