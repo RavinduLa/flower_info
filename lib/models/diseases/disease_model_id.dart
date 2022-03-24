@@ -1,3 +1,7 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*/
+
 class DiseaseWithId {
   final String documentId;
   final String name;

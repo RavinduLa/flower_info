@@ -1,5 +1,31 @@
-import 'dart:io';
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+* https://youtu.be/21vHY9P90jE
+* https://youtu.be/G4INTsatBew
+* https://youtu.be/w3krSTSGmaw
+*
+* Firebase storage
+* https://youtu.be/dmZ9Tg9k13U
+*
+* Image capture & picker
+* https://youtu.be/MSv38jO4EJk
+*
+* Date Formatting
+* https://pub.dev/packages/intl
+*
+* */
 
+import 'dart:io';
 import 'package:flower_info/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';

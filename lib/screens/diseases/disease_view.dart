@@ -1,3 +1,21 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* */
+
 import 'package:flutter/material.dart';
 import 'package:flower_info/components/constants.dart';
 import 'package:flower_info/components/diseases/disease_information_section.dart';
