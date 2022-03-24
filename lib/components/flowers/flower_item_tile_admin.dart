@@ -6,6 +6,11 @@ import 'package:flower_info/screens/flowers/edit_flower.dart';
 import 'package:flower_info/screens/flowers/flower_singleview.dart';
 import 'package:flutter/material.dart';
 
+/*
+* IT19014128 - A.M.W.W.R.L. Wataketiya
+*
+* */
+
 class FlowerItemTileAdmin extends StatelessWidget {
   const FlowerItemTileAdmin({Key? key, required this.flower}) : super(key: key);
   final FlowerWithId flower;

@@ -22,6 +22,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /*
+*
+*
+* IT19014128 - A.M.W.W.R.L. Wataketiya
+* IT19180526 - S.A.N.L.D. Chandrasiri
+* IT19240848 - H.G. Malwatta
+*
+*
+*
 * Note : No code was copied in this project
 * Where references are added, no code was directly copied from the reference.
 * Instead the reference was used to get the idea about the task and implementation was done
