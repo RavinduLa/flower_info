@@ -27,7 +27,11 @@ class DiseaseItemTileAdmin extends StatelessWidget {
     void _notification(String message) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(message),
+          content: Center(
+            heightFactor: 1,
+            widthFactor: double.infinity,
+            child: Text(message),
+          ),
         ),
       );
     }
