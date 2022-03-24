@@ -1,3 +1,7 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*/
+
 import 'package:flutter/material.dart';
 
 class DiseaseInformationSection extends StatelessWidget {

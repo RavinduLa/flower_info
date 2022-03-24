@@ -1,3 +1,7 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*/
+
 class Disease {
   final String name;
   final String look;
