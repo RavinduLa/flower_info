@@ -11,6 +11,22 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 import '../providers/theme_provider.dart';
 
+/*
+*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+* Simple connection checker - https://pub.dev/packages/simple_connection_checker
+* Flutter cache manager - https://pub.dev/packages/flutter_cache_manager
+* Cached network image - https://pub.dev/packages/cached_network_image
+*
+* */
+
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
 
