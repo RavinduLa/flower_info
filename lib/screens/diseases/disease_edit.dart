@@ -338,7 +338,11 @@ class _DiseaseEditState extends State<DiseaseEdit> {
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Center(
+          heightFactor: 1,
+          widthFactor: double.infinity,
+          child: Text(message),
+        ),
       ),
     );
   }

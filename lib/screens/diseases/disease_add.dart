@@ -268,7 +268,7 @@ class _DiseaseAddState extends State<DiseaseAdd> {
         _notification(Constants.diseaseCreationDone);
       }
     } else {
-      _notification(Constants.imageSelectOrTakePhoto);
+      _dialogMessage(Constants.imageNotFound, Constants.imageSelectOrTakePhoto, Constants.ok);
     }
   }
 
@@ -311,8 +311,33 @@ class _DiseaseAddState extends State<DiseaseAdd> {
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Center(
+          heightFactor: 1,
+          widthFactor: double.infinity,
+          child: Text(message),
+        ),
       ),
+    );
+  }
+
+  // Common Dialog Message
+  void _dialogMessage(String title, String content, String btnMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            ElevatedButton(
+              child: Text(btnMessage),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
