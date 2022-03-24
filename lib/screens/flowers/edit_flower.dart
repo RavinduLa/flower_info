@@ -10,6 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
+
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+* Image picker and camera - https://youtu.be/MSv38jO4EJk
+* File Upload - https://youtu.be/dmZ9Tg9k13U
+* Firebase - https://youtu.be/wUSkeTaBonA
+* Flutter cache manager - https://pub.dev/packages/flutter_cache_manager
+*
+* */
+
 class EditFlower extends StatefulWidget {
   const EditFlower({
     Key? key,

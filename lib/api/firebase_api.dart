@@ -8,6 +8,21 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../models/flower_model.dart';
 
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+* Firebase storage and firestore -
+* https://youtu.be/wUSkeTaBonA
+* https://youtu.be/dmZ9Tg9k13U
+*
+* */
+
 class FirebaseApi {
   static Future<DocumentReference> addFlower(Flower flower) {
     return FirebaseFirestore.instance.collection('flowers').add(
