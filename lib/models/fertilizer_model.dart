@@ -1,3 +1,8 @@
+/*
+  @author IT19240848 - H.G. Malwatta
+ */
+
+
 class Fertilizer {
   final String brandName;
   final String type;

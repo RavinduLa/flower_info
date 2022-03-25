@@ -1,3 +1,23 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Inkwells
+* https://api.flutter.dev/flutter/material/InkWell-class.html
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* AlertDialog
+* https://api.flutter.dev/flutter/material/AlertDialog-class.html
+*
+* */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/models/fertilizer_model_id.dart';

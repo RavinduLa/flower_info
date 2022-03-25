@@ -1,3 +1,33 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase Firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* CRUD Operations
+* https://youtu.be/21vHY9P90jE
+* https://youtu.be/G4INTsatBew
+* https://youtu.be/w3krSTSGmaw
+*
+* Firebase Storage
+* https://youtu.be/dmZ9Tg9k13U
+*
+* Image capture & picker
+* https://youtu.be/MSv38jO4EJk
+*
+* DropDownButton Creation
+* https://blog.logrocket.com/creating-dropdown-list-flutter/
+*
+* */
+
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -298,6 +328,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
     }
   }
 
+  // Create New Fertilizer
   void _onSubmit() async {
     if (image != null) {
       if (_formKey.currentState!.validate()) {
@@ -351,17 +382,17 @@ class _FertilizerAddState extends State<FertilizerAdd> {
     }
   }
 
-// CRUD : Create Method Caller
+  // CRUD : Called Fertilizer Create Method and Passed fertilizer object
   Future<DocumentReference> _createFertilizer(Fertilizer fertilizer) {
     return FertilizerApi.addFertilizer(fertilizer);
   }
 
-  // CRUD : Update Image URL Method Caller
+  // CRUD : Called Update Image URL Method and Passed Image ID and Link
   void updateImageUrl(String documentId, String link) {
     FertilizerApi.updateImageLink(documentId, link);
   }
 
-// Common Notification
+  // Common Notification
   void _notification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -373,7 +404,7 @@ class _FertilizerAddState extends State<FertilizerAdd> {
     );
   }
 
-// Clear Form Fields
+  // Clear form fields after submit
   void _clearFields() {
     _brandName.clear();
     _nitrogienValue.clear();
