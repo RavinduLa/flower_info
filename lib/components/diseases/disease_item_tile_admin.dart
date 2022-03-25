@@ -1,3 +1,18 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* */
+
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/disease_api.dart';
@@ -14,34 +29,52 @@ class DiseaseItemTileAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String diseaseName = disease.name;
+    String _name = disease.name;
+    String _image = disease.image;
+    String _look = disease.look;
+    String _cause = disease.cause;
+    String _treat = disease.treat;
+    String _prevent = disease.prevent;
+    String _created = disease.created;
 
     // Common Notification
     void _notification(String message) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(message),
+          content: Center(
+            heightFactor: 1,
+            widthFactor: double.infinity,
+            child: Text(message),
+          ),
         ),
       );
     }
 
-    return GestureDetector(
-      child: Card(
-        elevation: 8,
-        margin: const EdgeInsets.all(10),
+    return Card(
+      child: InkWell(
         child: SizedBox(
           height: 100,
           child: Row(
             children: [
-              SizedBox(
-                width: 106,
-                child: CachedNetworkImage(
-                  imageUrl: disease.image,
-                  errorWidget: (context, url, error) =>
-                      const Icon(Icons.error, size: 25),
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: SizedBox(
+                  width: 80,
+                  height: 80,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: _image,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error, size: 25),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -51,13 +84,26 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 3,
                         child: ListTile(
                           title: Text(
-                            diseaseName,
+                            _name,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: ListTile(
+                          title: Text(
+                            _created,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
                         ),
@@ -76,28 +122,33 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                 );
                               },
                               icon: const Icon(Icons.edit,
-                                  size: 30, color: Colors.blueGrey),
+                                  size: 30, color: Colors.green),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_forever,
+                              icon: const Icon(Icons.delete,
                                   size: 30, color: Colors.red),
                               onPressed: () {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('Delete This Disease?'),
+                                      title: const Text(
+                                          Constants.diseaseDeleteAsk),
                                       content: Text(
-                                          'This will delete the $diseaseName permanently!'),
+                                          Constants.deletePermanently + _name),
                                       actions: [
                                         ElevatedButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
-                                          child: const Text('Cancel'),
+                                          child: const Text(
+                                            Constants.cancel,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
@@ -109,9 +160,10 @@ class DiseaseItemTileAdmin extends StatelessWidget {
                                             Future<void> result =
                                                 _deleteDisease(disease);
                                             Navigator.of(context).pop();
-                                            _notification("Disease Deleted!");
+                                            _notification(
+                                                Constants.diseaseDeleted);
                                           },
-                                          child: const Text('Yes'),
+                                          child: const Text(Constants.yes),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all(
@@ -138,14 +190,21 @@ class DiseaseItemTileAdmin extends StatelessWidget {
             ],
           ),
         ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            DiseaseView.routeName,
+            arguments: DiseaseSingleView(disease),
+          );
+        },
       ),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          DiseaseView.routeName,
-          arguments: DiseaseSingleView(disease),
-        );
-      },
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
+      elevation: 4,
     );
   }
 

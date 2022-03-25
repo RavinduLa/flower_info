@@ -2,6 +2,7 @@
 * @author IT19240848 - H.G. Malwatta
 */
 
+import 'package:flower_info/components/constants.dart';
 import 'package:flower_info/components/login/body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 class AdminLogin extends StatelessWidget {
   const AdminLogin({Key? key}) : super(key: key);
 
-  static String routeName = "/admin-login";
+  static String routeName = Constants.routeNameAdminLogin;
 
   @override
   Widget build(BuildContext context) {

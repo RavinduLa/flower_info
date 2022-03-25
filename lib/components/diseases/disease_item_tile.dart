@@ -1,3 +1,17 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* */
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/models/diseases/disease_single_view.dart';
@@ -11,9 +25,15 @@ class DiseaseItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Card(
-        elevation: 2,
+    String _name = disease.name;
+    String _image = disease.image;
+    String _look = disease.look;
+    String _cause = disease.cause;
+    String _treat = disease.treat;
+    String _prevent = disease.prevent;
+
+    return Card(
+      child: InkWell(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GridTile(
@@ -28,7 +48,7 @@ class DiseaseItemTile extends StatelessWidget {
                       width: 100,
                       height: 100,
                       fit: BoxFit.cover,
-                      imageUrl: disease.image,
+                      imageUrl: _image,
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error, size: 50),
                       placeholder: (context, url) =>
@@ -38,24 +58,25 @@ class DiseaseItemTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(disease.name),
+                Text(_name),
               ],
             ),
           ),
         ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            DiseaseView.routeName,
+            arguments: DiseaseSingleView(disease),
+          );
+        },
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
         ),
       ),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          DiseaseView.routeName,
-          arguments: DiseaseSingleView(disease),
-        );
-      },
+      elevation: 2,
     );
   }
 }

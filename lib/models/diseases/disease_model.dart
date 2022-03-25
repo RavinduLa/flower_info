@@ -1,3 +1,7 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*/
+
 class Disease {
   final String name;
   final String look;
@@ -5,6 +9,7 @@ class Disease {
   final String treat;
   final String prevent;
   final String image;
+  final String created;
 
   const Disease({
     required this.name,
@@ -13,6 +18,7 @@ class Disease {
     required this.treat,
     required this.prevent,
     required this.image,
+    required this.created,
   });
 
   static Disease fromJson(Map<String, dynamic> json) => Disease(
@@ -22,6 +28,7 @@ class Disease {
         treat: json['treat'],
         prevent: json['prevent'],
         image: json['image'],
+        created: json['created'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,6 +38,7 @@ class Disease {
         'treat': treat,
         'prevent': prevent,
         'image': image,
+        'created': created,
       };
 
   Map<String, dynamic> toJsonForUpdate() => {
@@ -40,5 +48,6 @@ class Disease {
         'treat': treat,
         'prevent': prevent,
         'image': image,
+        'created': created,
       };
 }

@@ -1,11 +1,29 @@
-import 'package:flower_info/components/diseases/disease_information_section.dart';
-import 'package:flutter/foundation.dart';
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* */
+
 import 'package:flutter/material.dart';
+import 'package:flower_info/components/constants.dart';
+import 'package:flower_info/components/diseases/disease_information_section.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/models/diseases/disease_single_view.dart';
 
 class DiseaseView extends StatelessWidget {
-  static String routeName = "/admin/disease/disease-view";
+  static String routeName = Constants.routeNameDiseaseView;
 
   const DiseaseView({Key? key}) : super(key: key);
 
@@ -14,10 +32,17 @@ class DiseaseView extends StatelessWidget {
     final data =
         ModalRoute.of(context)!.settings.arguments as DiseaseSingleView;
 
+    String _name = data.disease.name;
+    String _image = data.disease.image;
+    String _look = data.disease.look;
+    String _cause = data.disease.cause;
+    String _treat = data.disease.treat;
+    String _prevent = data.disease.prevent;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(data.disease.name),
+        title: Text(_name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -27,9 +52,10 @@ class DiseaseView extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: CachedNetworkImage(
-                imageUrl: data.disease.image,
+                imageUrl: _image,
                 width: 200,
                 height: 200,
+                fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error, size: 50),
                 placeholder: (context, url) => const CircularProgressIndicator(
@@ -40,7 +66,7 @@ class DiseaseView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                data.disease.name,
+                _name,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 35),
               ),
@@ -62,20 +88,20 @@ class DiseaseView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   DiseaseInformationSection(
-                    title: "What Does it Look Like?",
-                    information: data.disease.look,
+                    title: Constants.diseaseLabelLook,
+                    information: _look,
                   ),
                   DiseaseInformationSection(
-                    title: "What Causes it?",
-                    information: data.disease.cause,
+                    title: Constants.diseaseLabelCause,
+                    information: _cause,
                   ),
                   DiseaseInformationSection(
-                    title: "How to Treat it?",
-                    information: data.disease.treat,
+                    title: Constants.diseaseLabelTreat,
+                    information: _treat,
                   ),
                   DiseaseInformationSection(
-                    title: "How to Prevent it?",
-                    information: data.disease.prevent,
+                    title: Constants.diseaseLabelPrevent,
+                    information: _prevent,
                   ),
                 ],
               ),

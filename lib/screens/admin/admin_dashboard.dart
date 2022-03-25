@@ -24,6 +24,12 @@ import '../flowers/flower_admin_list.dart';
 import '../home.dart';
 import 'admin_dashboard_checked.dart';
 
+/*
+* IT19014128 - A.M.W.W.R.L. Wataketiya
+*
+* */
+
+
 String finalEmail = '';
 
 class AdminDashboard extends StatefulWidget {
@@ -94,7 +100,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     );
                   },
                   child: const Text(
-                    'LOG OUT',
+                    'Log Out',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.black87,

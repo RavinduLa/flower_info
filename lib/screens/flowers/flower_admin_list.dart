@@ -5,6 +5,20 @@ import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flower_info/screens/flowers/add_flower.dart';
 import 'package:flutter/material.dart';
 
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+*
+* Firebase - https://youtu.be/wUSkeTaBonA
+*
+* */
+
 
 class FlowerAdminList extends StatelessWidget {
   const FlowerAdminList({Key? key}) : super(key: key);
@@ -15,13 +29,13 @@ class FlowerAdminList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flowers Admin Panel'),
+        title: const Text('Flowers Admin Panel'),
       ),
       body: StreamBuilder(
         stream: FirebaseApi.flowersWithId,
         builder: (BuildContext context, AsyncSnapshot<List<FlowerWithId>> snapshot) {
           if(snapshot.hasError){
-            return Center(child: Text('Oops Something went wrong'),);
+            return const Center(child: Text('Oops Something went wrong'),);
           }
           if (snapshot.hasData) {
             return ListView.builder(

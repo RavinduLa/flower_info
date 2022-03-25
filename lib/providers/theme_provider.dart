@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+* provider - https://pub.dev/packages/provider
+*
+* */
+
 class ThemeProvider extends ChangeNotifier {
   ThemeProvider() {
     initializeTheme();

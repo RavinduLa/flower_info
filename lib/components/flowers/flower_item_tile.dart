@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flower_info/models/flower_model.dart';
 import 'package:flower_info/models/flower_model_with_id.dart';
 import 'package:flower_info/models/flower_single_view_arguments.dart';
 import 'package:flower_info/screens/flowers/flower_singleview.dart';
 import 'package:flutter/material.dart';
+
+/*
+* IT19014128 - A.M.W.W.R.L. Wataketiya
+*
+* */
 
 class FlowerItemTile extends StatelessWidget {
   const FlowerItemTile({Key? key, required this.flowerWithId})

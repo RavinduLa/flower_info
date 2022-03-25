@@ -4,6 +4,19 @@ import 'package:provider/provider.dart';
 
 import '../providers/theme_provider.dart';
 
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+* provider - https://pub.dev/packages/provider
+*
+* */
+
 class ThemeAlert extends StatefulWidget {
   const ThemeAlert({Key? key}) : super(key: key);
 
@@ -29,6 +42,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
             'System Default',
             style: TextStyle(color: Colors.green),
           ),
+          style: ButtonStyle(
+            overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
+          ),
         ),
         TextButton(
           onPressed: () {
@@ -39,6 +55,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
             'Light Theme',
             style: TextStyle(color: Colors.green),
           ),
+          style: ButtonStyle(
+              overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
+          ),
         ),
         TextButton(
           onPressed: () {
@@ -48,6 +67,9 @@ class _ThemeAlertState extends State<ThemeAlert> {
           child: const Text(
             'Dark Theme',
             style: TextStyle(color: Colors.green),
+          ),
+          style: ButtonStyle(
+              overlayColor: MaterialStateColor.resolveWith((states) => Colors.grey)
           ),
         ),
       ],

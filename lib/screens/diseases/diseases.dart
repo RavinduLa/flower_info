@@ -1,3 +1,20 @@
+/*
+* IT19180526 (S.A.N.L.D. Chandrasiri)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+* https://youtu.be/G4INTsatBew
+*
+* */
+
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_info/api/disease_api.dart';
 import 'package:flower_info/components/diseases/disease_item_tile.dart';
@@ -20,7 +37,7 @@ class Diseases extends StatelessWidget {
             AsyncSnapshot<List<DiseaseWithId>> snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Text('Something went wrong!'),
+              child: Text(Constants.somethingWentWrong),
             );
           }
 

@@ -6,6 +6,21 @@ import 'package:flutter/material.dart';
 import '../../models/flower_model.dart';
 import '../../models/flower_model_with_id.dart';
 
+/*
+* IT19014128 (A.M.W.W.R.L. Wataketiya)
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task and implementation was done
+* in our own way by us.
+* This is our own work
+*
+*
+* Firebase - https://youtu.be/wUSkeTaBonA
+* Cached network image - https://pub.dev/packages/cached_network_image
+*
+* */
+
 class FLowers extends StatelessWidget {
   const FLowers({Key? key}) : super(key: key);
 

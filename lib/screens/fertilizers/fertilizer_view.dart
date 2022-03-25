@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
+import 'package:flower_info/components/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FertilizerView extends StatefulWidget {
-  static String routeName = "/admin/fertilizer/fertilizer-view";
 
+  static String routeName = Constants.routNameFertilizerView;
   const FertilizerView({Key? key}) : super(key: key);
 
   @override
@@ -35,12 +36,14 @@ class _FertilizerViewState extends State<FertilizerView> {
         child: Column(
           children: [
             const SizedBox(width: double.infinity),
+            const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
               child: CachedNetworkImage(
                 imageUrl: data.fertilizer.image,
-                width: 200,
-                height: 200,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                 const Icon(Icons.error, size: 50),
                 placeholder: (context, url) => const CircularProgressIndicator(
@@ -48,40 +51,54 @@ class _FertilizerViewState extends State<FertilizerView> {
                 ),
               ),
             ),
+            SizedBox(height: size.height * 0.01),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 data.fertilizer.brandName,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 35),
+                style: const TextStyle(fontSize: 30),
               ),
             ),
             SizedBox(height: size.height * 0.01),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                informationSection(
-                  "Type of fertilizer",
-                  data.fertilizer.type,
+            Container(
+              padding: const EdgeInsets.all(5.0),
+              margin: const EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.green,
+                  width: 2,
                 ),
-                informationSection(
-                  "Nitrogien(N) value",
-                  data.fertilizer.nitrogienValue,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5.0),
                 ),
-                informationSection(
-                  "Phosporos(P) value",
-                  data.fertilizer.phosporosValue,
-                ),
-                informationSection(
-                  "Potasiam(K) value",
-                  data.fertilizer.potasiamValue,
-                ),
-                informationSection(
-                  "Description",
-                  data.fertilizer.description,
-                ),
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  informationSection(
+                    Constants.fertilizerLabelType,
+                    data.fertilizer.type,
+                  ),
+                  informationSection(
+                    Constants.fertilizerLabelNitrogenValue,
+                    data.fertilizer.nitrogienValue,
+                  ),
+                  informationSection(
+                    Constants.fertilizerLabelPhosphorusValue,
+                    data.fertilizer.phosporosValue,
+                  ),
+                  informationSection(
+                    Constants.fertilizerLabelPotassiumValue,
+                    data.fertilizer.potasiamValue,
+                  ),
+                  informationSection(
+                    Constants.fertilizerLabelDescription,
+                    data.fertilizer.description,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
           ],
@@ -99,11 +116,12 @@ class _FertilizerViewState extends State<FertilizerView> {
           children: [
             Text(
               title,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20, ),
             ),
+            const SizedBox(height: 6),
             Text(
               text,
-              style: const TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15,fontStyle: FontStyle.italic),
             ),
           ],
         ),
