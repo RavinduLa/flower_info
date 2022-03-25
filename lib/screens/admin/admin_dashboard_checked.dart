@@ -1,3 +1,7 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+ */
+
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,22 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* UI/UX Standards
+* https://youtu.be/ExKYjqgswJg
+*
+* Shared Preferences
+* https://pub.dev/packages/shared_preferences/example
+* https://youtu.be/56_PDVvPKOc
+*
+* */
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flower_info/screens/admin/admin_dashboard.dart';
 import 'package:flower_info/screens/home.dart';
@@ -49,6 +68,7 @@ class _BodyState extends State<Body> {
         });
   }
 
+  // Checking user credentials
   Future<void> _onSubmit() async {
     if(!_formKey.currentState!.validate())
     {
