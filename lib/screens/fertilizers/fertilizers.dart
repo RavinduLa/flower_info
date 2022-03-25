@@ -1,3 +1,7 @@
+/*
+*   @author IT19240848 - H.G. Malwatta
+*/
+
 import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/components/Fertilizers/fertilizer_item_tile.dart';
 import 'package:flower_info/models/fertilizer_model_id.dart';

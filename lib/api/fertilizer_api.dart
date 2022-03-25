@@ -1,3 +1,27 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase Firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* CRUD Operations
+* https://youtu.be/21vHY9P90jE
+* https://youtu.be/G4INTsatBew
+* https://youtu.be/w3krSTSGmaw
+*
+* Firebase Storage
+* https://youtu.be/dmZ9Tg9k13U
+*
+*
+* */
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';

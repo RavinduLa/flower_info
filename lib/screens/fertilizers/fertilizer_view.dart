@@ -1,3 +1,19 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase Firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+*
+* */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/components/constants.dart';
@@ -20,6 +36,7 @@ class _FertilizerViewState extends State<FertilizerView> {
 
     Size size = MediaQuery.of(context).size;
 
+    //Fetching data from Firestore
     final data =
     ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
 
@@ -107,6 +124,7 @@ class _FertilizerViewState extends State<FertilizerView> {
     );
   }
 
+  // Implement Method to show fertilizer in detail
   informationSection(String title, String text) {
     return Padding(
       padding: const EdgeInsets.all(10.0),

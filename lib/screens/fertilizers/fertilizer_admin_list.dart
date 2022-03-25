@@ -1,3 +1,21 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase Firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* Read Data From Firestore
+* https://youtu.be/G4INTsatBew
+*
+* */
+
 import 'package:flower_info/api/fertilizer_api.dart';
 import 'package:flower_info/components/Fertilizers/fertilizer_item_tile_admin.dart';
 import 'package:flower_info/components/constants.dart';

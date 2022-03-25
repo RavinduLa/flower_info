@@ -1,3 +1,35 @@
+/*
+* @author IT19240848 - H.G. Malwatta
+*
+* Note : No code was copied in this project
+* Where references are added, no code was directly copied from the reference.
+* Instead the reference was used to get the idea about the task
+* and implementation was done in our own way by us.
+* This is our own work.
+*
+* Firebase Firestore
+* https://firebase.flutter.dev/docs/firestore/usage
+* https://youtu.be/wUSkeTaBonA
+*
+* CRUD Operations
+* https://youtu.be/21vHY9P90jE
+* https://youtu.be/G4INTsatBew
+* https://youtu.be/w3krSTSGmaw
+*
+* Firebase Storage
+* https://youtu.be/dmZ9Tg9k13U
+*
+* Image capture & picker
+* https://youtu.be/MSv38jO4EJk
+*
+* DropDownButton Creation
+* https://blog.logrocket.com/creating-dropdown-list-flutter/
+*
+* Cached Network Image
+* https://pub.dev/packages/cached_network_image
+*
+* */
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -54,6 +86,8 @@ class _FertilizerEditState extends State<FertilizerEdit> {
 
   @override
   Widget build(BuildContext context) {
+
+    //Fetching data and Set values to the TextFields
     final data =
         ModalRoute.of(context)!.settings.arguments as FertilizerSingleView;
     _brandName.text = data.fertilizer.brandName;
@@ -64,6 +98,7 @@ class _FertilizerEditState extends State<FertilizerEdit> {
     _description.text = data.fertilizer.description;
     _imageLink = data.fertilizer.image;
 
+    //Update Fertilizer
     void _onSubmit() async {
       if (_type.isEmpty) {
         setState(() {
@@ -365,12 +400,12 @@ class _FertilizerEditState extends State<FertilizerEdit> {
     }
   }
 
-  // CRUD : Update Method Caller
+  // CRUD : Called Fertilizer Update Method and Passed Fertilizer Object
   Future<void> _updateFertilizer(FertilizerWithId fertilizer) async {
     FertilizerApi.updateFertilizer(fertilizer);
   }
 
-  // CRUD : Update Image URL Method Caller
+  // CRUD : Called Update Image URL Method and Passed Image ID and Link
   void updateImageUrl(String documentId, String link) {
     FertilizerApi.updateImageLink(documentId, link);
   }
