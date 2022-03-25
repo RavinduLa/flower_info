@@ -1,3 +1,12 @@
+/*
+* IT19240848 - H.G. Malwatta
+* My Contribution - (Admin Logout Button and User name Display)
+*
+* Shared Preferences
+* https://pub.dev/packages/shared_preferences/example
+* https://youtu.be/56_PDVvPKOc
+*
+* */
 
 import 'package:flower_info/screens/admin/admin_login.dart';
 import 'package:flutter/material.dart';
